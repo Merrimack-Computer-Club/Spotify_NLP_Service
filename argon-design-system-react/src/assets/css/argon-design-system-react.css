@@ -14630,7 +14630,7 @@ button.bg-translucent-darker:focus {
 }
 
 .section-primary {
-  background-color: #fff !important;
+  background-color: #33CC00 !important;
 }
 
 a.section-primary:hover,
@@ -14641,7 +14641,7 @@ button.section-primary:focus {
 }
 
 .section-secondary {
-  background-color: #f4f5f7 !important;
+  background-color: #33CC00 !important;
 }
 
 a.section-secondary:hover,
@@ -14663,7 +14663,7 @@ button.section-light:focus {
 }
 
 .section-dark {
-  background-color: #212529 !important;
+  background-color: #33CC00 !important;
 }
 
 a.section-dark:hover,
@@ -14685,7 +14685,7 @@ button.section-darker:focus {
 }
 
 .bg-gradient-primary {
-  background: linear-gradient(35deg, #5e72e4 0, #825ee4 100%) !important;
+  background: linear-gradient(35deg, #33CC00 0, #825ee4 100%) !important;
 }
 
 .bg-gradient-secondary {
@@ -14733,7 +14733,7 @@ button.section-darker:focus {
 }
 
 .fill-primary {
-  fill: #5e72e4;
+  fill: #33CC00;
 }
 
 .stroke-primary {
