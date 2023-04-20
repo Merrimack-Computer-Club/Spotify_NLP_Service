@@ -2,7 +2,7 @@ import React from "react";
 
 
 const clientId = 'e15a2433aba3444fbba3d0e7c07b9bd3';
-const redirectUri = 'http://localhost:3000/login-page';
+const redirectUri = 'http://localhost:3000/data';
 
 export default function log() {
   console.log("Default function from SpotifyOath");
