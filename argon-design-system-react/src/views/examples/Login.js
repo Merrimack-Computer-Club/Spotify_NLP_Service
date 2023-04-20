@@ -37,13 +37,23 @@ import {
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
+import { getResponse, getProfile } from "util/SpotifyOath.js";
 
 class Login extends React.Component {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+
+    // Get the response code from SpotifyOath
+    getResponse().then(() => {
+      console.log("profile");
+      getProfile();
+    });
   }
+
+
+  
   render() {
     return (
       <>

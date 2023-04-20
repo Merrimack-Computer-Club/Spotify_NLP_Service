@@ -90,8 +90,15 @@ body {
   line-height: 1.5;
   color: #525f7f;
   text-align: left;
-  background-color: #fff;
+  background-color: #47d66d;
 }
+
+/* Background image for the Spotify Emotions */
+.background-image-homepage {
+  background-image: url("light-green-web-background.jpg");
+  background-color: #47d66d;
+}
+
 [tabindex="-1"]:focus {
   outline: 0 !important;
 }
