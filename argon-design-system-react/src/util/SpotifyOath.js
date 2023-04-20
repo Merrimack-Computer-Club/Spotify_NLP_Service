@@ -68,10 +68,37 @@ export async function getResponse() {
         });
 }
 
+export async function getTopSongs() {
+  let accessToken = localStorage.getItem('access_token');
+
+  let body = new URLSearchParams({
+    time_range: 'medium_term',
+    limit: '50',
+    offset: '0'
+  });
+
+  const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?` + body, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + accessToken
+      },
+  });
+
+  const data = await response.json();
+  console.log(data);
+
+  // Get all of the song names
+  let names = data.items.map(n => n.name + " | " + n.external_ids.isrc);
+  console.log(names)
+
+  return data;
+
+}
+
 export async function getProfile() {
     let accessToken = localStorage.getItem('access_token');
   
-    console.log(`Access Token ${accessToken}`);
+    //console.log(`Access Token ${accessToken}`);
 
     const response = await fetch('https://api.spotify.com/v1/me', {
       headers: {
@@ -96,8 +123,6 @@ async function generateCodeChallenge(codeVerifier) {
       .replace(/\//g, '_')
       .replace(/=+$/, '');
   }
-
-  console.log("error?");
 
   const encoder = new TextEncoder();
   const data = encoder.encode(codeVerifier);
