@@ -15,6 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+
+
 import React from "react";
 
 // reactstrap components
@@ -31,7 +33,11 @@ import {
   InputGroup,
   Container,
   Row,
-  Col
+  Col,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from "reactstrap";
 
 // core components
@@ -43,8 +49,17 @@ import { getResponse, getProfile, getTopSongs } from "util/SpotifyOath.js";
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { color: "" };
+    this.state = {
+      color: "",
+      dropdownOpen: false // initialize dropdownOpen to false
+    };
   }
+
+  toggle = () => {
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }));
+  };
 
   componentDidMount() {
     document.documentElement.scrollTop = 0;
@@ -89,6 +104,7 @@ class Login extends React.Component {
 
               {/* Radio buttons */}
               <div className="col-md-3">
+                <div>
                 <h2>Select an Anaylsis</h2>
                 <Form>
                   <FormGroup>
@@ -117,7 +133,20 @@ class Login extends React.Component {
                   </FormGroup>
                 </Form>
               </div>
-
+              <div>
+              <h2>Choose:</h2>
+          <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+            <DropdownToggle caret>
+              Select an option
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem>Option 1</DropdownItem>
+              <DropdownItem>Option 2</DropdownItem>
+              <DropdownItem>Option 3</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+</div>
              {/* Colored section */}
              <div
   className={
@@ -127,6 +156,7 @@ class Login extends React.Component {
       ? "bg-blue w-75" // add a width of 75%
       : "bg-green w-75" // Default color with a width of 100%
   }
+
 >
 
                 <div className="container">
@@ -137,8 +167,10 @@ class Login extends React.Component {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+              
+
+  </div>
+</div>
         </main>
         <SimpleFooter />
       </>
