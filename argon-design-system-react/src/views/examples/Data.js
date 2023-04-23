@@ -53,7 +53,15 @@ class Login extends React.Component {
     super(props);
     this.state = {
       selectedRadio: "",
-      dropdownOpen: false
+      dropdownOpen: false,
+      dropdownOpen2: false,
+      dropdownOpen3: false,
+      selectedVal: null,
+      selectedVal2: null,
+      selectedTitle: "",
+      selectedTitle2: "",
+      selectedVal3: null,
+      selectedTitle3: ""
     };
   }
 
@@ -70,6 +78,17 @@ class Login extends React.Component {
       getProfile();
       getTopSongs();
     });
+
+  }
+  handleDropdownSelect(value) {
+    this.setState({ selectedVal: value, selectedTitle: value });
+  }
+  handleDropdownSelect2(value) {
+    this.setState({ selectedVal2: value, selectedTitle2: value });
+  }
+
+  handleDropdownSelect3(value) {
+    this.setState({ selectedVal3: value, selectedTitle3: value });
   }
 
   handleRadioChange = (event) => {
@@ -89,9 +108,14 @@ class Login extends React.Component {
       dropdownOpen2: !this.state.dropdownOpen2,
     });
   };
+  toggleDropdown3 = () => {
+    this.setState({
+      dropdownOpen3: !this.state.dropdownOpen3,
+    });
+  };
 
   render() {
-    const { selectedRadio, dropdownOpen, dropdownOpen2 } = this.state;
+    const { selectedRadio, dropdownOpen, dropdownOpen2, dropdownOpen3, selectedVal, selectedTitle,selectedVal2, selectedTitle2, selectedTitle3, selectedVal3 } = this.state;
     return (
       <>
         <DemoNavbar />
@@ -149,22 +173,30 @@ class Login extends React.Component {
                 <h2>Choose:</h2>
                 
                 {selectedRadio === "graph" && (
-                  <div>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
                     
-                    <Dropdown isOpen={dropdownOpen} toggle={this.toggleDropdown}>
-                      <DropdownToggle caret>Select Time Frame</DropdownToggle>
-                      <DropdownMenu>
-                        <DropdownItem>4 Weeks</DropdownItem>
-                        <DropdownItem>6 Months</DropdownItem>
-                        <DropdownItem>Overall</DropdownItem>
-                      </DropdownMenu>
-                    </Dropdown>
+                    <Dropdown isOpen={dropdownOpen} toggle={this.toggleDropdown} style={{ marginTop: '10px' }}>
+              <DropdownToggle caret>{selectedTitle || "Select Time Frame"}</DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem onClick={() => this.handleDropdownSelect('4 Weeks')}>
+                  4 Weeks
+                </DropdownItem>
+                <DropdownItem onClick={() => this.handleDropdownSelect('6 Months')}>
+                  6 Months
+                </DropdownItem>
+                <DropdownItem onClick={() => this.handleDropdownSelect('Overall')}>
+                  Overall
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
 
                     <Dropdown isOpen={dropdownOpen2} toggle={this.toggleDropdown2} style={{ marginTop: '50px' }}>
-                      <DropdownToggle caret>Select Song Range</DropdownToggle>
-                      <DropdownMenu style={{ maxHeight: '200px', overflowY: 'auto'}}>
+                      <DropdownToggle caret>{selectedTitle2 || "Select Song Range"}</DropdownToggle>
+                      <DropdownMenu style={{ maxHeight: '200px', overflowY: 'auto' }}>
                       {timeframe.map((timeframe) => (
-                              <DropdownItem key={timeframe}>{timeframe}</DropdownItem>
+                                    <DropdownItem key={timeframe} onClick={() => this.handleDropdownSelect2(timeframe, 'dropdown2')}>
+                                    {timeframe}
+                                  </DropdownItem>
                         ))}
                     </DropdownMenu>
                     </Dropdown>
@@ -175,11 +207,13 @@ class Login extends React.Component {
 
 {selectedRadio === "song" && (
   <div>
-    <Dropdown isOpen={dropdownOpen} toggle={this.toggleDropdown}>
-      <DropdownToggle caret>Select Emotion</DropdownToggle>
+    <Dropdown isOpen={dropdownOpen3} toggle={this.toggleDropdown3}>
+      <DropdownToggle caret>{selectedTitle3 || "Select an Emotion"}</DropdownToggle>
       <DropdownMenu style={{ maxHeight: '200px', overflowY: 'auto' }}>
         {emotions.map((emotion) => (
-          <DropdownItem key={emotion}>{emotion}</DropdownItem>
+          <DropdownItem key={emotion} onClick={() => this.handleDropdownSelect3(emotion, 'dropdown3')}>
+            {emotion}
+          </DropdownItem>
         ))}
       </DropdownMenu>
     </Dropdown>
