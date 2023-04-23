@@ -48,7 +48,14 @@ import Download from "./IndexSections/Download.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import { authorize } from "util/SpotifyOath.js";
 
+/* 
+Class that represents the main components of
+the webpage such as methods and properties
+that define the appearence and behavior of
+the webpage
+*/
 class Index extends React.Component {
+  // This method ensures the webpage always starts at the top
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -57,13 +64,16 @@ class Index extends React.Component {
 
   render() {
     return (
+      // Nav bar for the top of the webpage
       <>
-        <DemoNavbar />
+        <DemoNavbar /> 
+        {/* HTML */}
         <main ref="main">
+          {/* Positioning of elements */}
           <div className="position-relative">
-            {/* Hero for FREE version */}
+            {/* Hero styling */}
             <section className="section section-hero section-shaped">
-              {/* Background circles */}
+              {/* Background squares */}
               <div className="shape shape-style-3 shape-default">
                 <span className="span-150" />
                 <span className="span-50" />
@@ -76,22 +86,31 @@ class Index extends React.Component {
                 <span className="span-50" />
                 <span className="span-100" />
               </div>
+              {/*
+              Hero section: Imports various different components for the ceneter.
+              This includes buttons, inputs, and alerts.
+              */}
+              {/* Creates a containers to hold a shape, centered vertically and horizontally */}
               <Container className="shape-container d-flex align-items-center py-lg">
-                <div className="col px-0">
-                  <Row className="align-items-center justify-content-center">
-                    <Col className="text-center" lg="6">
-                      <img
+                <div className="col px-0"> {/* column layout */}
+                  <Row className="align-items-center justify-content-center"> {/* row layout */}
+                    <Col className="text-center" lg="6"> {/* column layout */}
+                      {/* image tag for logo */}
+                      <img 
                         alt="..."
                         className="img-fluid"
                         src={require("assets/img/brand/spotify-emotions-logo.png")}
                         style={{ width: "450px" }}
                       />
+                      {/* Text */}
                       <p className="lead text-white">
                         A Natural Language Processing Application for
                         determing emotions based on recent
                         Spotify Listing Patterns.
                       </p>
+                      {/* Button wrapper */ }
                       <div className="btn-wrapper mt-5">
+                        {/* Button with microphone logo */}
                         <Button
                           className="btn-yellow btn-icon mb-3 mb-sm-0"
                           color="default"
@@ -110,7 +129,7 @@ class Index extends React.Component {
                   </Row>
                 </div>
               </Container>
-              {/* SVG separator */}
+              {/* Footer */}
               <div className="separator separator-bottom separator-skew zindex-100">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

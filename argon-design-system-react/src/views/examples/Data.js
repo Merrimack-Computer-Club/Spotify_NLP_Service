@@ -71,13 +71,26 @@ class Login extends React.Component {
               <span />
               <span />
             </div>
-            
           </section>
+  
+          {/* Middle section */}
+          <section>
+            <div className="container">
+              <div className="row">
+                <div className="col-md-12">
+                  <h2>My Middle Section</h2>
+                  <p>Here is some text in my middle section!.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+  
         </main>
         <SimpleFooter />
       </>
     );
   }
 }
+
 
 export default Login;
