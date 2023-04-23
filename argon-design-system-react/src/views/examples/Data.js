@@ -39,7 +39,13 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import { getResponse, getProfile, getTopSongs } from "util/SpotifyOath.js";
 
+
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { color: "" };
+  }
+
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -53,12 +59,17 @@ class Login extends React.Component {
     });
   }
 
+  handleChange = event => {
+    this.setState({ color: event.target.value });
+  };
 
-  
   render() {
     return (
       <>
         <DemoNavbar />
+        <head>
+    <link rel="stylesheet" href="syle.css" />
+  </head>
         <main ref="main">
           <section className="section section-shaped section-lg">
             <div className="shape shape-style-3 bg-gradient-default">
@@ -72,25 +83,67 @@ class Login extends React.Component {
               <span />
             </div>
           </section>
-  
-          {/* Middle section */}
-          <section>
-            <div className="container">
-              <div className="row">
-                <div className="col-md-12">
-                  <h2>My Middle Section</h2>
-                  <p>Here is some text in my middle section!.</p>
+
+          <div className="container-fluid">
+          <div className="row" style={{ height: "600px" }}>
+
+              {/* Radio buttons */}
+              <div className="col-md-3">
+                <h2>Select an Anaylsis</h2>
+                <Form>
+                  <FormGroup>
+                    <FormGroup check>
+                      <label check>
+                        <Input
+                          type="radio"
+                          name="radio1"
+                          value="green"
+                          onClick={this.handleChange}
+                        />
+                        Graph
+                      </label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <label check>
+                        <Input
+                          type="radio"
+                          name="radio1"
+                          value="blue"
+                          onClick={this.handleChange}
+                        />
+                        Song
+                      </label>
+                    </FormGroup>
+                  </FormGroup>
+                </Form>
+              </div>
+
+             {/* Colored section */}
+             <div
+  className={
+    this.state.color === "green" 
+      ? "bg-green w-50" // add a width of 50%
+      : this.state.color === "blue"
+      ? "bg-blue w-25" // add a width of 75%
+      : "bg-green w-75" // Default color with a width of 100%
+  }
+>
+
+                <div className="container">
+                  <div className="row">
+                    <div className="col-md-5">
+                      <h2>Results</h2>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </section>
-  
+          </div>
         </main>
         <SimpleFooter />
       </>
     );
   }
 }
-
 
 export default Login;
