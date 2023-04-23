@@ -122,9 +122,9 @@ class Login extends React.Component {
              <div
   className={
     this.state.color === "green" 
-      ? "bg-green w-50" // add a width of 50%
+      ? "bg-green w-75" // add a width of 50%
       : this.state.color === "blue"
-      ? "bg-blue w-25" // add a width of 75%
+      ? "bg-blue w-75" // add a width of 75%
       : "bg-green w-75" // Default color with a width of 100%
   }
 >
