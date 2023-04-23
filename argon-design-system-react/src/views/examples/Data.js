@@ -42,6 +42,7 @@ import {
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
+
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import { getResponse, getProfile, getTopSongs } from "util/SpotifyOath.js";
 
@@ -200,6 +201,19 @@ class Login extends React.Component {
                         ))}
                     </DropdownMenu>
                     </Dropdown>
+
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+<Button
+                    color="primary"
+                    size="lg"
+                    type="button"
+                    className="ml-1"
+                    style={{ marginTop: '50px' }}
+                  >
+                    Send
+                  </Button>
+                
+</div>
                   </div>
                   
                 )}
@@ -217,8 +231,22 @@ class Login extends React.Component {
         ))}
       </DropdownMenu>
     </Dropdown>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+<Button
+                    color="primary"
+                    size="lg"
+                    type="button"
+                    className="ml-1"
+                    style={{ marginTop: '50px' }}
+                  >
+                    Send
+                  </Button>
+                
+</div>
   </div>
+  
 )}
+
               </div>
             </div>
           </div>
