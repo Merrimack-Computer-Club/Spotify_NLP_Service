@@ -200,10 +200,10 @@ render() {
             <span />
           </div>
         </section>
-        <div className="container-fluid">
-          <div className="rows" style={{ height: "600px" }}>
+        <div className="container-fluid"> {/* Container that houses are the components between the header and footer */}
+          <div className="row" style={{ height: "600px"}}> {/* Sections within the container*/}
             {/* Radio buttons */}
-            <div className="col-md-3">
+            <div className="col-md-3"  style={{ height: "600px"}}> 
               <div>
                 <h2>Select an Analysis</h2>
                 <Form>
@@ -233,9 +233,10 @@ render() {
                   </FormGroup>
                 </Form>
               </div>
-
+ 
               <h2>Choose:</h2> {/* Header */}
-            {/* If graph radio button selected */}
+             {/* If graph radio button selected */}
+
             {selectedRadio === "graph" && (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <Dropdown isOpen={dropdownOpen_Graph_TimeFrame} toggle={this.toggleDropdown_TimeFrame} style={{ marginTop: '10px' }}>
@@ -279,10 +280,10 @@ render() {
                   </Button>
                 </div>
               </div>
-            )}
+             )}
   
-            {/* If song radio button selected */}       
-            {selectedRadio === "song" && (
+             {/* If song radio button selected */}       
+             {selectedRadio === "song" && (
               <div>
                 {/* Map song array to dropdown */}
                 <Dropdown isOpen={dropdownOpen_Song_Emotion} toggle={this.toggleDropdown_Emotion}>
@@ -310,9 +311,14 @@ render() {
                   </Button>
                 </div>
               </div>
-            )}
+             )}
 
-            </div>
+             </div>
+
+             <div className="col-md-9" style={{ height: "600px" }}>
+      {/* content of the col-md-9 */}
+    </div>
+          
           </div>
         </div>
       </main>
