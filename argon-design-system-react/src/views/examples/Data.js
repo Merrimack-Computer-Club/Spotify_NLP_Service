@@ -17,6 +17,7 @@
 */
 
 import React from "react";
+import './style.css';
 
 // reactstrap components to choose from
 import {
@@ -185,7 +186,7 @@ render() {
       <DemoNavbar /> {/* Pre built nav bar*/}
       <head>
         {/* Linked CSS file*/}
-        <link rel="stylesheet" href="syle.css" />
+        <link rel="stylesheet" href="style.css" />
       </head>
       <main ref="main">
         <section className="section section-shaped section-lg">
@@ -205,7 +206,13 @@ render() {
             {/* Radio buttons */}
             <div className="col-md-3"  style={{ height: "600px"}}> 
               <div>
-                <h2>Select an Analysis</h2>
+              <h2 class="title">
+                <span class="title-word title-word-1">Select</span>
+                <span class="title-word title-word-2">an</span>
+                <span class="title-word title-word-3">Analysis</span>
+              </h2>
+              {/*<h2 class="wave" data-content="Select an Analysis">Select an Analysis</h2>*/}
+
                 <Form>
                   <FormGroup>
                     <FormGroup check>
@@ -234,7 +241,9 @@ render() {
                 </Form>
               </div>
  
-              <h2>Specifications:</h2> {/* Header */}
+              <h2 class="title">
+                <span class="title-word title-word-1">Specifitcations</span>
+              </h2> {/* Header */}
              {/* If graph radio button selected */}
 
             {selectedRadio === "graph" && (
