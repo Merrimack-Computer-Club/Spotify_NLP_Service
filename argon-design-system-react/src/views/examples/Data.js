@@ -16,7 +16,6 @@
 
 */
 
-
 import React from "react";
 
 // reactstrap components
@@ -42,11 +41,12 @@ import {
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
-
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import { getResponse, getProfile, getTopSongs } from "util/SpotifyOath.js";
 
+// List of emotion to select from dropdown
 const emotions = ["Admiration","Amusement","Anger","Annoyance","Approval","Caring","Confusion","Curiosity","Desire","Disappointment",'Disapproval','Disgust','Embarrassment',"Excitement","Fear","Gratitude","Grief","Joy","Love","Nervousness","Optimism","Pride","Realization","Relief","Remorse","Sadness","Surprise","Neutral"];
+// List of time ranges to select from dropdown
 const timeframe =[5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
 class Login extends React.Component {
@@ -80,7 +80,43 @@ class Login extends React.Component {
       getTopSongs();
     });
 
+
+
+  
+
   }
+
+  
+  sendSelectedInput = () => {
+    const { selectedVal, selectedVal2 } = this.state;
+    fetch('http://localhost:5000/api/save_input', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ data: [selectedVal, selectedVal2] })
+    })
+    .then(response => response.text())
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+  }
+
+  sendSelectedInput2= () => {
+    const selectedInput3 = this.state.selectedVal3;
+    fetch('http://localhost:5000/api/save_input', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ data: selectedInput3})
+    })
+    .then(response => response.text())
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+  }
+  
+  
+  
   handleDropdownSelect(value) {
     this.setState({ selectedVal: value, selectedTitle: value });
   }
@@ -209,6 +245,7 @@ class Login extends React.Component {
                     type="button"
                     className="ml-1"
                     style={{ marginTop: '50px' }}
+                    onClick={this.sendSelectedInput}
                   >
                     Send
                   </Button>
@@ -232,12 +269,13 @@ class Login extends React.Component {
       </DropdownMenu>
     </Dropdown>
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-<Button
+    <Button
                     color="primary"
                     size="lg"
                     type="button"
                     className="ml-1"
                     style={{ marginTop: '50px' }}
+                    onClick={this.sendSelectedInput2}
                   >
                     Send
                   </Button>
