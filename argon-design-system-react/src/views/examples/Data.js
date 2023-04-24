@@ -216,7 +216,7 @@ render() {
                           value="graph"
                           onClick={this.handleRadioChange} 
                         />
-                        Graph
+                        Emotional Anaylsis
                       </label>
                     </FormGroup>
                     <FormGroup check>
@@ -227,14 +227,14 @@ render() {
                           value="song"
                           onClick={this.handleRadioChange}
                         />
-                        Song
+                        Song Recommendation
                       </label>
                     </FormGroup>
                   </FormGroup>
                 </Form>
               </div>
  
-              <h2>Choose:</h2> {/* Header */}
+              <h2>Specifications:</h2> {/* Header */}
              {/* If graph radio button selected */}
 
             {selectedRadio === "graph" && (
@@ -315,7 +315,7 @@ render() {
 
              </div>
 
-             <div className="col-md-9" style={{ height: "600px" }}>
+             <div className="col-md-9" style={{ height: "600px" , backgroundColor: "rgb(196, 194, 187)"}}>
       {/* content of the col-md-9 */}
     </div>
           
