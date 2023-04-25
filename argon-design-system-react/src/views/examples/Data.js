@@ -43,7 +43,8 @@ import {
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
-import { getResponse, getProfile, getTopSongs } from "util/SpotifyOath.js";
+import SongsBox from "components/Spotify/SongsBox.js"
+import { getResponse, getProfile, getTopSongs, getTopSongsInfo } from "util/SpotifyOath.js";
 
 // List of emotion to select from dropdown
 const emotions = ["Admiration", "Amusement", "Anger", "Annoyance", "Approval", "Caring", "Confusion", "Curiosity", "Desire", "Disappointment", 'Disapproval', 'Disgust', 'Embarrassment', "Excitement", "Fear", "Gratitude", "Grief", "Joy", "Love", "Nervousness", "Optimism", "Pride", "Realization", "Relief", "Remorse", "Sadness", "Surprise", "Neutral"];
@@ -69,6 +70,8 @@ class Data extends React.Component {
       selectedTitle_SongRange: "",
       selectedTitle_Emotion: ""
     };
+
+    
   }
 
   // Make sure webpage starts at top
@@ -82,7 +85,12 @@ class Data extends React.Component {
       console.log("profile");
       getProfile();
       getTopSongs();
+
+      getTopSongsInfo().then(songs => this.setState({songs}));;
     });
+
+
+    
   }
 
   /*
@@ -327,11 +335,18 @@ class Data extends React.Component {
                 )}
 
               </div>
-
-              <div className="col-md-9" style={{ height: "600px", backgroundColor: "rgb(196, 194, 187)" }}>
-                {/* content of the col-md-9 */}
-              </div>
-
+                   <div className="col-md-9" style={{ height: "600px" , backgroundColor: "rgb(196, 194, 187)"}}>
+            {/* content of the col-md-9 */}
+          </div>
+          </div>
+        </div>
+        
+        <div className="TopSongs-Data">
+        {this.state.songs && (
+              <SongsBox songs={this.state.songs}> </SongsBox>
+            )} 
+        </div>
+      </main>
             </div>
           </div>
         </main>
