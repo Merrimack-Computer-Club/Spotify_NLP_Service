@@ -78,3 +78,10 @@
     background-position: 200% center;
   }
 }
+
+.col-md-3 {
+  height: 600px;
+  border-right: 4px solid black;
+}
+
+
