@@ -45,6 +45,7 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import SongsBox from "components/Spotify/SongsBox.js"
 import { getResponse, getProfile, getTopSongs, getTopSongsInfo } from "util/SpotifyOath.js";
+import { Alert } from "reactstrap";
 
 // List of emotion to select from dropdown
 const emotions = ["Admiration", "Amusement", "Anger", "Annoyance", "Approval", "Caring", "Confusion", "Curiosity", "Desire", "Disappointment", 'Disapproval', 'Disgust', 'Embarrassment', "Excitement", "Fear", "Gratitude", "Grief", "Joy", "Love", "Nervousness", "Optimism", "Pride", "Realization", "Relief", "Remorse", "Sadness", "Surprise", "Neutral"];

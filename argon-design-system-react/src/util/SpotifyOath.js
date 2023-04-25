@@ -102,8 +102,6 @@ export async function getTopSongs() {
 
 export async function getProfile() {
     let accessToken = localStorage.getItem('access_token');
-  
-    //console.log(`Access Token ${accessToken}`);
 
     const response = await fetch('https://api.spotify.com/v1/me', {
       headers: {
@@ -113,7 +111,12 @@ export async function getProfile() {
   
     const data = await response.json();
 
-    console.log(data);
+    // If there was an error getting the profile, authorize again with the code. 
+    if(data.error !== undefined) {
+        const resp = await getResponse();
+        return;
+    }
+
 
     return response;
 }

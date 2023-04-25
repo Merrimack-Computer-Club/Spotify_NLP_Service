@@ -16,7 +16,7 @@
 
 */
 /*eslint-disable*/
-import React from "react";
+import React,{useState} from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -42,8 +42,9 @@ import {
 
 export default function SongsBox({ songs }) {
 
-  var audio = null;
-  var url = null;
+  const [state, setState] = useState({
+    audio: null
+  })
 
   /**
    * Play a songs audio if none is playing, if one is playing stop it.
@@ -51,20 +52,32 @@ export default function SongsBox({ songs }) {
    * @returns 
    */
   function playAudio(song) {
-    if(audio == null) {
-      if(song == undefined)
-        return;
-      audio = new Audio(song.url);
+    const state_audio = state.audio;
+
+    if(state_audio == null) {
+      var audio = new Audio(song.url);
       audio.play();
+      setState({audio: audio});
     } else {
-      audio.pause();
-      audio = null;
+      stopAudio();
     }
+  }
+
+  /**
+   * Stops the audio if it is playing
+   */
+  function stopAudio() {
+    const state_audio = state.audio;
+
+    if(state_audio != null) {
+      state_audio.pause();
+    }
+    setState({audio: null});
   }
   
 
   return (
-    <div class="top-songs">
+    <div class="top-songs" onBlur={() => stopAudio()}>
       <div className="top-songs-label">
         <label className="custom-control-label" htmlFor="customRadio6">
         <h3 class="animate-charcter center-align">     Your Top Songs </h3>
