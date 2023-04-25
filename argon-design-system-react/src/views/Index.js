@@ -66,15 +66,15 @@ class Index extends React.Component {
     return (
       // Nav bar for the top of the webpage
       <>
-        <DemoNavbar /> 
+        <DemoNavbar />
         {/* HTML */}
         <main ref="main">
           {/* Positioning of elements */}
           <div className="position-relative">
             {/* Hero styling */}
-            <section className="section section-hero section-shaped">
+            <section className="section section-info section-shaped">
               {/* Background squares */}
-              <div className="shape shape-style-3 shape-default">
+              <div className="shape shape-style-1 shape-default bg-gradient-spotify">
                 <span className="span-150" />
                 <span className="span-50" />
                 <span className="span-50" />
@@ -96,7 +96,7 @@ class Index extends React.Component {
                   <Row className="align-items-center justify-content-center"> {/* row layout */}
                     <Col className="text-center" lg="6"> {/* column layout */}
                       {/* image tag for logo */}
-                      <img 
+                      <img
                         alt="..."
                         className="img-fluid"
                         src={require("assets/img/brand/spotify-emotions-logo.png")}
@@ -108,13 +108,13 @@ class Index extends React.Component {
                         determing emotions based on recent
                         Spotify Listing Patterns.
                       </p>
-                      {/* Button wrapper */ }
+                      {/* Button wrapper */}
                       <div className="btn-wrapper mt-5">
                         {/* Button with microphone logo */}
                         <Button
                           className="btn-yellow btn-icon mb-3 mb-sm-0"
                           color="default"
-                          onClick={() => 
+                          onClick={() =>
                             authorize()
                           }
                           size="lg"

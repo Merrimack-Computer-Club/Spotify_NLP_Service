@@ -47,13 +47,13 @@ import SongsBox from "components/Spotify/SongsBox.js"
 import { getResponse, getProfile, getTopSongs, getTopSongsInfo } from "util/SpotifyOath.js";
 
 // List of emotion to select from dropdown
-const emotions = ["Admiration","Amusement","Anger","Annoyance","Approval","Caring","Confusion","Curiosity","Desire","Disappointment",'Disapproval','Disgust','Embarrassment',"Excitement","Fear","Gratitude","Grief","Joy","Love","Nervousness","Optimism","Pride","Realization","Relief","Remorse","Sadness","Surprise","Neutral"];
+const emotions = ["Admiration", "Amusement", "Anger", "Annoyance", "Approval", "Caring", "Confusion", "Curiosity", "Desire", "Disappointment", 'Disapproval', 'Disgust', 'Embarrassment', "Excitement", "Fear", "Gratitude", "Grief", "Joy", "Love", "Nervousness", "Optimism", "Pride", "Realization", "Relief", "Remorse", "Sadness", "Surprise", "Neutral"];
 // List of time ranges to select from dropdown
-const timeframe =[5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+const timeframe = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
 // Class extending react components
 class Data extends React.Component {
-  
+
   // Contructor
   constructor(props) {
     super(props);
@@ -92,7 +92,7 @@ class Data extends React.Component {
 
     
   }
-  
+
   /*
   This method is responsible for creating 
   post requests of the graph data. Graph data
@@ -108,9 +108,9 @@ class Data extends React.Component {
       },
       body: JSON.stringify({ data: [selectedVal_TimeFrame, selectedVal_SongRange] })
     })
-    .then(response => response.text())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
+      .then(response => response.text())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
   }
 
   /*
@@ -119,20 +119,20 @@ class Data extends React.Component {
   contains info on Emotion the
   user has selected from the dropdown menu.
   */
-  sendSongRecommendationInput= () => {
+  sendSongRecommendationInput = () => {
     const selectedInput3 = this.state.selectedVal_Emotion;
     fetch('http://localhost:5000/api/save_input', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ data: selectedInput3})
+      body: JSON.stringify({ data: selectedInput3 })
     })
-    .then(response => response.text())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
+      .then(response => response.text())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
   }
-  
+
   /*
   Handle dropdown methods work with
   user selection from the drop down menus:
@@ -174,167 +174,170 @@ class Data extends React.Component {
     });
   };
 
-// HTML CODE
-render() {
-  // Constructor
-  const {
-    selectedRadio,
-    dropdownOpen_Graph_TimeFrame,
-    dropdownOpen_Graph_SongRange,
-    dropdownOpen_Song_Emotion,
-    selectedVal_TimeFrame,
-    selectedTitle_TimeFrame,
-    selectedVal_SongRange,
-    selectedTitle_SongRange,
-    selectedTitle_Emotion,
-    selectedVal_Emotion
-  } = this.state;
-  return (
-    <>
-      <DemoNavbar /> {/* Pre built nav bar*/}
-      <head>
-        {/* Linked CSS file*/}
-        <link rel="stylesheet" href="style.css" />
-      </head>
-      <main ref="main">
-        <section className="section section-shaped section-lg">
-          <div className="shape shape-style-3 bg-gradient-default">
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
+  // HTML CODE
+  render() {
+    // Constructor
+    const {
+      selectedRadio,
+      dropdownOpen_Graph_TimeFrame,
+      dropdownOpen_Graph_SongRange,
+      dropdownOpen_Song_Emotion,
+      selectedVal_TimeFrame,
+      selectedTitle_TimeFrame,
+      selectedVal_SongRange,
+      selectedTitle_SongRange,
+      selectedTitle_Emotion,
+      selectedVal_Emotion
+    } = this.state;
+    return (
+      <>
+        <DemoNavbar /> {/* Pre built nav bar*/}
+        <head>
+          {/* Linked CSS file*/}
+          <link rel="stylesheet" href="style.css" />
+        </head>
+        <main ref="main">
+          {/* Hero styling */}
+          <section className="section section-info section-shaped">
+            {/* Background bubbles and spotify coloring */}
+            <div className="shape shape-style-1 shape-default bg-gradient-spotify" style={{ borderBottom: "4px solid black" }}>
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+          </section>
+          <div className="container-fluid"> {/* Container that houses are the components between the header and footer */}
+            <div className="row" style={{ height: "600px" }}> {/* Sections within the container*/}
+              {/* Radio buttons */}
+              <div className="col-md-3">
+                <div>
+                  <h3 class="animate-charcter"> Select an Analysis</h3>
+                  {/*<h2 class="wave" data-content="Select an Analysis">Select an Analysis</h2>*/}
+
+                  <Form>
+                    <FormGroup>
+                      <FormGroup check>
+                        <div className="custom-control custom-radio mb-3">
+                          <input
+                            className="custom-control-input"
+                            id="customRadio5"
+                            name="radio1"
+                            type="radio"
+                            value="graph"
+                            onClick={this.handleRadioChange}
+                          />
+                          <label className="custom-control-label" htmlFor="customRadio5">
+                            <strong>Emotional Analysis</strong>
+                          </label>
+                        </div>
+                      </FormGroup>
+                      <FormGroup check>
+                        <div className="custom-control custom-radio mb-3">
+                          <input
+                            className="custom-control-input"
+                            id="customRadio6"
+                            name="radio1"
+                            type="radio"
+                            value="song"
+                            onClick={this.handleRadioChange}
+                          />
+                          <label className="custom-control-label" htmlFor="customRadio6">
+                            <strong>Song Recommendation</strong>
+                          </label>
+                        </div>
+                      </FormGroup>
+                    </FormGroup>
+                  </Form>
+                </div>
+
+                <h3 class="animate-charcter"> Specifications</h3> {/* Header */}
+                {/* If graph radio button selected */}
+
+                {selectedRadio === "graph" && (
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Dropdown isOpen={dropdownOpen_Graph_TimeFrame} toggle={this.toggleDropdown_TimeFrame} style={{ marginTop: '10px' }}>
+                      <DropdownToggle caret>{selectedTitle_TimeFrame || "Select Time Frame"}</DropdownToggle>
+                      <DropdownMenu>
+                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('4 Weeks')}>
+                          4 Weeks
+                        </DropdownItem>
+                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('6 Months')}>
+                          6 Months
+                        </DropdownItem>
+                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('Overall')}>
+                          Overall
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+
+                    {/* Map emotions array to dropdown */}
+                    <Dropdown isOpen={dropdownOpen_Graph_SongRange} toggle={this.toggleDropdown_SongRange} style={{ marginTop: '50px' }}>
+                      <DropdownToggle caret>{selectedTitle_SongRange || "Select Song Range"}</DropdownToggle>
+                      <DropdownMenu style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                        {timeframe.map((timeframe) => (
+                          <DropdownItem key={timeframe} onClick={() => this.handleDropdownSelect_SongRange(timeframe, 'dropdown2')}>
+                            {timeframe}
+                          </DropdownItem>
+                        ))}
+                      </DropdownMenu>
+                    </Dropdown>
+
+                    {/* Button to send data to server */}
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <Button
+                        color="primary"
+                        size="lg"
+                        type="button"
+                        className="ml-1"
+                        style={{ marginTop: '50px' }}
+                        onClick={this.sendGraphInput}
+                      >
+                        Send
+                      </Button>
+                    </div>
+                  </div>
+                )}
+
+                {/* If song radio button selected */}
+                {selectedRadio === "song" && (
+                  <div>
+                    {/* Map song array to dropdown */}
+                    <Dropdown isOpen={dropdownOpen_Song_Emotion} toggle={this.toggleDropdown_Emotion}>
+                      <DropdownToggle caret>{selectedTitle_Emotion || "Select an Emotion"}</DropdownToggle>
+                      <DropdownMenu style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                        {emotions.map((emotion) => (
+                          <DropdownItem key={emotion} onClick={() => this.handleDropdownSelect_Emotion(emotion, 'dropdown3')}>
+                            {emotion}
+                          </DropdownItem>
+                        ))}
+                      </DropdownMenu>
+                    </Dropdown>
+
+                    {/* Button to send emotion data */}
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <Button
+                        color="primary"
+                        size="lg"
+                        type="button"
+                        className="ml-1"
+                        style={{ marginTop: '50px' }}
+                        onClick={this.sendSongRecommendationInput}
+                      >
+                        Send
+                      </Button>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+                   <div className="col-md-9" style={{ height: "600px" , backgroundColor: "rgb(196, 194, 187)"}}>
+            {/* content of the col-md-9 */}
           </div>
-        </section>
-        <div className="container-fluid"> {/* Container that houses are the components between the header and footer */}
-          <div className="row" style={{ height: "600px"}}> {/* Sections within the container*/}
-            {/* Radio buttons */}
-            <div className="col-md-3"  style={{ height: "600px"}}> 
-              <div>
-              <h2 class="title">
-                <span class="title-word title-word-1">Select</span>
-                <span class="title-word title-word-2">an</span>
-                <span class="title-word title-word-3">Analysis</span>
-              </h2>
-              {/*<h2 class="wave" data-content="Select an Analysis">Select an Analysis</h2>*/}
-
-                <Form>
-                  <FormGroup>
-                    <FormGroup check>
-                      <label check>
-                        <Input
-                          type="radio"
-                          name="radio1"
-                          value="graph"
-                          onClick={this.handleRadioChange} 
-                        />
-                        Emotional Anaylsis
-                      </label>
-                    </FormGroup>
-                    <FormGroup check>
-                      <label check>
-                        <Input
-                          type="radio"
-                          name="radio1"
-                          value="song"
-                          onClick={this.handleRadioChange}
-                        />
-                        Song Recommendation
-                      </label>
-                    </FormGroup>
-                  </FormGroup>
-                </Form>
-              </div>
- 
-              <h2 class="title">
-                <span class="title-word title-word-1">Specifitcations</span>
-              </h2> {/* Header */}
-             {/* If graph radio button selected */}
-
-            {selectedRadio === "graph" && (
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <Dropdown isOpen={dropdownOpen_Graph_TimeFrame} toggle={this.toggleDropdown_TimeFrame} style={{ marginTop: '10px' }}>
-                  <DropdownToggle caret>{selectedTitle_TimeFrame || "Select Time Frame"}</DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('4 Weeks')}>
-                      4 Weeks
-                    </DropdownItem>
-                    <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('6 Months')}>
-                      6 Months
-                    </DropdownItem>
-                    <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('Overall')}>
-                      Overall
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-                
-                {/* Map emotions array to dropdown */}
-                <Dropdown isOpen={dropdownOpen_Graph_SongRange} toggle={this.toggleDropdown_SongRange} style={{ marginTop: '50px' }}>
-                  <DropdownToggle caret>{selectedTitle_SongRange || "Select Song Range"}</DropdownToggle>
-                  <DropdownMenu style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                    {timeframe.map((timeframe) => (
-                      <DropdownItem key={timeframe} onClick={() => this.handleDropdownSelect_SongRange(timeframe, 'dropdown2')}>
-                        {timeframe}
-                      </DropdownItem>
-                    ))}
-                  </DropdownMenu>
-                </Dropdown>
-                
-                {/* Button to send data to server */}
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <Button
-                    color="primary"
-                    size="lg"
-                    type="button"
-                    className="ml-1"
-                    style={{ marginTop: '50px' }}
-                    onClick={this.sendGraphInput} 
-                  >
-                    Send
-                  </Button>
-                </div>
-              </div>
-             )}
-  
-             {/* If song radio button selected */}       
-             {selectedRadio === "song" && (
-              <div>
-                {/* Map song array to dropdown */}
-                <Dropdown isOpen={dropdownOpen_Song_Emotion} toggle={this.toggleDropdown_Emotion}>
-                  <DropdownToggle caret>{selectedTitle_Emotion || "Select an Emotion"}</DropdownToggle>
-                  <DropdownMenu style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                    {emotions.map((emotion) => (
-                      <DropdownItem key={emotion} onClick={() => this.handleDropdownSelect_Emotion(emotion, 'dropdown3')}>
-                        {emotion}
-                      </DropdownItem>
-                    ))}
-                  </DropdownMenu>
-                </Dropdown>
-
-                {/* Button to send emotion data */}
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <Button
-                    color="primary"
-                    size="lg"
-                    type="button"
-                    className="ml-1"
-                    style={{ marginTop: '50px' }}
-                    onClick={this.sendSongRecommendationInput}
-                  >
-                    Send
-                  </Button>
-                </div>
-              </div>
-             )}
-
-             </div>
-
-             <div className="col-md-9" style={{ height: "600px" , backgroundColor: "rgb(196, 194, 187)"}}>
-      {/* content of the col-md-9 */}
-    </div>
           </div>
         </div>
         
@@ -344,10 +347,13 @@ render() {
             )} 
         </div>
       </main>
+            </div>
+          </div>
+        </main>
         <SimpleFooter /> {/* Prebuilt Footer */}
       </>
-      );
-    }
+    );
   }
+}
 
 export default Data;
