@@ -2413,6 +2413,11 @@ textarea.form-control.is-invalid {
   }
 }
 
+.center {
+  text-align: center;
+  justify-content: center;
+}
+
 .btn {
   display: inline-block;
   font-weight: 600;

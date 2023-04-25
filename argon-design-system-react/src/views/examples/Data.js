@@ -347,10 +347,7 @@ class Data extends React.Component {
             )} 
         </div>
       </main>
-            </div>
-          </div>
-        </main>
-        <SimpleFooter /> {/* Prebuilt Footer */}
+      <SimpleFooter /> {/* Prebuilt Footer */}
       </>
     );
   }

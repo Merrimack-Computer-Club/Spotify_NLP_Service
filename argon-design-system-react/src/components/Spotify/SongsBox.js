@@ -45,24 +45,30 @@ import {
 export default function SongsBox({ songs }) {
 
   return (
-    
-    <Card sx={{ minWidth: '50rem', minHeight: 350, bgcolor: 'F0FAE4' }}>
-      <Box sx={{ position: 'relative', pt: 1 }}>
-        <Stack alignItems="center">
-          <ImageList cols={7} rowHeight={95} sx={{ '&::-webkit-scrollbar': { display: 'none' }, width: '45rem', height: 300 }}>
-            {
-            songs.map(song => (
-              <div key={song.name}>
-                <ImageListItem key={song.name} id={song.name} sx={{ scale: '90%', transition: '0.5s', '&:hover': { cursor: 'pointer',  scale: '120%', zIndex: 999 } }}>
-                  <img src={song.image} alt={song.name} loading="lazy"/>
-                </ImageListItem>
-              </div>
-            ))
-            }
-          </ImageList>
-        </Stack>
-      </Box>
-    </Card>
+    <div class="top-songs">
+      <div className="top-songs-label">
+        <label className="custom-control-label" htmlFor="customRadio6">
+        <h3 class="animate-charcter center-align">     Your Top Songs </h3>
+        </label>
+      </div>
+      <Card sx={{ minWidth: '50rem', minHeight: 350, bgcolor: 'F0FAE4' }}>
+        <Box sx={{ position: 'relative', pt: 1 }}>
+          <Stack alignItems="center">
+            <ImageList cols={7} rowHeight={95} sx={{ '&::-webkit-scrollbar': { display: 'none' }, width: '45rem', height: 300 }}>
+              {
+              songs.map(song => (
+                <div key={song.name}>
+                  <ImageListItem key={song.name} id={song.name} sx={{ scale: '90%', transition: '0.5s', '&:hover': { cursor: 'pointer',  scale: '120%', zIndex: 999 } }}>
+                    <img src={song.image} alt={song.name} loading="lazy"/>
+                  </ImageListItem>
+                </div>
+              ))
+              }
+            </ImageList>
+          </Stack>
+        </Box>
+      </Card>
+    </div>
   );
 }
 
