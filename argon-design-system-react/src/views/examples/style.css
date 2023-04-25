@@ -1,3 +1,6 @@
+/*
+Flowing text animation
+*/
 .title-word {
   animation: color-animation 4s linear infinite;
 }
@@ -38,7 +41,7 @@
 .title {
   font-family: "Montserrat", sans-serif;
   font-weight: 800;
-  font-size: 2vw;
+  font-size: 1.95vw;
   text-transform: uppercase;
 }
 
@@ -48,3 +51,43 @@
   font-size: 3vw;
   text-transform: uppercase;
 }
+
+
+.animate-charcter
+{
+   text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #1DB954 0%,
+    #191414  29%,
+    #FFFFFF 67%,
+    #282828  100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  /*text-fill-color: transparent;*/
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+      font-size: 25px;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/*
+Col-md-3 bordering and height params
+*/
+.col-md-3 {
+  height: 600px;
+  border-right: 4px solid black;
+}
+
+
