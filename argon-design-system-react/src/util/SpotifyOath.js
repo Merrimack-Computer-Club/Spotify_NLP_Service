@@ -47,6 +47,11 @@ export async function getResponse() {
     code_verifier: codeVerifier
   });
 
+  // Get the profile and if it is not a status 200 then get a new access token
+  const test_resp = await getProfile();
+  if(test_resp.status == 200)
+    return;
+
   const response = fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
             headers: {
@@ -109,6 +114,8 @@ export async function getProfile() {
     const data = await response.json();
 
     console.log(data);
+
+    return response;
 }
 
 /**
@@ -132,7 +139,6 @@ async function generateCodeChallenge(codeVerifier) {
 }
 
 
-
 /**
  * Constructs an IV based off of the length
  * @param {} length 
@@ -146,5 +152,45 @@ function generateRandomString(length) {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
-  }
+}
+
+/**
+ * Gets the top songs
+ * @returns a pair of <song_name, image_url>
+ */
+export async function getTopSongsInfo() {
+
+
+  const data = await getTopSongs();
+  
+  const song_objs = [];
+  // Get all of the song names
+  data.items.forEach(item => {
+
+    let name = "";
+    if(item.name != undefined)
+      name = item.name;
+
+    let img_url = "";
+    if(item.album.images[0].url != undefined)
+      img_url = item.album.images[0].url;
+
+    let add = true;
+    if(song_objs.forEach(song => {
+      if(song.name === name)
+        add = false;
+    }));
+      
+    if(add)
+      song_objs.push(new song(name, img_url));
+  });
+
+  return song_objs;
+}
+  
+// Constructs a song from a song, image pair.
+function song(name, image) {
+  this.name = name;
+  this.image = image;
+}
 
