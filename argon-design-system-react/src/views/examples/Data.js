@@ -191,8 +191,8 @@ class Data extends React.Component {
         <main ref="main">
           {/* Hero styling */}
           <section className="section section-info section-shaped">
-            {/* Background squares */}
-            <div className="shape shape-style-1 shape-default bg-gradient-spotify" style={{  borderBottom: "4px solid black"}}>
+            {/* Background bubbles and spotify coloring */}
+            <div className="shape shape-style-1 shape-default bg-gradient-spotify" style={{ borderBottom: "4px solid black" }}>
               <span />
               <span />
               <span />
@@ -206,7 +206,7 @@ class Data extends React.Component {
           <div className="container-fluid"> {/* Container that houses are the components between the header and footer */}
             <div className="row" style={{ height: "600px" }}> {/* Sections within the container*/}
               {/* Radio buttons */}
-              <div className="col-md-3" style={{ height: "600px"}}>
+              <div className="col-md-3">
                 <div>
                   <h3 class="animate-charcter"> Select an Analysis</h3>
                   {/*<h2 class="wave" data-content="Select an Analysis">Select an Analysis</h2>*/}
@@ -224,7 +224,7 @@ class Data extends React.Component {
                             onClick={this.handleRadioChange}
                           />
                           <label className="custom-control-label" htmlFor="customRadio5">
-                            Emotional Anaylsis
+                            <strong>Emotional Analysis</strong>
                           </label>
                         </div>
                       </FormGroup>
@@ -239,7 +239,7 @@ class Data extends React.Component {
                             onClick={this.handleRadioChange}
                           />
                           <label className="custom-control-label" htmlFor="customRadio6">
-                            Song Recommendation
+                            <strong>Song Recommendation</strong>
                           </label>
                         </div>
                       </FormGroup>
