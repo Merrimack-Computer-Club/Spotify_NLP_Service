@@ -72,9 +72,9 @@ class Index extends React.Component {
           {/* Positioning of elements */}
           <div className="position-relative">
             {/* Hero styling */}
-            <section className="section section-hero section-shaped">
+            <section className="section section-info section-shaped">
               {/* Background squares */}
-              <div className="shape shape-style-3 shape-default">
+              <div className="shape shape-style-1 shape-default bg-gradient-spotify">
                 <span className="span-150" />
                 <span className="span-50" />
                 <span className="span-50" />
