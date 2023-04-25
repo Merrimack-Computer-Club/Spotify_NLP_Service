@@ -2413,7 +2413,7 @@ textarea.form-control.is-invalid {
   }
 }
 
-.center {
+.center-align {
   text-align: center;
   justify-content: center;
 }
