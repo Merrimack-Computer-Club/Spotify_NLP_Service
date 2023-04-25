@@ -179,6 +179,10 @@ export async function getTopSongsInfo() {
     if(item.artists != undefined)
       item.artists.forEach(p => artist += p.name + " ")
 
+    let url = "";
+    if(item.preview_url != undefined)
+      url = item.preview_url;
+  
     let add = true;
     if(song_objs.forEach(song => {
       if(song.name === name)
@@ -186,16 +190,17 @@ export async function getTopSongsInfo() {
     }));
       
     if(add)
-      song_objs.push(new song(name, img_url, artist));
+      song_objs.push(new song(name, img_url, artist, url));
   });
 
   return song_objs;
 }
   
 // Constructs a song from a song, image pair.
-function song(name, image, artist) {
+function song(name, image, artist, url) {
   this.name = name;
   this.image = image;
   this.artist = artist;
+  this.url = url;
 }
 
