@@ -28,8 +28,6 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledTooltip,
-  Tooltip,
 } from "reactstrap";
 
 // @mui
@@ -39,6 +37,7 @@ import {
   Stack,
   ImageList,
   ImageListItem,
+  Tooltip,
 } from '@mui/material';
 
 
@@ -51,17 +50,19 @@ export default function SongsBox({ songs }) {
         <h3 class="animate-charcter center-align">     Your Top Songs </h3>
         </label>
       </div>
-      <Card sx={{ minWidth: '50rem', minHeight: 350, bgcolor: 'F0FAE4' }}>
+      <Card sx={{ minWidth: '50rem', minHeight: 450, bgcolor: 'F0FAE4' }}>
         <Box sx={{ position: 'relative', pt: 1 }}>
           <Stack alignItems="center">
-            <ImageList cols={7} rowHeight={95} sx={{ '&::-webkit-scrollbar': { display: 'none' }, width: '45rem', height: 300 }}>
+            <ImageList cols={7} rowHeight={95} sx={{ '&::-webkit-scrollbar': { display: 'none' }, width: '45rem', height: 400}}>
               {
               songs.map(song => (
-                <div key={song.name}>
-                  <ImageListItem key={song.name} id={song.name} sx={{ scale: '90%', transition: '0.5s', '&:hover': { cursor: 'pointer',  scale: '120%', zIndex: 999 } }}>
-                    <img src={song.image} alt={song.name} loading="lazy"/>
-                  </ImageListItem>
-                </div>
+                <Tooltip title={song.name} placement="top">
+                  <div className={song.name} key={song.name} id={song.name} >
+                    <ImageListItem key={song.name} sx={{bgcolor: '#f2d0d6', scale: '90%', transition: '0.5s', boxShadow: 1, borderRadius: 2, p: 0.5, '&:hover': { cursor: 'pointer',  scale: '120%', zIndex: 999 } }}>
+                      <img src={song.image} alt={song.name} loading="lazy"/>
+                    </ImageListItem>
+                  </div>
+                </Tooltip>
               ))
               }
             </ImageList>
