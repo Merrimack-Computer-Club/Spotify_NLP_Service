@@ -43,6 +43,7 @@ import {
 export default function SongsBox({ songs }) {
 
   var audio = null;
+  var url = null;
 
   /**
    * Play a songs audio if none is playing, if one is playing stop it.
