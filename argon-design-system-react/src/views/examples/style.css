@@ -1,3 +1,6 @@
+/*
+Flowing text animation
+*/
 .title-word {
   animation: color-animation 4s linear infinite;
 }
@@ -79,6 +82,9 @@
   }
 }
 
+/*
+Col-md-3 bordering and height params
+*/
 .col-md-3 {
   height: 600px;
   border-right: 4px solid black;
