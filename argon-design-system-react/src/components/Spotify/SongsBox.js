@@ -40,8 +40,27 @@ import {
   Tooltip,
 } from '@mui/material';
 
-
 export default function SongsBox({ songs }) {
+
+  var audio = null;
+
+  /**
+   * Play a songs audio if none is playing, if one is playing stop it.
+   * @param {*} song 
+   * @returns 
+   */
+  function playAudio(song) {
+    if(audio == null) {
+      if(song == undefined)
+        return;
+      audio = new Audio(song.url);
+      audio.play();
+    } else {
+      audio.pause();
+      audio = null;
+    }
+  }
+  
 
   return (
     <div class="top-songs">
@@ -58,8 +77,9 @@ export default function SongsBox({ songs }) {
               songs.map(song => (
                 <Tooltip key={song.name + " " + song.artist} title={song.name + " " + song.artist} placement="top">
                   <div className={song.name} key={song.name} id={song.name} >
-                    <ImageListItem key={song.name} sx={{bgcolor: '#f2d0d6', scale: '90%', transition: '0.5s', boxShadow: 1, borderRadius: 2, p: 0.5, '&:hover': { cursor: 'pointer',  scale: '120%', zIndex: 999 } }}>
+                    <ImageListItem onClick={() => playAudio(song)} key={song.name} sx={{bgcolor: '#f2d0d6', scale: '90%', transition: '0.5s', boxShadow: 1, borderRadius: 2, p: 0.5, '&:hover': { cursor: 'pointer',  scale: '120%', zIndex: 999 } }}>
                       <img src={song.image} alt={song.name} loading="lazy"/>
+                      
                     </ImageListItem>
                   </div>
                 </Tooltip>
