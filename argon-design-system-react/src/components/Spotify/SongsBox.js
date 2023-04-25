@@ -21,7 +21,6 @@ import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Button,
-  Card,
   CardImg,
   NavItem,
   NavLink,
@@ -29,11 +28,13 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledTooltip
+  UncontrolledTooltip,
+  Tooltip,
 } from "reactstrap";
 
 // @mui
 import {
+  Card,
   Box,
   Stack,
   ImageList,
@@ -44,14 +45,15 @@ import {
 export default function SongsBox({ songs }) {
 
   return (
-    <Card sx={{ minWidth: '50rem', minHeight: 350, bgcolor: 'black' }}>
+    
+    <Card sx={{ minWidth: '50rem', minHeight: 350, bgcolor: 'F0FAE4' }}>
       <Box sx={{ position: 'relative', pt: 1 }}>
         <Stack alignItems="center">
           <ImageList cols={7} rowHeight={95} sx={{ '&::-webkit-scrollbar': { display: 'none' }, width: '45rem', height: 300 }}>
             {
             songs.map(song => (
               <div key={song.name}>
-                <ImageListItem key={song.name} sx={{ scale: '90%', transition: '0.5s', '&:hover': { cursor: 'pointer',  scale: '120%', zIndex: 999 } }}>
+                <ImageListItem key={song.name} id={song.name} sx={{ scale: '90%', transition: '0.5s', '&:hover': { cursor: 'pointer',  scale: '120%', zIndex: 999 } }}>
                   <img src={song.image} alt={song.name} loading="lazy"/>
                 </ImageListItem>
               </div>
