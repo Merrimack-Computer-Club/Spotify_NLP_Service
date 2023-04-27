@@ -48,9 +48,9 @@ export async function getResponse() {
   });
 
   // Get the profile and if it is not a status 200 then get a new access token
-  const test_resp = await getProfile();
-  if(test_resp.status == 200)
-    return;
+  //const test_resp = await getProfile();
+  //if(test_resp.status == 200)
+  // return;
 
   const response = fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
