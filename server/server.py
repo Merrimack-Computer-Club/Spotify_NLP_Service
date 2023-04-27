@@ -1,9 +1,7 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS
+from imports import *
 
 app = Flask(__name__)
 CORS(app)
-
 
 @app.route("/api/save_input", methods=["POST"])
 def save_input():
@@ -13,4 +11,5 @@ def save_input():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+   print("Spotify Emotions Server Started \nPress Ctrl+C to stop the server \nServing..")
+   serve(app, host="0.0.0.0", port=8080)
