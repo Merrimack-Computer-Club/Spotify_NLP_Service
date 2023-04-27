@@ -112,10 +112,10 @@ export async function getProfile() {
     const data = await response.json();
 
     // If there was an error getting the profile, authorize again with the code. 
-    if(data.error !== undefined) {
-        const resp = await getResponse();
-        return;
-    }
+    //if(data.error !== undefined) {
+    //    const resp = await getResponse();
+    //    return;
+    //}
 
 
     return response;
