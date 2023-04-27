@@ -63,6 +63,7 @@ export async function getResponse() {
                 if (!response.ok) {
                 throw new Error('HTTP status ' + response.status);
                 }
+                window.location = 'localhost:3000';
                 return response.json();
             })
             .then(data => {
