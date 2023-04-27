@@ -16,7 +16,7 @@ export async function authorize() {
     generateCodeChallenge(codeVerifier).then(codeChallenge => {
 
         let state = generateRandomString(16);
-        let scope = 'user-read-private user-read-email user-top-read user-library-read ';
+        let scope = 'user-read-private user-read-email user-read-playback-state user-modify-playback-state user-read-recently-played user-top-read user-read-private user-read-email user-top-read user-library-read ';
 
         let args = new URLSearchParams({
             response_type: 'code',
