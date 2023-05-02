@@ -7,12 +7,13 @@ class Song:
         self.name = name
         self.artists = artists
         self.isrc = isrc
+        self.lyrics = ""
 
     def __str__(self):
-        return self.name + " " + self.artists + " " + self.isrc
+        return self.name + " " + self.artists + " " + self.isrc + " " + self.lyrics
     
     def toJson(self):
-        return {'name': self.name, 'artists': self.artists, 'isrc': self.isrc}
+        return {'name': self.name, 'artists': self.artists, 'isrc': self.isrc, "lyrics": self.lyrics}
 
 '''Constructs a list of the top songs using the 'Song' class.'''
 def read_top_songs(data):
@@ -37,13 +38,23 @@ def scrape_song(song):
     # Get the page from the track_url 
     print(track_url)
     s.headers.update(headers)
-    s.proxies.update({"http":"104.211.29.96:80", "http":"188.226.188.71:3128"})
+    s.proxies.update({"http":"104.211.29.96:80", "http":"188.226.188.71:3128"}) # https://free-proxy-list.net/
     page = s.get(track_url)
+
+    # Print the status code
+    print(f'Status Code: {page.status_code}')
 
     # Get the Lyrics and create the Beautiful Soup obj from import.
     soup = BeautifulSoup(page.content, "html.parser")
-    lyrics = soup.find(id="lyrics__content__ok")
+    lyrics_set = soup.findAll("span", class_="lyrics__content__ok")
+    
+    # Construct the lyrics from the set of lyrics.
+    lyrics = ""
+    for string in lyrics_set:
+        lyrics += string.text + " "
 
+    # Assign the lyrics to this song.
+    song.lyrics = lyrics
     
 
     #print(page.text.encode('utf8'))
