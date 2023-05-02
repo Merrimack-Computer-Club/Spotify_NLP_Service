@@ -10,3 +10,10 @@ import tensorflow_hub as hub
 # Numpy and Pandas
 import numpy as np
 import pandas as pd
+
+# JSON
+import json as json
+
+# Beautiful Soup
+import requests
+from bs4 import BeautifulSoup

@@ -158,12 +158,43 @@ function generateRandomString(length) {
     return text;
 }
 
+export async function getTopSongsData() {
+  const data = await getTopSongs();
+
+  const list = []
+
+  data.items.forEach(item => {
+    var obj = {
+      name: "",
+      artists: "",
+      isrc: "",
+    };
+
+    let name = "";
+    if(item.name != undefined)
+      obj.name = item.name;
+
+    if(item.artists != undefined)
+      item.artists.forEach(p => obj.artists += p.name + " ")
+    
+    if(item.external_ids.isrc != undefined)
+      obj.isrc = item.external_ids.isrc;
+
+    list.push(obj); 
+  });
+
+  // Print out the JSON data
+  const json = JSON.stringify(list);
+  console.log(json);
+  
+  return list;
+}
+
 /**
  * Gets the top songs
  * @returns a pair of <song_name, image_url>
  */
 export async function getTopSongsInfo() {
-
 
   const data = await getTopSongs();
   
