@@ -16,7 +16,7 @@ export async function authorize() {
     generateCodeChallenge(codeVerifier).then(codeChallenge => {
 
         let state = generateRandomString(16);
-        let scope = 'user-read-private user-read-email user-top-read user-library-read ';
+        let scope = 'user-read-private user-read-email user-read-playback-state user-modify-playback-state user-read-recently-played user-top-read user-read-private user-read-email user-top-read user-library-read ';
 
         let args = new URLSearchParams({
             response_type: 'code',
@@ -48,9 +48,9 @@ export async function getResponse() {
   });
 
   // Get the profile and if it is not a status 200 then get a new access token
-  const test_resp = await getProfile();
-  if(test_resp.status == 200)
-    return;
+  //const test_resp = await getProfile();
+  //if(test_resp.status == 200)
+  // return;
 
   const response = fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
@@ -63,6 +63,7 @@ export async function getResponse() {
                 if (!response.ok) {
                 throw new Error('HTTP status ' + response.status);
                 }
+                window.location = 'localhost:3000';
                 return response.json();
             })
             .then(data => {
@@ -112,10 +113,10 @@ export async function getProfile() {
     const data = await response.json();
 
     // If there was an error getting the profile, authorize again with the code. 
-    if(data.error !== undefined) {
-        const resp = await getResponse();
-        return;
-    }
+    //if(data.error !== undefined) {
+    //    const resp = await getResponse();
+    //    return;
+    //}
 
 
     return response;
