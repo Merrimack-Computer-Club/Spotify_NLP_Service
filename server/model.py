@@ -2,56 +2,136 @@ from imports import *
 from bert_utils import create_tokenizer_from_hub_module, tokenize_sentences
 from transformers import BertTokenizer, BertModel
 
-# Load the CSV data
-df = pd.read_csv('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/testemotions_1.csv')
+# Class built for our BERT Classifier (called Model).
+# Resource(s): https://skimai.com/fine-tuning-bert-for-sentiment-analysis/
+class Model(nn.Module):
+
+    # Constructor, creates the model
+    def __init__(self, freeze_bert = False):
+        """
+        @param  model: BertModel object
+        @param  tokenizer: BertTokenizer object
+        @param  freeze_bert (bool): Set `False` to fine-tune the BERT model (according to the resource)
+        @param  classifier: torch.nn.Module classifier
+            #    Note: torch.nn.Module is used to help train / build        #
+            #       neural networks, so we will build on BERT with this     #
+        """
+        super(Model, self).__init__()
+        # Specify output size of BERT model (768), hidden size of our classifier (50), and number of labels (28)
+        D_in, H, D_out = 768, 50, 28
+
+
+        # Instantiate the pre-trained BERT tokenizer and model
+        self.model = BertModel.from_pretrained('bert-base-uncased')
+        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+
+        # Instantiate one-layer feed-forward classifer
+        self.classifier = nn.Sequential(
+            nn.Linear(D_in, H), # Applies linear transformation
+            nn.ReLu(),
+            nn.Linear(H, D_out)
+        )
+        # Freeze the BERT model
+        if freeze_bert:
+            for param in self.bert.parameters():
+                param.requires_grad = False
+
+    # Define a feed-forward function to compute the logits
+    # Logits = Output of logistic regression function (done through NN) (between 0 and 1)
+    def forward(self, ids, mask):
+        """
+        Feed input to BERT and the classifier to compute logits.
+        @param    input_ids (torch.Tensor): an input tensor
+        @param    attention_mask (torch.Tensor): a tensor that hold attention mask information
+        @return   logits (torch.Tensor): an output tensor
+        """
+        # Feed input to BERT
+        outputs = self.bert(input_ids=ids, attention_mask=mask)
+        
+        # Extract the last hidden state of the token `[CLS]` for classification task
+        last_hidden_state_cls = outputs[0][:, 0, :]
+
+        # Feed input to classifier to compute logits
+        logits = self.classifier(last_hidden_state_cls)
+
+        return logits
+    
+    # Define a function to tokenize the input and prepare it for fine-tuning
+    def tokenize_inputs(self, data):
+        input_ids = []          # Holds tensor information for the word in context
+        attention_masks = []    # Holds binary data on what's important (1 for tensor data, 0 for filler)
+        labels = []             # Holds binary data on emotions (1 for has emotion, 0 for doesn't)
+        
+        # Iterate through each sentence and emotion labels associated with that sentence for each row.
+        for sentence, emotions in zip(data['text'], data[emotion_labels].values):
+            # Tokenize the input sentence
+            # Tokenizer understanding credit: https://towardsdatascience.com/how-to-train-a-bert-model-from-scratch-72cfce554fc6
+            encoded_dict = self.tokenizer.encode_plus(
+                                sentence,                      
+                                add_special_tokens = True, 
+                                max_length = 128,
+                                pad_to_max_length = True,
+                                truncation=True,
+                                return_attention_mask = True,
+                                return_tensors = 'pt'
+                        )
+            
+            # Add the encoded sentence to the list
+            input_ids.append(encoded_dict['input_ids'])
+            
+            # Add the attention mask for the encoded sentence to the list
+            attention_masks.append(encoded_dict['attention_mask'])
+            
+            # Add the labels to the list
+            labels.append(emotions)
+        
+        # Convert the lists to tensors
+        input_ids = torch.cat(input_ids, dim=0)
+        attention_masks = torch.cat(attention_masks, dim=0)
+        labels = torch.tensor(labels)
+        
+        # Return the tokenized inputs and labels
+        return input_ids, attention_masks, labels
+
+
+    
+model = Model()
+
+def to_data_loader(input_ids, attention_masks, labels):
+    # Place data in a 
+        # Place data in a PyTorch DataLoader (faster training / less resources)
+    data = TensorDataset(input_ids, attention_masks, labels)
+    data_sampler = RandomSampler(data)
+    data_loader = DataLoader(data, sampler=data_sampler, batch_size=32)
+    return data_loader
+
+def fine_tune(model, data_loader):
+    # Freeze the BERT layers to start (that way we can start fine-tuning)
+    for param in model.parameters():
+        param.requires_grad = False
+
+
+# Load the CSV data (expected to run from folder: "./Artificial Intelligence/Spotify_NLP_Service")
+df = pd.read_csv('./server/data/testemotions_1.csv')
 
 # Define the emotion labels
-emotion_labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", "confusion", "curiosity", "desire", "disappointment", "disapproval", "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief", "joy", "love", "nervousness", "optimism", "pride", "realization", "relief", "remorse", "sadness", "surprise", "neutral"]
+emotion_labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
+                  "confusion", "curiosity", "desire", "disappointment", "disapproval", 
+                  "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief",
+                  "joy", "love", "nervousness", "optimism", "pride", "realization", 
+                  "relief", "remorse", "sadness", "surprise", "neutral"]
 
-# Initialize the pre-trained BERT tokenizer and model
-model = BertModel.from_pretrained('bert-base-uncased')
-tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+# Step 1: Tokenize inputs so BERT can read it. 
+    # Tokenize the inputs
+input_ids, attention_masks, labels = model.tokenize_inputs(df)
 
-# Define a function to tokenize the input and prepare it for fine-tuning
-def tokenize_inputs(data):
-    input_ids = []          # Holds tensor information for the word in context
-    attention_masks = []    # Holds binary data on what's important (1 for tensor data, 0 for filler)
-    labels = []             # Holds binary data on emotions (1 for has emotion, 0 for doesn't)
-    
-    # Iterate through each sentence and emotion labels associated with that sentence for each row.
-    for sentence, emotions in zip(data['text'], data[emotion_labels].values):
-        # Tokenize the input sentence
-        # Tokenizer understanding credit: https://towardsdatascience.com/how-to-train-a-bert-model-from-scratch-72cfce554fc6
-        encoded_dict = tokenizer.encode_plus(
-                            sentence,                      
-                            add_special_tokens = True, 
-                            max_length = 128,
-                            pad_to_max_length = True,
-                            truncation=True,
-                            return_attention_mask = True,
-                            return_tensors = 'pt'
-                       )
-        
-        # Add the encoded sentence to the list
-        input_ids.append(encoded_dict['input_ids'])
-        
-        # Add the attention mask for the encoded sentence to the list
-        attention_masks.append(encoded_dict['attention_mask'])
-        
-        # Add the labels to the list
-        labels.append(emotions)
-    
-    # Convert the lists to tensors
-    input_ids = torch.cat(input_ids, dim=0)
-    attention_masks = torch.cat(attention_masks, dim=0)
-    labels = torch.tensor(labels)
-    
-    # Return the tokenized inputs and labels
-    return input_ids, attention_masks, labels
+# Step 2: Fine-tune BERT.
+# Resource(s): https://www.youtube.com/watch?v=mw7ay38--ak
+data_loader = to_data_loader(input_ids, attention_masks, labels)
+fine_tune(model, data_loader)
 
-# Tokenize the inputs
-input_ids, attention_masks, labels = tokenize_inputs(df)
 
+"""
 # Print the shape of the tokenized inputs and labels
 print("Input IDs shape: ", input_ids.shape)
 print("Attention Masks shape: ", attention_masks.shape)
@@ -65,122 +145,12 @@ print(df['text'][input_ids.shape[0] - 1])
 print(emotion_labels)
 
 
-"""
+
 This class represents a Model.
 To run make a new model class then call construct_model to make a new model.
 
-
-
-class Model:
-    model = None
-
-    # Constructor, creates the model
-    def __init__(self):
-        self.model = None
-
-    # Returns a new BERT model using the emotion_set
-    def construct_model(self):
-        train_sentences = [
-            "I am feeling happy today",
-            "The news made me sad",
-            "I am tired of working all day",
-            "The customer service was so bad that it made me angry",
-            "I am feeling violent and I want to hit something",
-            "My friend was so helpful to me when I was in need"
-        ]
-
-        train_labels = [
-            "happy",
-            "sad",
-            "tired",
-            "angry",
-            "violent",
-            "helpful"
-        ]
-
-        val_sentences = [
-            "I am feeling so happy right now",
-            "The movie was really sad",
-            "I am exhausted from the long day",
-            "The rude behavior of the driver made me angry",
-            "I feel like I could explode with rage",
-            "My teacher was very helpful and patient with me"
-        ]
-
-        val_labels = [
-            "happy",
-            "sad",
-            "tired",
-            "angry",
-            "violent",
-            "helpful"
-        ]
-        # Import the training & validation csv
-        #df = pd.read_csv('data/goemotions_1.csv')
-
-        # Definine example training & testing data
-
-        # Define the input and output data
-        #train_sentences = [data[0] for data in train_data]
-        #train_labels = [data[1] for data in train_data]
-
-        #val_sentences = [data[0] for data in val_data]
-        #val_labels = [data[1] for data in val_data]
-
-        # Load the BERT module
-        module_url = "https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/3"
-        bert_layer = hub.KerasLayer(module_url, trainable=True)
-
-        max_seq_length = 128
-        # Define the model architecture
-        input_word_ids = tf.keras.layers.Input(shape=(max_seq_length), dtype=tf.int32, name="input_word_ids")
-        input_mask = tf.keras.layers.Input(shape=(max_seq_length), dtype=tf.int32, name="input_mask")
-        segment_ids = tf.keras.layers.Input(shape=(max_seq_length), dtype=tf.int32, name="segment_ids")
-
-        pooled_output, sequence_output = bert_layer([input_word_ids, input_mask, segment_ids])
-
-        drop = tf.keras.layers.Dropout(0.4)(pooled_output)
-
-        output = tf.keras.layers.Dense(6, activation='softmax')(drop)
-
-        model = tf.keras.models.Model(inputs=[input_word_ids, input_mask, segment_ids], outputs=output)
-
-        model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=2e-5), loss='categorical_crossentropy', metrics=['accuracy'])
-
-        # Tokenize the input sentences
-        tokenizer = create_tokenizer_from_hub_module(bert_layer)
-        train_input_ids = tokenize_sentences(tokenizer, train_sentences, max_seq_length)
-        val_input_ids = tokenize_sentences(tokenizer, val_sentences, max_seq_length)
-
-        # Convert the labels to one-hot encoding
-        train_labels = tf.keras.utils.to_categorical(train_labels, num_classes=6)
-        val_labels = tf.keras.utils.to_categorical(val_labels, num_classes=6)
-
-        # Train the model
-        history = model.fit(
-            x=[train_input_ids['input_word_ids'], train_input_ids['input_mask'], train_input_ids['segment_ids']],
-            y=train_labels,
-            validation_data=([val_input_ids['input_word_ids'], val_input_ids['input_mask'], val_input_ids['segment_ids']], val_labels),
-            batch_size=32,
-            epochs=3
-        )
-
-        # Use the model to predict the emotions of some example sentences
-        test_sentences = ['I feel happy today', 'I am tired of this work', 'I am sad to hear this news', 'The violent movie made me scared']
-
-        test_input_ids = tokenize_sentences(tokenizer, test_sentences, max_seq_length)
-        test_predictions = model.predict([test_input_ids['input_word_ids'], test_input_ids['input_mask'], test_input_ids['segment_ids']])
-
-        test_predictions_labels = np.argmax(test_predictions, axis=1)
-        emotions = ['happy', 'sad', 'tired', 'angry', 'violent', 'helpful']
-        test_emotions = [emotions[prediction] for prediction in test_predictions_labels]
-
-        print(test_emotions)
-
-        # Return the model
-        return None
-    
-model = Model()
-model.construct_model()
-
 """
+
+
+
+#"""
