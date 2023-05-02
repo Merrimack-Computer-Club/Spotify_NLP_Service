@@ -44,7 +44,7 @@ import {
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import SongsBox from "components/Spotify/SongsBox.js"
-import { getResponse, getProfile, getTopSongs, getTopSongsInfo } from "util/SpotifyOath.js";
+import { getResponse, getProfile, getTopSongs, getTopSongsInfo, getTopSongsData } from "util/SpotifyOath.js";
 import { Alert } from "reactstrap";
 
 // List of emotion to select from dropdown
@@ -88,6 +88,8 @@ class Data extends React.Component {
       getTopSongs();
 
       getTopSongsInfo().then(songs => this.setState({songs}));;
+
+      getTopSongsData();
     });
 
 

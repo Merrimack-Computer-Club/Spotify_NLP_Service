@@ -73,7 +73,7 @@ class Model:
         input_mask = tf.keras.layers.Input(shape=(max_seq_length), dtype=tf.int32, name="input_mask")
         segment_ids = tf.keras.layers.Input(shape=(max_seq_length), dtype=tf.int32, name="segment_ids")
 
-        pooled_output, sequence_output = bert_layer(input_word_ids, input_mask, segment_ids)
+        pooled_output, sequence_output = bert_layer([input_word_ids, input_mask, segment_ids])
 
         drop = tf.keras.layers.Dropout(0.4)(pooled_output)
 
