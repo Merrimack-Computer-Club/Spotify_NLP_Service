@@ -1,11 +1,75 @@
 from imports import *
 from bert_utils import create_tokenizer_from_hub_module, tokenize_sentences
+from transformers import BertTokenizer, BertModel
+
+# Load the CSV data
+df = pd.read_csv('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/testemotions_1.csv')
+
+# Define the emotion labels
+emotion_labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", "confusion", "curiosity", "desire", "disappointment", "disapproval", "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief", "joy", "love", "nervousness", "optimism", "pride", "realization", "relief", "remorse", "sadness", "surprise", "neutral"]
+
+# Initialize the pre-trained BERT tokenizer and model
+model = BertModel.from_pretrained('bert-base-uncased')
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+
+# Define a function to tokenize the input and prepare it for fine-tuning
+def tokenize_inputs(data):
+    input_ids = []          # Holds tensor information for the word in context
+    attention_masks = []    # Holds binary data on what's important (1 for tensor data, 0 for filler)
+    labels = []             # Holds binary data on emotions (1 for has emotion, 0 for doesn't)
+    
+    # Iterate through each sentence and emotion labels associated with that sentence for each row.
+    for sentence, emotions in zip(data['text'], data[emotion_labels].values):
+        # Tokenize the input sentence
+        # Tokenizer understanding credit: https://towardsdatascience.com/how-to-train-a-bert-model-from-scratch-72cfce554fc6
+        encoded_dict = tokenizer.encode_plus(
+                            sentence,                      
+                            add_special_tokens = True, 
+                            max_length = 128,
+                            pad_to_max_length = True,
+                            truncation=True,
+                            return_attention_mask = True,
+                            return_tensors = 'pt'
+                       )
+        
+        # Add the encoded sentence to the list
+        input_ids.append(encoded_dict['input_ids'])
+        
+        # Add the attention mask for the encoded sentence to the list
+        attention_masks.append(encoded_dict['attention_mask'])
+        
+        # Add the labels to the list
+        labels.append(emotions)
+    
+    # Convert the lists to tensors
+    input_ids = torch.cat(input_ids, dim=0)
+    attention_masks = torch.cat(attention_masks, dim=0)
+    labels = torch.tensor(labels)
+    
+    # Return the tokenized inputs and labels
+    return input_ids, attention_masks, labels
+
+# Tokenize the inputs
+input_ids, attention_masks, labels = tokenize_inputs(df)
+
+# Print the shape of the tokenized inputs and labels
+print("Input IDs shape: ", input_ids.shape)
+print("Attention Masks shape: ", attention_masks.shape)
+print("Labels shape: ", labels.shape)
+
+print("Input IDs: ", input_ids[input_ids.shape[0] - 1])
+print("Attention Masks: ", attention_masks[input_ids.shape[0] - 1])
+print("Labels: ", labels[input_ids.shape[0] - 1])
+
+print(df['text'][input_ids.shape[0] - 1])
+print(emotion_labels)
+
 
 """
 This class represents a Model.
 To run make a new model class then call construct_model to make a new model.
 
-"""
+
 
 class Model:
     model = None
@@ -118,3 +182,5 @@ class Model:
     
 model = Model()
 model.construct_model()
+
+"""
