@@ -114,5 +114,5 @@ plt.figtext(
     0.89, 0.01, txt, wrap=True, horizontalalignment="center", fontsize=8, style="italic"
 )
 
-# Display the graph
-plt.show()
+# Save the graph
+plt.savefig("SentimentalAnalysis_Graph.png")
