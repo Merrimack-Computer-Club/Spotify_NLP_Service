@@ -1,3 +1,4 @@
+import random
 from imports import *
 from bert_utils import create_tokenizer_from_hub_module, tokenize_sentences
 from transformers import BertTokenizer, BertModel, AdamW, get_linear_schedule_with_warmup
@@ -55,21 +56,49 @@ class BertClassifier(nn.Module):
 
         return logits
     
-class Model():
+class Model:
     # Constructor, creates the classifier
-    def __init__(self, bert_classifier):
+    def __init__(self, file_path):
         """
         @param  bert_classifier: BertClassifier object
         @param  tokenizer: BertTokenizer object
         """
+    # TRAINING DATA
+        # Load the CSV data (expected to run from folder: "./Artificial Intelligence/Spotify_NLP_Service")
+        df = pd.read_csv(file_path)
+
+        df_train = df.sample(frac=0.8, random_state=200)
+        df_test = df.drop(df_train.index)
+
+        """# Define the emotion labels
+        emotion_labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
+                        "confusion", "curiosity", "desire", "disappointment", "disapproval", 
+                        "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief",
+                        "joy", "love", "nervousness", "optimism", "pride", "realization", 
+                        "relief", "remorse", "sadness", "surprise", "neutral"]"""
+
+        # Step 1: Tokenize inputs so BERT can read it. 
+            # Tokenize the inputs
+        train_input_ids, train_attention_masks, train_labels = self.tokenize_inputs(df_train)
+        test_input_ids, test_attention_masks, test_labels = self.tokenize_inputs(df_test)
+
+
+        # Step 2: Load the data into a DataLoader object
+            # Resource(s): https://www.youtube.com/watch?v=mw7ay38--ak
+        train_data_loader = self.to_data_loader(train_input_ids, train_attention_masks, train_labels)
+
+        # Initialize the model for training purposes
+        classifier, optimizer, scheduler = self.initialize_model(train_data_loader)
         
-        # Instantiate the classifier
-        self.bert_classifier = bert_classifier
+        # Instantiate the classifier, optimizer, scheduler, and tokenizer
+        self.bert_classifier = classifier
+        self.optimizer = optimizer
+        self.scheduler = scheduler
         self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
     # Initializing the model, optimizer, and learning rate scheduler for training
-    # Source: https://skimai.com/fine-tuning-bert-for-sentiment-analysis/
-    def initialize_model(epochs=3):
+        # Source: https://skimai.com/fine-tuning-bert-for-sentiment-analysis/
+    def initialize_model(train_data_loader, epochs=2):
         # Initialize the classifier model, the optimizer, and the learning rate scheduler
         classifier = BertClassifier(freeze_bert=False) #Instantiate the model
         # Try to use GPU (cuda). Otherwise, we will have to use CPU
@@ -137,66 +166,29 @@ class Model():
         
         # Return the tokenized inputs and labels
         return input_ids, attention_masks, labels
+    
+    def to_data_loader(input_ids, attention_masks, labels):
+        # Place data in a 
+            # Place data in a PyTorch DataLoader (faster training / less resources)
+        data = TensorDataset(input_ids, attention_masks, labels)
+        data_sampler = RandomSampler(data)
+        data_loader = DataLoader(data, sampler=data_sampler, batch_size=32)
+        return data_loader
 
-def to_data_loader(input_ids, attention_masks, labels):
-    # Place data in a 
-        # Place data in a PyTorch DataLoader (faster training / less resources)
-    data = TensorDataset(input_ids, attention_masks, labels)
-    data_sampler = RandomSampler(data)
-    data_loader = DataLoader(data, sampler=data_sampler, batch_size=32)
-    return data_loader
 
 
 ###                 Main Code                   ###
 
+# Source: https://skimai.com/fine-tuning-bert-for-sentiment-analysis/
+def set_seed(seed_value=42):
+    """Set seed for reproducibility."""
+    random.seed(seed_value)
+    np.random.seed(seed_value)
+    torch.manual_seed(seed_value)
+    torch.cuda.manual_seed_all(seed_value)
 
-# Load the CSV data (expected to run from folder: "./Artificial Intelligence/Spotify_NLP_Service")
-df = pd.read_csv('./server/data/testemotions_1.csv')
-
-df_train = df.sample(frac=0.8, random_state=200)
-df_test = df.drop(df_train.index)
-
-# Define the emotion labels
-emotion_labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
-                  "confusion", "curiosity", "desire", "disappointment", "disapproval", 
-                  "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief",
-                  "joy", "love", "nervousness", "optimism", "pride", "realization", 
-                  "relief", "remorse", "sadness", "surprise", "neutral"]
-
-# Step 1: Tokenize inputs so BERT can read it. 
-    # Tokenize the inputs
-train_input_ids, train_attention_masks, train_labels = model.tokenize_inputs(df_train)
-test_input_ids, test_attention_masks, test_labels = model.tokenize_inputs(df_test)
-
-
-# Step 2: Fine-tune BERT.
-# Resource(s): https://www.youtube.com/watch?v=mw7ay38--ak
-train_data_loader = to_data_loader(train_input_ids, train_attention_masks, train_labels)
+# Build the model
+model = Model('./server/data/testemotions_1.csv')
 
 
 ###                 End Main Code                   ###
-
-
-"""
-# Print the shape of the tokenized inputs and labels
-print("Input IDs shape: ", input_ids.shape)
-print("Attention Masks shape: ", attention_masks.shape)
-print("Labels shape: ", labels.shape)
-
-print("Input IDs: ", input_ids[input_ids.shape[0] - 1])
-print("Attention Masks: ", attention_masks[input_ids.shape[0] - 1])
-print("Labels: ", labels[input_ids.shape[0] - 1])
-
-print(df['text'][input_ids.shape[0] - 1])
-print(emotion_labels)
-
-
-
-This class represents a Model.
-To run make a new model class then call construct_model to make a new model.
-
-"""
-
-
-
-#"""
