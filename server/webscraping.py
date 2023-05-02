@@ -55,26 +55,11 @@ def scrape_song(song):
 
     # Assign the lyrics to this song.
     song.lyrics = lyrics
-    
-
-    #print(page.text.encode('utf8'))
-    #print(page.status_code)
-    #print(page.headers)
-
-    '''
-    response = requests.get(
-        url='https://app.scrapingbee.com/api/v1/',
-        params={
-            'api_key': 'N62Z57618TR869V62WVH26FAJWQH4V0AA4X1XNTZCFOSONHOLWABBSMZWN45L3D15VPB8FJG5AS2JR49',
-            'url': track_url,  
-        },
-    )
-    print(response.content)
-    '''
 
 '''Gets share url for a song based on the musixmatch API'''
 def get_musixmatch_share_url(song):
     musixmatch_song_content = requests.get(f'https://api.musixmatch.com/ws/1.1/track.get?apikey={musixmatch_api_key}&track_isrc={song.isrc}', headers={'Accept': 'application/json'}).content  
+    
     msc_json = json.loads(musixmatch_song_content.decode('utf-8'))
 
     track_share_url = msc_json['message']['body']['track']['track_share_url']
