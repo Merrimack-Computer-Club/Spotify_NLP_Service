@@ -59,14 +59,14 @@ class BertClassifier(nn.Module):
     
 class Model:
     # Constructor, creates the classifier
-    def __init__(self, file_path):
+    def __init__(self, dataframe):
         """
         @param  bert_classifier: BertClassifier object
         @param  tokenizer: BertTokenizer object
         """
     # TRAINING DATA
         # Load the CSV data (expected to run from folder: "./Artificial Intelligence/Spotify_NLP_Service")
-        df = pd.read_csv(file_path)
+        df = dataframe
 
         # Define the emotion labels
         self.emotion_labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
@@ -293,26 +293,22 @@ class Model:
         return probs
 
 
-
+"""
 
 ###                 Main Code                   ###
 
-# Source: https://skimai.com/fine-tuning-bert-for-sentiment-analysis/
-def set_seed(seed_value=42):
-    """Set seed for reproducibility."""
-    random.seed(seed_value)
-    np.random.seed(seed_value)
-    torch.manual_seed(seed_value)
-    if torch.cuda.is_available():
-        torch.cuda.manual_seed_all(seed_value)
 
-set_seed() #Sets predetermined 'randomization' for repeated trials
+
+# Credit for concatenating csv files: https://www.geeksforgeeks.org/how-to-merge-multiple-csv-files-into-a-single-pandas-dataframe/
+bigDF = pd.concat(
+    map(pd.read_csv, ['D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/goemotions_1.csv', 'D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/goemotions_2.csv', 'D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/goemotions_3.csv']), ignore_index=True)
+
 
 # Build the model 
-model = Model('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/goemotions_3.csv')
+model = Model(pd.read_csv('./data/goemotions_3.csv'))
 
 # Get test data and evaluate the model.
-myDF = pd.read_csv('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/runtest.csv')
+myDF = pd.read_csv('./data/runtest.csv')
 
 probs = model.eval(myDF)
 print("Just in case...")
@@ -329,3 +325,4 @@ for i in range(len(probs)):
 
 
 ###                 End Main Code                   ###
+"""
