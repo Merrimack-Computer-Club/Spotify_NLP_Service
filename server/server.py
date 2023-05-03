@@ -10,7 +10,7 @@ df = pd.concat(
                       #'data/goemotions_3.csv'
                       ]),
                       ignore_index=True)
-#model = Model(df)
+model = Model(df)
 
 # Start the server
 app = Flask(__name__)
@@ -19,6 +19,7 @@ CORS(app)
 @app.route("/api/emotions/post/list", methods=["POST"])
 def get_Emotions_For_A_List_Of_Songs():
     data = request.get_json()
+    print(data)
 
     classified = webscraping.read_top_songs(data)
 
@@ -32,8 +33,31 @@ def get_Emotions_For_A_List_Of_Songs():
         # Build dataframe from the song lyrics to pass to BERT model
     song_df = construct_Data_Frame_from_Song(classified[0])
     print(song_df)
-    return {'base64_encoded_gimage': 'you thought bruh'}, 200#{'response': map(lambda song: song.toJson(), classified) }), 200
-    #probs = model.eval()
+        # Evaluate the song. Returns probabilities of the emotions for each sentence
+    probs = model.eval(song_df)
+        # Average the probabilities across all sentences and turn it into one list
+    emotional_value = avg_emotions(probs)
+
+    classified[0].emotions = emotional_value
+
+    def avg_emotions(probs):
+        labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
+            "confusion", "curiosity", "desire", "disappointment", "disapproval", 
+            "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief",
+            "joy", "love", "nervousness", "optimism", "pride", "realization", 
+            "relief", "remorse", "sadness", "surprise", "neutral"]
+        
+        avg_probs = []
+        # Run through each of the 28 emotions...
+        for i in range(len(probs[0])):
+            total_val = 0
+            for val in probs: # For all sentences
+                total_val = total_val + val[i]
+            avg_probs.append(total_val / len(avg_probs)) # Get the average, and append it (keeps order)
+
+        return list(zip(labels, avg_probs))
+    
+    
 
     # Construct a DataFrame for emotions from the songs
     emotions = [song.emotions for song in classified]
