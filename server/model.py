@@ -1,4 +1,5 @@
 import random
+import time
 from imports import *
 from transformers import BertTokenizer, BertModel, AdamW, get_linear_schedule_with_warmup
 from sklearn.model_selection import train_test_split
@@ -8,7 +9,7 @@ from sklearn.model_selection import train_test_split
 class BertClassifier(nn.Module):
 
     # Constructor, creates the classifier
-    def __init__(self, freeze_bert = False):
+    def __init__(self, freeze_bert = True):
         """
         @param  bert_model: BertModel object
         @param  freeze_bert (bool): Set `False` to fine-tune the BERT model (according to the resource)
@@ -27,7 +28,7 @@ class BertClassifier(nn.Module):
         # Instantiate one-layer feed-forward classifer
         self.classifier = nn.Sequential(
             nn.Linear(D_in, H), # Applies linear transformation
-            nn.ReLu(),
+            nn.ReLU(),
             nn.Linear(H, D_out)
         )
         # Freeze the BERT model
@@ -57,7 +58,7 @@ class BertClassifier(nn.Module):
     
 class Model:
     # Constructor, creates the classifier
-    def __init__(self, file_path):
+    def __init__(self, dataframe):
         """
         @param  bert_classifier: BertClassifier object
         @param  tokenizer: BertTokenizer object
@@ -65,22 +66,20 @@ class Model:
         
     # TRAINING DATA
         # Load the CSV data (expected to run from folder: "./Artificial Intelligence/Spotify_NLP_Service")
-        df = pd.read_csv(file_path)
+        df = dataframe
 
-        df_train = df.sample(frac=0.8, random_state=200)
-        df_test = df.drop(df_train.index)
-
-        """# Define the emotion labels
-        emotion_labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
+        # Define the emotion labels
+        self.emotion_labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
                         "confusion", "curiosity", "desire", "disappointment", "disapproval", 
                         "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief",
                         "joy", "love", "nervousness", "optimism", "pride", "realization", 
-                        "relief", "remorse", "sadness", "surprise", "neutral"]"""
+                        "relief", "remorse", "sadness", "surprise", "neutral"]
 
-        # Step 1: Tokenize inputs so BERT can read it. 
+        # Step 1: Tokenize inputs so BERT can read it.
+            # Initialize the tokenizer
+        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
             # Tokenize the inputs
-        train_input_ids, train_attention_masks, train_labels = self.tokenize_inputs(df_train)
-        test_input_ids, test_attention_masks, test_labels = self.tokenize_inputs(df_test)
+        train_input_ids, train_attention_masks, train_labels = self.tokenize_inputs(df)
 
 
         # Step 2: Load the data into a DataLoader object
@@ -94,25 +93,26 @@ class Model:
         self.bert_classifier = classifier
         self.optimizer = optimizer
         self.scheduler = scheduler
-        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+
+        self.train(train_data_loader=train_data_loader)
 
     # Initializing the model, optimizer, and learning rate scheduler for training
         # Source: https://skimai.com/fine-tuning-bert-for-sentiment-analysis/
-    def initialize_model(train_data_loader, epochs=2):
+    def initialize_model(self, train_data_loader, epochs=4):
         # Initialize the classifier model, the optimizer, and the learning rate scheduler
         classifier = BertClassifier(freeze_bert=False) #Instantiate the model
         # Try to use GPU (cuda). Otherwise, we will have to use CPU
-        device = None
+        self.device = None
         if torch.cuda.is_available():       
-            device = torch.device("cuda")
+            self.device = torch.device("cuda")
             print(f'There are {torch.cuda.device_count()} GPU(s) available.')
             print('Device name:', torch.cuda.get_device_name(0))
         else:
             print('No GPU available, using the CPU instead.')
-            device = torch.device("cpu")
+            self.device = torch.device("cpu")
 
         # Assign the model to hardware
-        classifier.to(device)
+        classifier.to(self.device)
 
         # Create an AdamW optimizer
         optimizer = AdamW(classifier.parameters(),
@@ -137,14 +137,14 @@ class Model:
         labels = []             # Holds binary data on emotions (1 for has emotion, 0 for doesn't)
         
         # Iterate through each sentence and emotion labels associated with that sentence for each row.
-        for sentence, emotions in zip(data['text'], data[emotion_labels].values):
+        for sentence, emotions in zip(data['text'], data[self.emotion_labels].values):
             # Tokenize the input sentence
             # Tokenizer understanding credit: https://towardsdatascience.com/how-to-train-a-bert-model-from-scratch-72cfce554fc6
             encoded_dict = self.tokenizer.encode_plus(
                                 sentence,                      
                                 add_special_tokens = True, 
                                 max_length = 128,
-                                pad_to_max_length = True,
+                                padding = 'max_length',
                                 truncation=True,
                                 return_attention_mask = True,
                                 return_tensors = 'pt'
@@ -167,28 +167,162 @@ class Model:
         # Return the tokenized inputs and labels
         return input_ids, attention_masks, labels
     
-    def to_data_loader(input_ids, attention_masks, labels):
+    def to_data_loader(self, input_ids, attention_masks, labels):
         # Place data in a 
             # Place data in a PyTorch DataLoader (faster training / less resources)
         data = TensorDataset(input_ids, attention_masks, labels)
         data_sampler = RandomSampler(data)
         data_loader = DataLoader(data, sampler=data_sampler, batch_size=32)
         return data_loader
+    
+    def train(self, train_data_loader, val_dataloader=None, epochs=4, evaluation=False):
+        loss_fn = nn.CrossEntropyLoss()
+
+        """Train the BertClassifier model."""
+        # Start training loop
+        print("Start training...\n")
+        for epoch_i in range(epochs):
+            # =======================================
+            #               Training
+            # =======================================
+            # Print the header of the result table
+            print(f"{'Epoch':^7} | {'Batch':^7} | {'Train Loss':^12} | {'Val Loss':^10} | {'Val Acc':^9} | {'Elapsed':^9}")
+            print("-"*70)
+
+            # Measure the elapsed time of each epoch
+            t0_epoch, t0_batch = time.time(), time.time()
+
+            # Reset tracking variables at the beginning of each epoch
+            total_loss, batch_loss, batch_counts = 0, 0, 0
+
+            # Put the model into the training mode
+            self.bert_classifier.train()
+
+            # For each batch of training data...
+            for step, batch in enumerate(train_data_loader):
+                batch_counts +=1
+                # Load batch to GPU
+                b_input_ids, b_attn_mask, b_labels = tuple(t.to(self.device) for t in batch)
+
+                # Zero out any previously calculated gradients
+                self.bert_classifier.zero_grad()
+
+                # Perform a forward pass. This will return logits.
+                logits = self.bert_classifier(b_input_ids, b_attn_mask)
+
+                # Compute loss and accumulate the loss values
+                loss = loss_fn(logits, b_labels.float())
+                batch_loss += loss.item()
+                total_loss += loss.item()
+
+                # Perform a backward pass to calculate gradients
+                loss.backward()
+
+                # Clip the norm of the gradients to 1.0 to prevent "exploding gradients"
+                torch.nn.utils.clip_grad_norm_(self.bert_classifier.parameters(), 1.0)
+
+                # Update parameters and the learning rate
+                self.optimizer.step()
+                self.scheduler.step()
+
+                # Print the loss values and time elapsed for every 20 batches
+                if (step % 20 == 0 and step != 0) or (step == len(train_data_loader) - 1):
+                    # Calculate time elapsed for 20 batches
+                    time_elapsed = time.time() - t0_batch
+
+                    # Print training results
+                    print(f"{epoch_i + 1:^7} | {step:^7} | {batch_loss / batch_counts:^12.6f} | {'-':^10} | {'-':^9} | {time_elapsed:^9.2f}")
+
+                    # Reset batch tracking variables
+                    batch_loss, batch_counts = 0, 0
+                    t0_batch = time.time()
+
+            # Calculate the average loss over the entire training data
+            avg_train_loss = total_loss / len(train_data_loader)
+
+            print("-"*70)
+            """# =======================================
+            #               Evaluation
+            # =======================================
+            if evaluation == True:
+                # After the completion of each training epoch, measure the model's performance
+                # on our validation set.
+                val_loss, val_accuracy = evaluate(model, val_dataloader)
+
+                # Print performance over the entire training data
+                time_elapsed = time.time() - t0_epoch
+                
+                print(f"{epoch_i + 1:^7} | {'-':^7} | {avg_train_loss:^12.6f} | {val_loss:^10.6f} | {val_accuracy:^9.2f} | {time_elapsed:^9.2f}")
+                print("-"*70)
+            print("\n")"""
+        
+        print("Training complete!")
+    
+    def eval(self, df):
+        """Perform a forward pass on the trained BERT model to predict probabilities
+        on the test set.
+        """
+        # Tokenize inputs from the df
+        input_ids, attention_masks, labels = self.tokenize_inputs(df)
+
+        # Convert to a data loader
+        dataloader = self.to_data_loader(input_ids, attention_masks, labels)
+
+        # Put the model into the evaluation mode. The dropout layers are disabled during
+        # the test time.
+        self.bert_classifier.eval()
+
+        all_logits = []
+
+        # For each batch in our test set...
+        for batch in dataloader:
+            # Load batch to GPU
+            b_input_ids, b_attn_mask = tuple(t.to(self.device) for t in batch)[:2]
+
+            # Compute logits
+            with torch.no_grad():
+                logits = self.bert_classifier(b_input_ids, b_attn_mask)
+            all_logits.append(logits)
+        
+        # Concatenate logits from each batch
+        all_logits = torch.cat(all_logits, dim=0)
+
+        # Apply softmax to calculate probabilities
+        probs = F.softmax(all_logits, dim=1).cpu().numpy()
+
+        return probs
 
 
+"""
 
 ###                 Main Code                   ###
 
-# Source: https://skimai.com/fine-tuning-bert-for-sentiment-analysis/
-def set_seed(seed_value=42):
-    """Set seed for reproducibility."""
-    random.seed(seed_value)
-    np.random.seed(seed_value)
-    torch.manual_seed(seed_value)
-    torch.cuda.manual_seed_all(seed_value)
 
-# Build the model
-model = Model('./server/data/testemotions_1.csv')
+
+# Credit for concatenating csv files: https://www.geeksforgeeks.org/how-to-merge-multiple-csv-files-into-a-single-pandas-dataframe/
+bigDF = pd.concat(
+    map(pd.read_csv, ['D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/goemotions_1.csv', 'D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/goemotions_2.csv', 'D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/goemotions_3.csv']), ignore_index=True)
+
+
+# Build the model 
+model = Model(pd.read_csv('./data/goemotions_3.csv'))
+
+# Get test data and evaluate the model.
+myDF = pd.read_csv('./data/runtest.csv')
+
+probs = model.eval(myDF)
+print("Just in case...")
+print(probs)
+
+print("Sentence Eval:")
+for i in range(len(probs)):
+    print(f"Sentence {i}:")
+    emotionsList = list(zip(model.emotion_labels, probs[i]))
+    emotionsList = sorted(emotionsList, key = lambda x: x[1], reverse=True)
+    for emotionScore in emotionsList:
+        print(emotionScore)
+
 
 
 ###                 End Main Code                   ###
+"""
