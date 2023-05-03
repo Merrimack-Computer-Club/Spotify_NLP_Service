@@ -1,15 +1,18 @@
 from imports import *
 import webscraping
+from model import Model
 import Graph_Code
 
+# Load the model on the 3 GoEmotions training sets.
+df = pd.concat(
+    map(pd.read_csv, ['data/goemotions_1.csv'""",
+                      'data/goemotions_2.csv',
+                      'data/goemotions_3.csv'"""]), ignore_index=True)
+model = Model(df)
+
+# Start the server
 app = Flask(__name__)
 CORS(app)
-
-@app.route("/api/save_input", methods=["POST"])
-def save_input():
-    data = request.get_json()
-    # Do something with data
-    return jsonify({"Server side received data": data}), 200
 
 @app.route("/api/emotions/post/list", methods=["POST"])
 def get_Emotions_For_A_List_Of_Songs():
@@ -18,12 +21,13 @@ def get_Emotions_For_A_List_Of_Songs():
     classified = webscraping.read_top_songs(data)
 
     # Get all the musixmatch song information
-    for val in classified:
-        webscraping.scrape_song(val)
+    webscraping.scrape_song(classified[0])
+    #for song in classified:
+        #webscraping.scrape_song(song)
         #print(classified[i].lyrics)
 
     # Run Each song through the model
-    
+    model.eval(classified[0].lyrics)
 
     # Construct a DataFrame for emotions from the songs
     emotions = [song.emotions for song in classified]
@@ -38,4 +42,4 @@ def get_Emotions_For_A_List_Of_Songs():
 
 if __name__ == "__main__":
    print("Spotify Emotions Server Started \nPress Ctrl+C to stop the server \nServing..")
-   serve(app, host="0.0.0.0", port=8080)
+   serve(app, host="10.0.0.231", port=8080)

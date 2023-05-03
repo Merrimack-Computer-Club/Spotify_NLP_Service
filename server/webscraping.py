@@ -56,7 +56,7 @@ def scrape_song(song):
         string = string.text.strip()
         song.lyrics = [ret for ret in string.split('\n') if ret]
 
-    print(song.lyrics)
+    #print(song.lyrics)
 
 '''Gets share url for a song based on the musixmatch API'''
 def get_musixmatch_share_url(song):
