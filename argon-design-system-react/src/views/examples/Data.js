@@ -52,6 +52,9 @@ const emotions = ["Admiration", "Amusement", "Anger", "Annoyance", "Approval", "
 // List of time ranges to select from dropdown
 const timeframe = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
+const host = "73.249.253.64"
+const port = '8080'
+
 // Class extending react components
 class Data extends React.Component {
 
@@ -104,7 +107,8 @@ class Data extends React.Component {
   */
   sendGraphInput = () => {
     const { selectedVal_TimeFrame, selectedVal_SongRange } = this.state;
-    fetch('http://localhost:8080/api/save_input', {
+    console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
+    fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
