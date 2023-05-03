@@ -8,12 +8,14 @@ class Song:
         self.artists = artists
         self.isrc = isrc
         self.lyrics = ""
+        self.emotions = []
 
     def __str__(self):
         return self.name + " " + self.artists + " " + self.isrc + " " + self.lyrics
     
     def toJson(self):
         return {'name': self.name, 'artists': self.artists, 'isrc': self.isrc, "lyrics": self.lyrics}
+
 
 '''Constructs a list of the top songs using the 'Song' class.'''
 def read_top_songs(data):

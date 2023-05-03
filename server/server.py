@@ -1,5 +1,6 @@
 from imports import *
 import webscraping
+import Graph_Code
 
 app = Flask(__name__)
 CORS(app)
@@ -17,11 +18,23 @@ def get_Emotions_For_A_List_Of_Songs():
     classified = webscraping.read_top_songs(data)
 
     # Get all the musixmatch song information
-    for i in range(len(classified)):
-        webscraping.scrape_song(classified[i])
+    for val in classified:
+        webscraping.scrape_song(val)
         #print(classified[i].lyrics)
 
-    return {}, 200#{'response': map(lambda song: song.toJson(), classified) }), 200
+    # Run Each song through the model
+    
+
+    # Construct a DataFrame for emotions from the songs
+    emotions = [song.emotions for song in classified]
+    df = pd.DataFrame({
+        'emotions': emotions
+    }) 
+
+    # Send the Dataframe to the Graph_Code function -> Base64 encoded image
+    b64encoded_string = Graph_Code.construct_Song_Emotions_Graph(emotions)
+
+    return {'base64_encoded_gimage': b64encoded_string}, 200#{'response': map(lambda song: song.toJson(), classified) }), 200
 
 if __name__ == "__main__":
    print("Spotify Emotions Server Started \nPress Ctrl+C to stop the server \nServing..")
