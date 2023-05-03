@@ -14,6 +14,7 @@ import pandas as pd
 # Torch
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from torch.utils.data import TensorDataset, DataLoader, RandomSampler, SequentialSampler
 
 # JSON
