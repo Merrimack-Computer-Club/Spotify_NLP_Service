@@ -114,7 +114,10 @@ class Data extends React.Component {
       },
       body: await getTopSongsData()
     })
-      .then(data => console.log(data))
+      .then(data => {
+        const json = JSON.parse(data.json())
+        console.log(json)
+      })
       .catch(error => console.error(error));
   }
 
