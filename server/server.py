@@ -37,10 +37,6 @@ def get_Emotions_For_A_List_Of_Songs():
         # Evaluate the song. Returns probabilities of the emotions for each sentence
     probs = model.eval(song_df)
         # Average the probabilities across all sentences and turn it into one list
-    emotional_value = avg_emotions(probs)
-
-    classified[0].emotions = emotional_value
-
     def avg_emotions(probs):
         labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
             "confusion", "curiosity", "desire", "disappointment", "disapproval", 
@@ -57,15 +53,33 @@ def get_Emotions_For_A_List_Of_Songs():
             avg_probs.append(total_val / len(avg_probs)) # Get the average, and append it (keeps order)
 
         return list(zip(labels, avg_probs))
+    
+    def emotions_occurences(probs):
+        labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
+            "confusion", "curiosity", "desire", "disappointment", "disapproval", 
+            "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief",
+            "joy", "love", "nervousness", "optimism", "pride", "realization", 
+            "relief", "remorse", "sadness", "surprise", "neutral"]
+        occurrences = []
+        for arr in probs:
+            emos = sorted(list(zip(labels, arr)), key = lambda x: x[1], reverse=True)
+            occurrences.append(emos[0][0])
+        return occurrences
+
+    #emotional_value = avg_emotions(probs)
+    emotional_value = emotions_occurences(probs)
+
+    classified[0].emotions = emotional_value
 
     # Construct a DataFrame for emotions from the songs
-    emotions = [song.emotions for song in classified]
-    df = pd.DataFrame({
-        'emotions': emotions
-    }) 
+    emotions = []
+    for song in classified:
+        for emotion in song.emotions:
+            emotions.append(emotion)
+    df = pd.DataFrame(emotions, columns=['emotion'])
 
     # Send the Dataframe to the Graph_Code function -> Base64 encoded image
-    b64encoded_string = Graph_Code.construct_Song_Emotions_Graph(emotions)
+    b64encoded_string = Graph_Code.construct_Song_Emotions_Graph(df)
 
     return {'base64_encoded_gimage': b64encoded_string}, 200#{'response': map(lambda song: song.toJson(), classified) }), 200
 

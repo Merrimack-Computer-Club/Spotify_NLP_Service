@@ -59,11 +59,11 @@ emotions = [
 ]
 
 # Define the EXAMPLE data frame
-data = pd.DataFrame(
+"""data = pd.DataFrame(
     {
         "emotion": random.choices(emotions, k=100),
     }
-)
+)"""
 
 
 '''
@@ -73,6 +73,7 @@ Then encodes the image in base64 to be sent back to the server.
 def construct_Song_Emotions_Graph(data):
     # Plot size
     fig = plt.figure(figsize=(8, 6))
+    print(data)
 
     # Group by emotion and summarize
     counts = data.groupby("emotion").size().reset_index(name="count")
@@ -135,4 +136,4 @@ def construct_Song_Emotions_Graph(data):
 
     # Save the graph
 
-construct_Song_Emotions_Graph(data)
+#construct_Song_Emotions_Graph(data)
