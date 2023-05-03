@@ -7,7 +7,7 @@ class Song:
         self.name = name
         self.artists = artists
         self.isrc = isrc
-        self.lyrics = ""
+        self.lyrics = []
         self.emotions = []
 
     def __str__(self):
@@ -49,14 +49,14 @@ def scrape_song(song):
     # Get the Lyrics and create the Beautiful Soup obj from import.
     soup = BeautifulSoup(page.content, "html.parser")
     lyrics_set = soup.findAll("span", class_="lyrics__content__ok")
-    
-    # Construct the lyrics from the set of lyrics.
-    lyrics = ""
-    for string in lyrics_set:
-        lyrics += string.text + " "
 
+    # Construct the lyrics from the set of lyrics.
     # Assign the lyrics to this song.
-    song.lyrics = lyrics
+    for string in lyrics_set:
+        string = string.text.strip()
+        song.lyrics = [ret for ret in string.split('\n') if ret]
+
+    print(song.lyrics)
 
 '''Gets share url for a song based on the musixmatch API'''
 def get_musixmatch_share_url(song):
