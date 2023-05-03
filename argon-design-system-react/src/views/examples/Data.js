@@ -92,7 +92,7 @@ class Data extends React.Component {
 
       getTopSongsInfo().then(songs => this.setState({songs}));;
 
-      getTopSongsData();
+      //getTopSongsData();
     });
 
 
@@ -105,37 +105,15 @@ class Data extends React.Component {
   contains info on Time Frame & Song Range the
   user has selected from the dropdown menus.
   */
-  sendGraphInput = () => {
-    const { selectedVal_TimeFrame, selectedVal_SongRange } = this.state;
+  sendGraphInput = async () => {
     console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
     fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ data: [selectedVal_TimeFrame, selectedVal_SongRange] })
+      body: await getTopSongsData()
     })
-      .then(response => response.text())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
-  }
-
-  /*
-  This method is responsible for creating 
-  post requests of the song rec. data. Song rec. data
-  contains info on Emotion the
-  user has selected from the dropdown menu.
-  */
-  sendSongRecommendationInput = () => {
-    const selectedInput3 = this.state.selectedVal_Emotion;
-    fetch('http://localhost:5000/api/save_input', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ data: selectedInput3 })
-    })
-      .then(response => response.text())
       .then(data => console.log(data))
       .catch(error => console.error(error));
   }
