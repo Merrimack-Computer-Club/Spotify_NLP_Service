@@ -68,9 +68,6 @@ class Model:
         # Load the CSV data (expected to run from folder: "./Artificial Intelligence/Spotify_NLP_Service")
         df = pd.read_csv(file_path)
 
-        df_train = df.sample(frac=0.8, random_state=200)
-        df_test = df.drop(df_train.index)
-
         # Define the emotion labels
         self.emotion_labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
                         "confusion", "curiosity", "desire", "disappointment", "disapproval", 
@@ -82,14 +79,12 @@ class Model:
             # Initialize the tokenizer
         self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
             # Tokenize the inputs
-        train_input_ids, train_attention_masks, train_labels = self.tokenize_inputs(df_train)
-        test_input_ids, test_attention_masks, test_labels = self.tokenize_inputs(df_test)
+        train_input_ids, train_attention_masks, train_labels = self.tokenize_inputs(df)
 
 
         # Step 2: Load the data into a DataLoader object
             # Resource(s): https://www.youtube.com/watch?v=mw7ay38--ak
         train_data_loader = self.to_data_loader(train_input_ids, train_attention_masks, train_labels)
-        test_data_loader = self.to_data_loader(test_input_ids, test_attention_masks, test_labels)
 
         # Initialize the model for training purposes
         classifier, optimizer, scheduler = self.initialize_model(train_data_loader)
@@ -100,13 +95,10 @@ class Model:
         self.scheduler = scheduler
 
         self.train(train_data_loader=train_data_loader)
-        self.probs = self.eval(df_test)
-        print("Init Eval:")
-        print(self.probs)
 
     # Initializing the model, optimizer, and learning rate scheduler for training
         # Source: https://skimai.com/fine-tuning-bert-for-sentiment-analysis/
-    def initialize_model(self, train_data_loader, epochs=2):
+    def initialize_model(self, train_data_loader, epochs=4):
         # Initialize the classifier model, the optimizer, and the learning rate scheduler
         classifier = BertClassifier(freeze_bert=False) #Instantiate the model
         # Try to use GPU (cuda). Otherwise, we will have to use CPU
@@ -183,7 +175,7 @@ class Model:
         data_loader = DataLoader(data, sampler=data_sampler, batch_size=32)
         return data_loader
     
-    def train(self, train_data_loader, val_dataloader=None, epochs=2, evaluation=False):
+    def train(self, train_data_loader, val_dataloader=None, epochs=4, evaluation=False):
         loss_fn = nn.CrossEntropyLoss()
 
         """Train the BertClassifier model."""
@@ -317,15 +309,23 @@ def set_seed(seed_value=42):
 set_seed() #Sets predetermined 'randomization' for repeated trials
 
 # Build the model 
-model = Model('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/testemotions_1.csv')
+model = Model('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/goemotions_3.csv')
 
 # Get test data and evaluate the model.
 myDF = pd.read_csv('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/runtest.csv')
 
 probs = model.eval(myDF)
+print("Just in case...")
+print(probs)
 
 print("Sentence Eval:")
-print(probs)
+for i in range(len(probs)):
+    print(f"Sentence {i}:")
+    emotionsList = list(zip(model.emotion_labels, probs[i]))
+    emotionsList = sorted(emotionsList, key = lambda x: x[1], reverse=True)
+    for emotionScore in emotionsList:
+        print(emotionScore)
+
 
 
 ###                 End Main Code                   ###
