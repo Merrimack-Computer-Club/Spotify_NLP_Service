@@ -317,7 +317,7 @@ def set_seed(seed_value=42):
 set_seed() #Sets predetermined 'randomization' for repeated trials
 
 # Build the model 
-model = Model('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/testemotions_2.csv')
+model = Model('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/testemotions_1.csv')
 
 # Get test data and evaluate the model.
 myDF = pd.read_csv('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/runtest.csv')
