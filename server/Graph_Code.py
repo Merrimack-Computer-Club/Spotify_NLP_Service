@@ -61,7 +61,6 @@ emotions = [
 # Define the EXAMPLE data frame
 data = pd.DataFrame(
     {
-        "song_name": random.choices(songs, k=100),
         "emotion": random.choices(emotions, k=100),
     }
 )
@@ -123,10 +122,9 @@ def construct_Song_Emotions_Graph(data):
     )
 
     my_stringIObytes = io.BytesIO()
-    plt.savefig(my_stringIObytes, format='png')
+    plt.savefig(my_stringIObytes, format='jpg')
     my_stringIObytes.seek(0)
     encoded = base64.b64encode(my_stringIObytes.read()).decode()
-
 
     imgdata = base64.b64decode(encoded)
     filename = 'some_image.jpg'  # I assume you have a way of picking unique filenames

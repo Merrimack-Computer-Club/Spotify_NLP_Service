@@ -1,6 +1,5 @@
 import random
 from imports import *
-from bert_utils import create_tokenizer_from_hub_module, tokenize_sentences
 from transformers import BertTokenizer, BertModel, AdamW, get_linear_schedule_with_warmup
 from sklearn.model_selection import train_test_split
 
