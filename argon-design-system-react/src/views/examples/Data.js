@@ -104,7 +104,7 @@ class Data extends React.Component {
   */
   sendGraphInput = () => {
     const { selectedVal_TimeFrame, selectedVal_SongRange } = this.state;
-    fetch('http://localhost:5000/api/save_input', {
+    fetch('http://localhost:8080/api/save_input', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -217,7 +217,7 @@ class Data extends React.Component {
           <div className="container-fluid"> {/* Container that houses are the components between the header and footer */}
             <div className="row" style={{ height: "600px" }}> {/* Sections within the container*/}
               {/* Radio buttons */}
-              <div className=""col-md-3>
+              <div className="col-md-3">
                 <div>
                   <h3 class="animate-charcter"> Select an Analysis</h3>
                   {/*<h2 class="wave" data-content="Select an Analysis">Select an Analysis</h2>*/}
