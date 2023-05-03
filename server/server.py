@@ -5,7 +5,8 @@ import Graph_Code
 
 # Load the model on the 3 GoEmotions training sets.
 df = pd.concat(
-    map(pd.read_csv, ['data/goemotions_1.csv'#,
+    map(pd.read_csv, ['data/testemotions_2.csv'
+                      #'data/goemotions_1.csv'#,
                       #'data/goemotions_2.csv',
                       #'data/goemotions_3.csv'
                       ]),
@@ -56,8 +57,6 @@ def get_Emotions_For_A_List_Of_Songs():
             avg_probs.append(total_val / len(avg_probs)) # Get the average, and append it (keeps order)
 
         return list(zip(labels, avg_probs))
-    
-    
 
     # Construct a DataFrame for emotions from the songs
     emotions = [song.emotions for song in classified]
