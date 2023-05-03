@@ -71,8 +71,6 @@ class Model:
         df_train = df.sample(frac=0.8, random_state=200)
         df_test = df.drop(df_train.index)
 
-        print(df_test.head())
-
         # Define the emotion labels
         self.emotion_labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
                         "confusion", "curiosity", "desire", "disappointment", "disapproval", 
@@ -95,9 +93,6 @@ class Model:
 
         # Initialize the model for training purposes
         classifier, optimizer, scheduler = self.initialize_model(train_data_loader)
-        print(classifier)
-        print(optimizer)
-        print(scheduler)
         
         # Instantiate the classifier, optimizer, scheduler, and tokenizer
         self.bert_classifier = classifier
@@ -105,8 +100,8 @@ class Model:
         self.scheduler = scheduler
 
         self.train(train_data_loader=train_data_loader)
-        print("Evaluating...")
-        self.probs = self.eval(test_data_loader)
+        self.probs = self.eval(df_test)
+        print("Init Eval:")
         print(self.probs)
 
     # Initializing the model, optimizer, and learning rate scheduler for training
@@ -271,10 +266,16 @@ class Model:
         
         print("Training complete!")
     
-    def eval(self, test_dataloader):
+    def eval(self, df):
         """Perform a forward pass on the trained BERT model to predict probabilities
         on the test set.
         """
+        # Tokenize inputs from the df
+        input_ids, attention_masks, labels = self.tokenize_inputs(df)
+
+        # Convert to a data loader
+        dataloader = self.to_data_loader(input_ids, attention_masks, labels)
+
         # Put the model into the evaluation mode. The dropout layers are disabled during
         # the test time.
         self.bert_classifier.eval()
@@ -282,7 +283,7 @@ class Model:
         all_logits = []
 
         # For each batch in our test set...
-        for batch in test_dataloader:
+        for batch in dataloader:
             # Load batch to GPU
             b_input_ids, b_attn_mask = tuple(t.to(self.device) for t in batch)[:2]
 
@@ -316,12 +317,15 @@ def set_seed(seed_value=42):
 set_seed() #Sets predetermined 'randomization' for repeated trials
 
 # Build the model 
-model = Model('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/testemotions_1.csv')
+model = Model('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/testemotions_2.csv')
 
 # Get test data and evaluate the model.
-myDF = pd.DataFrame()
-myDF['text'] = "That game hurt."
-myDF[model.emotion_labels] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0]
-print(myDF.head())
+myDF = pd.read_csv('D:/Documents/College Folder/Artificial Intelligence/Spotify_NLP_Service/server/data/runtest.csv')
+
+probs = model.eval(myDF)
+
+print("Sentence Eval:")
+print(probs)
+
 
 ###                 End Main Code                   ###
