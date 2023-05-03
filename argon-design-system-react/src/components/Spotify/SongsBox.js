@@ -16,7 +16,7 @@
 
 */
 /*eslint-disable*/
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -54,13 +54,22 @@ export default function SongsBox({ songs }) {
   function playAudio(song) {
     const state_audio = state.audio;
 
-    if(state_audio == null) {
-      var audio = new Audio(song.url);
-      audio.play();
-      setState({audio: audio});
-    } else {
-      stopAudio();
+    if (state_audio != null) {
+      if (state_audio.src === song.url) {
+        if (state_audio.paused) {
+          state_audio.play();
+        } else {
+          state_audio.pause();
+        }
+        return;
+      } else {
+        stopAudio();
+      }
     }
+
+    var audio = new Audio(song.url);
+    audio.play();
+    setState({ audio: audio });
   }
 
   /**
@@ -69,35 +78,38 @@ export default function SongsBox({ songs }) {
   function stopAudio() {
     const state_audio = state.audio;
 
-    if(state_audio != null) {
+    if (state_audio != null) {
       state_audio.pause();
+      state_audio.currentTime = 0;
+      setState({ audio: null });
     }
-    setState({audio: null});
   }
-  
+
 
   return (
     <div class="top-songs" onBlur={() => stopAudio()}>
       <div className="top-songs-label">
         <label className="custom-control-label" htmlFor="customRadio6">
-        <h3 class="animate-charcter center-align">     Your Top Songs </h3>
+          <h3 className="animate-character" style={{ marginLeft: '20px' }}>Your Top Songs</h3>
+
+
         </label>
       </div>
       <Card sx={{ minWidth: '50rem', minHeight: 450, bgcolor: 'F0FAE4' }}>
         <Box sx={{ position: 'relative', pt: 1 }}>
           <Stack alignItems="center">
-            <ImageList cols={7} rowHeight={95} sx={{ '&::-webkit-scrollbar': { display: 'none' }, width: '45rem', height: 400}}>
+            <ImageList cols={7} rowHeight={95} sx={{ '&::-webkit-scrollbar': { display: 'none' }, width: '45rem', height: 400 }}>
               {
-              songs.map(song => (
-                <Tooltip key={song.name + " " + song.artist} title={song.name + " " + song.artist} placement="top">
-                  <div className={song.name} key={song.name} id={song.name} >
-                    <ImageListItem onClick={() => playAudio(song)} key={song.name} sx={{bgcolor: '#f2d0d6', scale: '90%', transition: '0.5s', boxShadow: 1, borderRadius: 2, p: 0.5, '&:hover': { cursor: 'pointer',  scale: '120%', zIndex: 999 } }}>
-                      <img src={song.image} alt={song.name} loading="lazy"/>
-                      
-                    </ImageListItem>
-                  </div>
-                </Tooltip>
-              ))
+                songs.map(song => (
+                  <Tooltip key={song.name + " " + song.artist} title={song.name + " " + song.artist} placement="top">
+                    <div className={song.name} key={song.name} id={song.name} >
+                      <ImageListItem onClick={() => playAudio(song)} key={song.name} sx={{ bgcolor: '#f2d0d6', scale: '90%', transition: '0.5s', boxShadow: 1, borderRadius: 2, p: 0.5, '&:hover': { cursor: 'pointer', scale: '120%', zIndex: 999 } }}>
+                        <img src={song.image} alt={song.name} loading="lazy" />
+
+                      </ImageListItem>
+                    </div>
+                  </Tooltip>
+                ))
               }
             </ImageList>
           </Stack>

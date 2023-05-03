@@ -104,7 +104,7 @@ class Data extends React.Component {
   */
   sendGraphInput = () => {
     const { selectedVal_TimeFrame, selectedVal_SongRange } = this.state;
-    fetch('http://localhost:5000/api/save_input', {
+    fetch('http://localhost:8080/api/save_input', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -217,7 +217,7 @@ class Data extends React.Component {
           <div className="container-fluid"> {/* Container that houses are the components between the header and footer */}
             <div className="row" style={{ height: "600px" }}> {/* Sections within the container*/}
               {/* Radio buttons */}
-              <div className=""col-md-3>
+              <div className="col-md-3">
                 <div>
                   <h3 class="animate-charcter"> Select an Analysis</h3>
                   {/*<h2 class="wave" data-content="Select an Analysis">Select an Analysis</h2>*/}
@@ -239,21 +239,7 @@ class Data extends React.Component {
                           </label>
                         </div>
                       </FormGroup>
-                      <FormGroup check>
-                        <div className="custom-control custom-radio mb-3">
-                          <input
-                            className="custom-control-input"
-                            id="customRadio6"
-                            name="radio1"
-                            type="radio"
-                            value="song"
-                            onClick={this.handleRadioChange}
-                          />
-                          <label className="custom-control-label" htmlFor="customRadio6">
-                            <strong>Song Recommendation</strong>
-                          </label>
-                        </div>
-                      </FormGroup>
+                      
                     </FormGroup>
                   </Form>
                 </div>
@@ -306,36 +292,8 @@ class Data extends React.Component {
                   </div>
                 )}
 
-                {/* If song radio button selected */}
-                {selectedRadio === "song" && (
-                  <div>
-                    {/* Map song array to dropdown */}
-                    <Dropdown isOpen={dropdownOpen_Song_Emotion} toggle={this.toggleDropdown_Emotion}>
-                      <DropdownToggle caret>{selectedTitle_Emotion || "Select an Emotion"}</DropdownToggle>
-                      <DropdownMenu style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                        {emotions.map((emotion) => (
-                          <DropdownItem key={emotion} onClick={() => this.handleDropdownSelect_Emotion(emotion, 'dropdown3')}>
-                            {emotion}
-                          </DropdownItem>
-                        ))}
-                      </DropdownMenu>
-                    </Dropdown>
-
-                    {/* Button to send emotion data */}
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <Button
-                        color="primary"
-                        size="lg"
-                        type="button"
-                        className="ml-1"
-                        style={{ marginTop: '50px' }}
-                        onClick={this.sendSongRecommendationInput}
-                      >
-                        Send
-                      </Button>
-                    </div>
-                  </div>
-                )}
+              
+             
 
               </div>
                    <div className="col-md-9" style={{ height: "600px" , backgroundColor: "rgb(196, 194, 187)"}}>
