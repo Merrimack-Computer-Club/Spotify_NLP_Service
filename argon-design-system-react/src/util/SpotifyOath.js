@@ -185,9 +185,9 @@ export async function getTopSongsData() {
 
   // Print out the JSON data
   const json = JSON.stringify(list);
-  console.log(json);
+  //console.log(json);
   
-  return list;
+  return json;
 }
 
 /**
