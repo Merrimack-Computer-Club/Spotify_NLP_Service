@@ -63,6 +63,7 @@ class Model:
         @param  bert_classifier: BertClassifier object
         @param  tokenizer: BertTokenizer object
         """
+        
     # TRAINING DATA
         # Load the CSV data (expected to run from folder: "./Artificial Intelligence/Spotify_NLP_Service")
         df = pd.read_csv(file_path)
