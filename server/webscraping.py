@@ -15,9 +15,6 @@ class Song:
     
     def toJson(self):
         return {'name': self.name, 'artists': self.artists, 'isrc': self.isrc, "lyrics": self.lyrics}
-    
-    def to_Data_Frame(self):
-        df = pd.DataFrame()
 
 
 '''Constructs a list of the top songs using the 'Song' class.'''
