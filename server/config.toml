@@ -1,5 +1,5 @@
 [server]
-musix_match_api_key = "ce0064c0705a30e2b136cfa78dd75eea"
-http_proxy = "139.59.1.14:3128"
-https_proxy = "103.69.108.78:8191"
-use_full_lyrics = true
+musix_match_api_key = "ea19e131042b9a73fab2a34b24d18bf0"
+http_proxy = "159.203.13.121:80"
+https_proxy = "144.217.240.185:9300"
+use_full_lyrics = false
