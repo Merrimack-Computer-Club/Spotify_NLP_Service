@@ -92,6 +92,10 @@ def get_lyrics_thirty(song, musixmatch_api_key):
 
     msc_json = json.loads(musixmatch_song_content.decode('utf-8'))
 
+    # If none is found return.
+    if(msc_json['message']['body']['lyrics'] is None):
+        return None
+
     # Assign the 30% of song lyrics incase the proxies break mid-session
     lyrics = msc_json['message']['body']['lyrics']['lyrics_body'].split('\n')
     song.lyrics = [ret for ret in lyrics if ret and '******* This Lyrics is NOT for Commercial use *******' not in ret] 
