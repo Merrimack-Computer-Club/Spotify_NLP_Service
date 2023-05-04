@@ -59,7 +59,7 @@ import { Alert } from "reactstrap";
 // List of emotion to select from dropdown
 const emotions = ["Admiration", "Amusement", "Anger", "Annoyance", "Approval", "Caring", "Confusion", "Curiosity", "Desire", "Disappointment", 'Disapproval', 'Disgust', 'Embarrassment', "Excitement", "Fear", "Gratitude", "Grief", "Joy", "Love", "Nervousness", "Optimism", "Pride", "Realization", "Relief", "Remorse", "Sadness", "Surprise", "Neutral"];
 // List of time ranges to select from dropdown
-const timeframe = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+const timeframe = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
 const host = "127.0.0.1"
 const port = '8081'
