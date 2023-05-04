@@ -90,4 +90,8 @@ Col-md-3 bordering and height params
   border-right: 4px solid black;
 }
 
+.col-md-9 {
+  justify-content: center; /* center horizontally */
+  align-items: center; /* center vertically */
+}
 

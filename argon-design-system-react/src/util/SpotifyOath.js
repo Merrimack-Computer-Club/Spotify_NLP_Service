@@ -74,12 +74,12 @@ export async function getResponse() {
         });
 }
 
-export async function getTopSongs() {
+export async function getTopSongs(time_range, song_limit) {
   let accessToken = localStorage.getItem('access_token');
 
   let body = new URLSearchParams({
-    time_range: 'medium_term',
-    limit: '50',
+    time_range: time_range === undefined ? 'medium_term' : time_range,
+    limit: song_limit === undefined ? '15' : song_limit,
     offset: '0'
   });
 
@@ -158,8 +158,9 @@ function generateRandomString(length) {
     return text;
 }
 
-export async function getTopSongsData() {
-  const data = await getTopSongs();
+export async function getTopSongsData(time_range, song_limit) {
+
+  const data = await getTopSongs(time_range, song_limit);
 
   const list = []
 
@@ -196,7 +197,7 @@ export async function getTopSongsData() {
  */
 export async function getTopSongsInfo() {
 
-  const data = await getTopSongs();
+  const data = await getTopSongs("medium_term", 50);
   
   const song_objs = [];
   // Get all of the song names

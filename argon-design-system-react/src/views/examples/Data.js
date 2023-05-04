@@ -72,10 +72,12 @@ class Data extends React.Component {
       selectedVal_Emotion: null,
       selectedTitle_TimeFrame: "",
       selectedTitle_SongRange: "",
-      selectedTitle_Emotion: ""
+      selectedTitle_Emotion: "",
+      base64_encoded_image: "",
+      isButtonClicked: false
     };
 
-    
+
   }
 
   // Make sure webpage starts at top
@@ -90,13 +92,13 @@ class Data extends React.Component {
       getProfile();
       getTopSongs();
 
-      getTopSongsInfo().then(songs => this.setState({songs}));;
+      getTopSongsInfo().then(songs => this.setState({ songs }));;
 
       //getTopSongsData();
     });
 
 
-    
+
   }
 
   /*
@@ -106,16 +108,20 @@ class Data extends React.Component {
   user has selected from the dropdown menus.
   */
   sendGraphInput = async () => {
+    this.setState({ isButtonClicked: true });
     console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
-    fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
+    const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: await getTopSongsData()
-    })
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
+      body: await getTopSongsData(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange)
+    }).catch(error => console.error(error));
+
+    const data = await response.json();
+    const encoded_image = data['base64_encoded_gimage']; // Base64 Encoded Globak
+    this.setState({ base64_encoded_image: encoded_image });
+
   }
 
   /*
@@ -221,7 +227,7 @@ class Data extends React.Component {
                           </label>
                         </div>
                       </FormGroup>
-                      
+
                     </FormGroup>
                   </Form>
                 </div>
@@ -234,13 +240,13 @@ class Data extends React.Component {
                     <Dropdown isOpen={dropdownOpen_Graph_TimeFrame} toggle={this.toggleDropdown_TimeFrame} style={{ marginTop: '10px' }}>
                       <DropdownToggle caret>{selectedTitle_TimeFrame || "Select Time Frame"}</DropdownToggle>
                       <DropdownMenu>
-                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('4 Weeks')}>
+                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('short_term')}>
                           4 Weeks
                         </DropdownItem>
-                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('6 Months')}>
+                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('medium_term')}>
                           6 Months
                         </DropdownItem>
-                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('Overall')}>
+                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('long_term')}>
                           Overall
                         </DropdownItem>
                       </DropdownMenu>
@@ -274,23 +280,32 @@ class Data extends React.Component {
                   </div>
                 )}
 
-              
-             
+
+
 
               </div>
-                   <div className="col-md-9" style={{ height: "600px" , backgroundColor: "rgb(196, 194, 187)"}}>
-            {/* content of the col-md-9 */}
+              <div className="col-md-9" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "600px", backgroundColor: "rgb(196, 194, 187)" }}>
+                {/* content of the col-md-9 */}
+                {this.state.base64_encoded_image ? (
+                  <img src={`data:image/png;base64,${this.state.base64_encoded_image}`} alt="graph" />
+                ) : (
+
+                  this.state.isButtonClicked && <p onClick={this.handleButtonClick}>Graph loading . . .</p>
+                )}
+
+
+
+              </div>
+            </div>
           </div>
-          </div>
-        </div>
-        
-        <div className="TopSongs-Data">
-        {this.state.songs && (
+
+          <div className="TopSongs-Data">
+            {this.state.songs && (
               <SongsBox songs={this.state.songs}> </SongsBox>
-            )} 
-        </div>
-      </main>
-      <SimpleFooter /> {/* Prebuilt Footer */}
+            )}
+          </div>
+        </main>
+        <SimpleFooter /> {/* Prebuilt Footer */}
       </>
     );
   }
