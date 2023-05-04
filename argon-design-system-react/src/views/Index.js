@@ -148,7 +148,7 @@ class Index extends React.Component {
             </section>
           </div>
         </main>
-        <SimpleFooter />
+        {/*Footer: <SimpleFooter />*/}
       </>
     );
   }
