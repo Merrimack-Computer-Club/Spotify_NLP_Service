@@ -93,16 +93,16 @@ export default function SongsBox({ songs }) {
           <Stack alignItems="center">
             <ImageList cols={7} rowHeight={95} sx={{ '&::-webkit-scrollbar': { display: 'none' }, width: '45rem', height: 400 }}>
               {
-                songs.map(song => (
-                  <Tooltip key={song.name + " " + song.artist} title={song.name + " " + song.artist} placement="top">
-                    <div className={song.name} key={song.name} id={song.name} >
-                      <ImageListItem onClick={() => playAudio(song)} key={song.name} sx={{ bgcolor: '#f2d0d6', scale: '90%', transition: '0.5s', boxShadow: 1, borderRadius: 2, p: 0.5, '&:hover': { cursor: 'pointer', scale: '120%', zIndex: 999 } }}>
-                        <img src={song.image} alt={song.name} loading="lazy" />
-
-                      </ImageListItem>
-                    </div>
-                  </Tooltip>
-                ))
+              songs.map(song => (
+                <Tooltip key={song.name + " " + song.artist} title={song.name + " " + song.artist} placement="top">
+                  <div className={song.name} key={song.name} id={song.name} >
+                    <ImageListItem onClick={() => playAudio(song)} key={song.name} sx={{bgcolor: '#f2d0d6', scale: '90%', transition: '0.5s', boxShadow: 1, borderRadius: 2, p: 0.5, '&:hover': { cursor: 'pointer',  scale: '120%', zIndex: 999 } }}>
+                      <img src={song.image} alt={song.name} loading="lazy"/>
+                      
+                    </ImageListItem>
+                  </div>
+                </Tooltip>
+              ))
               }
             </ImageList>
           </Stack>

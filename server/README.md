@@ -12,3 +12,9 @@ After adding new dependencies run cmd in the server directory to regenerate the 
 ## Starting the Server
 To start the server run the following cmd in the server directory
 ```python .\server.py``` 
+
+## Configuring the server
+To Configure the server look towards the ```config.toml``` file.
+You can currently edit your musixmatch API key, http & https proxies, and
+if you want to use webscraping (use_full_lyrics=true) or if you want to use 30% of the lyrics
+from the musixmatch free lyrics api (use_full_lyrics=true).
