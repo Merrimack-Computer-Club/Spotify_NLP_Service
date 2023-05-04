@@ -287,7 +287,7 @@ class Data extends React.Component {
                             onClick={this.handleRadioChange}
                           />
                           <label className="custom-control-label" htmlFor="customRadio6">
-                            <strong>Single Song Anylsis</strong>
+                            <strong>Single Song Analysis</strong>
                           </label>
                         </div>
                       </FormGroup>
