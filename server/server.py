@@ -56,7 +56,7 @@ def get_Emotions_For_A_List_Of_Songs():
                 total_val = total_val + val[i]
             avg_probs.append(total_val / len(avg_probs)) # Get the average, and append it (keeps order)
 
-        return list(zip(labels, avg_probs))"""
+        return list(zip(labels, avg_probs))
     
     def emotions_occurences(probs):
         labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
@@ -69,6 +69,22 @@ def get_Emotions_For_A_List_Of_Songs():
             emos = sorted(list(zip(labels, arr)), key = lambda x: x[1], reverse=True)
             occurrences.append(emos[0][0])
         return occurrences
+        """
+    def emotions_occurences(probs):
+        labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
+            "confusion", "curiosity", "desire", "disappointment", "disapproval", 
+            "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief",
+            "joy", "love", "nervousness", "optimism", "pride", "realization", 
+            "relief", "remorse", "sadness", "surprise", "neutral"]
+        occurrences = []
+        for arr in probs:
+            emos = sorted(list(zip(labels, arr)), key = lambda x: x[1], reverse=True)
+            if(emos[0][0] == 'neutral'):
+                occurrences.append(emos[1][0])
+            else:
+                occurrences.append(emos[0][0])
+        return occurrences
+
 
     #emotional_value = avg_emotions(probs)
     emotional_value = emotions_occurences(probs)
@@ -107,5 +123,5 @@ def construct_Data_Frame_from_Song(song):
 
 if __name__ == "__main__":
    print("Spotify Emotions Server Started \nPress Ctrl+C to stop the server \nServing..")
-   serve(app, host="127.0.0.1", port=8080)
+   serve(app, host="127.0.0.1", port=8081)
 
