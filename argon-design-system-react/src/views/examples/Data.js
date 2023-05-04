@@ -112,7 +112,7 @@ class Data extends React.Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: await getTopSongsData()
+      body: await getTopSongsData(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange)
     })
       .then(data => {
         const json = JSON.parse(data.json())
@@ -237,13 +237,13 @@ class Data extends React.Component {
                     <Dropdown isOpen={dropdownOpen_Graph_TimeFrame} toggle={this.toggleDropdown_TimeFrame} style={{ marginTop: '10px' }}>
                       <DropdownToggle caret>{selectedTitle_TimeFrame || "Select Time Frame"}</DropdownToggle>
                       <DropdownMenu>
-                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('4 Weeks')}>
+                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('short_term')}>
                           4 Weeks
                         </DropdownItem>
-                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('6 Months')}>
+                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('medium_term')}>
                           6 Months
                         </DropdownItem>
-                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('Overall')}>
+                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('long_term')}>
                           Overall
                         </DropdownItem>
                       </DropdownMenu>
