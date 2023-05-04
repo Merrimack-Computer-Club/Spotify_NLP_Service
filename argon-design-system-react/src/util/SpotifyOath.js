@@ -195,9 +195,9 @@ export async function getTopSongsData(time_range, song_limit) {
  * Gets the top songs
  * @returns a pair of <song_name, image_url>
  */
-export async function getTopSongsInfo() {
+export async function getTopSongsInfo(time_range, song_limit) {
 
-  const data = await getTopSongs("medium_term", 50);
+  const data = await getTopSongs(time_range, song_limit);
   
   const song_objs = [];
   // Get all of the song names

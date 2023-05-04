@@ -52,7 +52,7 @@ const emotions = ["Admiration", "Amusement", "Anger", "Annoyance", "Approval", "
 // List of time ranges to select from dropdown
 const timeframe = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
-const host = "73.249.253.64"
+const host = "127.0.0.1"
 const port = '8080'
 
 // Class extending react components
@@ -90,10 +90,7 @@ class Data extends React.Component {
     getResponse().then(() => {
       console.log("profile");
       getProfile();
-      getTopSongs();
-
-      getTopSongsInfo().then(songs => this.setState({ songs }));;
-
+      //getTopSongs();
       //getTopSongsData();
     });
 
@@ -109,6 +106,10 @@ class Data extends React.Component {
   */
   sendGraphInput = async () => {
     this.setState({ isButtonClicked: true });
+
+    // Load the top songs.
+    getTopSongsInfo(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange).then(songs => this.setState({ songs }));
+
     console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
     const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
       method: 'POST',
@@ -121,6 +122,8 @@ class Data extends React.Component {
     const data = await response.json();
     const encoded_image = data['base64_encoded_gimage']; // Base64 Encoded Globak
     this.setState({ base64_encoded_image: encoded_image });
+
+    console.log(data);
 
   }
 
@@ -305,7 +308,7 @@ class Data extends React.Component {
             )}
           </div>
         </main>
-        <SimpleFooter /> {/* Prebuilt Footer */}
+        {/* <SimpleFooter /> Prebuilt Footer */}
       </>
     );
   }
