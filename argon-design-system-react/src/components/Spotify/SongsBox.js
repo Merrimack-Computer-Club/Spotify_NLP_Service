@@ -88,13 +88,6 @@ export default function SongsBox({ songs }) {
 
   return (
     <div class="top-songs" onBlur={() => stopAudio()}>
-      <div className="top-songs-label">
-        <label className="custom-control-label" htmlFor="customRadio6">
-          <h3 className="animate-character" style={{ marginLeft: '20px' }}>Your Top Songs</h3>
-
-
-        </label>
-      </div>
       <Card sx={{ minWidth: '50rem', minHeight: 450, bgcolor: 'F0FAE4' }}>
         <Box sx={{ position: 'relative', pt: 1 }}>
           <Stack alignItems="center">
