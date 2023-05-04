@@ -160,8 +160,6 @@ function generateRandomString(length) {
 
 export async function getTopSongsData(time_range, song_limit) {
 
-  console.log(`${time_range}  ${song_limit}`)
-
   const data = await getTopSongs(time_range, song_limit);
 
   const list = []

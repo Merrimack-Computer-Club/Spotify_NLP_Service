@@ -72,7 +72,8 @@ class Data extends React.Component {
       selectedVal_Emotion: null,
       selectedTitle_TimeFrame: "",
       selectedTitle_SongRange: "",
-      selectedTitle_Emotion: ""
+      selectedTitle_Emotion: "",
+      base64_Encoded_Graph: "",
     };
 
     
@@ -107,18 +108,18 @@ class Data extends React.Component {
   */
   sendGraphInput = async () => {
     console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
-    fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: await getTopSongsData(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange)
-    })
-      .then(data => {
-        const json = JSON.parse(data.json())
-        console.log(json)
-      })
-      .catch(error => console.error(error));
+    const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: await getTopSongsData(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange)
+      }).catch(error => console.error(error));
+
+      const data = await response.json();
+      const encoded_image = data['base64_encoded_gimage']; // Base64 Encoded Globak
+      this.setState({ base64_encoded_image: encoded_image });
+      
   }
 
   /*
