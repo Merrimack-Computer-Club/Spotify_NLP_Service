@@ -300,7 +300,7 @@ class Data extends React.Component {
                 {/* content of the col-md-9 */}
                 {this.state.base64_encoded_gimage ? (
 
-                    <Card sx={{ minWidth: '50rem', minHeight: 450, maxHeight: 550, bgcolor: 'F0FAE4' }}>
+                    <Card sx={{ minWidth: '50rem', minHeight: 450, maxHeight: 550, bgcolor: 'F5F5F5' }}>
                       <Box sx={{ position: 'relative', pt: 1 }}>
                         <img src={`data:image/jpg;base64,${this.state.base64_encoded_gimage}`} alt="graph" />
                       </Box>

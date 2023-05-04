@@ -60,7 +60,7 @@ def scrape_song(song):
         # Print the status code
         print(f'Status Code: {page.status_code}')
 
-        # Get the Lyrics and create the Beautiful Soup obj from import.
+        # Get the `Lyrics` and create the Beautiful Soup obj from import.
         soup = BeautifulSoup(page.content, "html.parser")
         lyrics_set = soup.findAll("span", class_="lyrics__content__ok")
 
@@ -113,10 +113,6 @@ def get_musixmatch_share_url(song, musixmatch_api_key):
     musixmatch_song_content = request.content
 
     msc_json = json.loads(musixmatch_song_content.decode('utf-8'))
-
-    # Assign the 30% of song lyrics incase the proxies break mid-session
-    # lyrics = msc_json['message']['body']['lyrics']['lyrics_body'].split('\n')
-    # song.lyrics = [ret for ret in lyrics if ret and '******* This Lyrics is NOT for Commercial use *******' not in ret] 
 
     track_share_url = msc_json['message']['body']['track']['track_share_url']
 
