@@ -64,7 +64,7 @@ export default function SongsBox({ songs }) {
   
 
   return (
-    <div class="top-songs">
+    <div class="top-songs" style={{ borderTop: "4px solid black" }}>
       <div className="top-songs-label">
         <label className="custom-control-label" htmlFor="customRadio6">
         <h3 class="animate-charcter center-align">     Your Top Songs </h3>
@@ -80,6 +80,7 @@ export default function SongsBox({ songs }) {
                   <div className={song.name} key={song.name} id={song.name} >
                     <ImageListItem onClick={() => playAudio(song)} key={song.name} sx={{bgcolor: '#f2d0d6', scale: '90%', transition: '0.5s', boxShadow: 1, borderRadius: 2, p: 0.5, '&:hover': { cursor: 'pointer',  scale: '120%', zIndex: 999 } }}>
                       <img src={song.image} alt={song.name} loading="lazy"/>
+                      
                       
                     </ImageListItem>
                   </div>
