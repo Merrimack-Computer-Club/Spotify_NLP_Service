@@ -35,6 +35,11 @@ def scrape_song(song):
     s = requests.Session()
 
     track_url = get_musixmatch_share_url(song)
+
+    # Assure that the track was found
+    if(track_url == None):
+        return None
+
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
 
     # Get the page from the track_url 
@@ -42,6 +47,9 @@ def scrape_song(song):
     s.headers.update(headers)
     s.proxies.update({"http":"104.211.29.96:80", "http":"188.226.188.71:3128"}) # https://free-proxy-list.net/
     page = s.get(track_url)
+
+    if(page.status_code != 200):
+        return None
 
     # Print the status code
     print(f'Status Code: {page.status_code}')
@@ -60,8 +68,16 @@ def scrape_song(song):
 
 '''Gets share url for a song based on the musixmatch API'''
 def get_musixmatch_share_url(song):
-    musixmatch_song_content = requests.get(f'https://api.musixmatch.com/ws/1.1/track.get?apikey={musixmatch_api_key}&track_isrc={song.isrc}', headers={'Accept': 'application/json'}).content  
+    # Get the Request
+    request  = requests.get(f'https://api.musixmatch.com/ws/1.1/track.get?apikey={musixmatch_api_key}&track_isrc={song.isrc}', headers={'Accept': 'application/json'})
     
+    # Check for status code 200
+    if(request.status_code != 200)
+        return None
+
+    # Construct the content
+    musixmatch_song_content = request.content
+
     msc_json = json.loads(musixmatch_song_content.decode('utf-8'))
 
     track_share_url = msc_json['message']['body']['track']['track_share_url']

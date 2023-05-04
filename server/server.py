@@ -24,6 +24,9 @@ def get_Emotions_For_A_List_Of_Songs():
 
     classified = webscraping.read_top_songs(data)
 
+    # Remove songs that are not none
+    classified = [song for song in classified if song is not None]
+
     # Get all the musixmatch song information
     webscraping.scrape_song(classified[0])
     #for song in classified:
