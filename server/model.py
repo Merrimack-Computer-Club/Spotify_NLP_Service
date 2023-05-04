@@ -151,6 +151,8 @@ class Model:
                         )
             
             # Add the encoded sentence to the list
+            if(len(encoded_dict['input_ids']) == 0):
+                return None, None, None
             input_ids.append(encoded_dict['input_ids'])
             
             # Add the attention mask for the encoded sentence to the list
@@ -264,6 +266,10 @@ class Model:
         """
         # Tokenize inputs from the df
         input_ids, attention_masks, labels = self.tokenize_inputs(df)
+
+        # Do a null check (if there's no lyrics to tokenize, return an empty list)
+        if(input_ids == None):
+            return []
 
         # Convert to a data loader
         dataloader = self.to_data_loader(input_ids, attention_masks, labels)
