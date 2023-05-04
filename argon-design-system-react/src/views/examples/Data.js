@@ -52,7 +52,7 @@ const emotions = ["Admiration", "Amusement", "Anger", "Annoyance", "Approval", "
 // List of time ranges to select from dropdown
 const timeframe = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
-const host = "127.0.0.1"
+const host = "73.249.253.64"
 const port = '8080'
 
 // Class extending react components
@@ -209,7 +209,7 @@ class Data extends React.Component {
               {/* Radio buttons */}
               <div className="col-md-3">
                 <div>
-                  <h3 class="animate-charcter"> Select an Analysis</h3>
+                  <h3 class="animate-character"> Select an Analysis</h3>
                   {/*<h2 class="wave" data-content="Select an Analysis">Select an Analysis</h2>*/}
 
                   <Form>
@@ -234,7 +234,7 @@ class Data extends React.Component {
                   </Form>
                 </div>
 
-                <h3 class="animate-charcter"> Specifications</h3> {/* Header */}
+                <h3 class="animate-character"> Specifications</h3> {/* Header */}
                 {/* If graph radio button selected */}
 
                 {selectedRadio === "graph" && (
@@ -286,15 +286,17 @@ class Data extends React.Component {
 
 
               </div>
-              <div className="col-md-9" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "600px", backgroundColor: "rgb(196, 194, 187)" }}>
+
+              <div className="col-md-9" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "600px", backgroundColor: "#F5F5F5" }}>
                 {/* content of the col-md-9 */}
                 {this.state.base64_encoded_image ? (
-                  <img src={`data:image/png;base64,${this.state.base64_encoded_image}`} alt="graph" />
+                  <div className="loader-hidden">
+                    <img src={`data:image/png;base64,${this.state.base64_encoded_image}`} alt="graph" />
+                  </div>
                 ) : (
 
-                  this.state.isButtonClicked && <p onClick={this.handleButtonClick}>Graph loading . . .</p>
+                  this.state.isButtonClicked && <p onClick={this.handleButtonClick}><div class="loader"></div></p>
                 )}
-
 
 
               </div>
@@ -303,9 +305,11 @@ class Data extends React.Component {
 
           <div className="TopSongs-Data">
             <div className="top-songs-label">
-                <label className="custom-control-label" htmlFor="customRadio6">
-                  <h3 className="animate-charcter" style={{ marginLeft: '20px' }}>Your Top Songs</h3>
-                </label>
+
+              <label className="custom-control-label" htmlFor="customRadio6">
+                <h3 className="animate-character" style={{ marginLeft: '20px' }}>Your Top Songs</h3>
+              </label>
+
             </div>
 
             {this.state.songs && (

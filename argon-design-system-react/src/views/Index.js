@@ -105,8 +105,8 @@ class Index extends React.Component {
                       {/* Text */}
                       <p className="lead text-white">
                         A Natural Language Processing Application for
-                        determing emotions based on recent
-                        Spotify Listing Patterns.
+                        determining emotions based on recent
+                        Spotify Listening Patterns.
                       </p>
                       {/* Button wrapper */}
                       <div className="btn-wrapper mt-5">
