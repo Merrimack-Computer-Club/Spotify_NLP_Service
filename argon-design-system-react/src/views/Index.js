@@ -85,6 +85,10 @@ class Index extends React.Component {
                 <span className="span-100" />
                 <span className="span-50" />
                 <span className="span-100" />
+                <span className="span-100" />
+                <span className="span-100" />
+                <span className="span-100" />
+                <span className="span-100" />
               </div>
               {/*
               Hero section: Imports various different components for the ceneter.
