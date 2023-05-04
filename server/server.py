@@ -6,7 +6,7 @@ import Graph_Code
 # Load the model on the 3 GoEmotions training sets.
 df = pd.concat(
     map(pd.read_csv, [
-                       'data/testemotions_3.csv'
+                      'data/testemotions_3.csv'
                       #'data/testemotions_2.csv'
                       #'data/testemotions_1.csv'
                       #'data/goemotions_1.csv'#,
@@ -80,7 +80,13 @@ def get_Emotions_For_A_List_Of_Songs():
         for arr in probs:
             emos = sorted(list(zip(labels, arr)), key = lambda x: x[1], reverse=True)
             if(emos[0][0] == 'neutral'):
-                occurrences.append(emos[1][0])
+                if(emos[1][0] == 'approval' or emos[1][0] == 'disapproval'):
+                    if(emos[2][0] == 'approval' or emos[2][0] == 'disapproval'):
+                        occurrences.append(emos[3][0])
+                    else:
+                        occurrences.append(emos[2][0])
+                else:    
+                    occurrences.append(emos[1][0])
             else:
                 occurrences.append(emos[0][0])
         return occurrences
@@ -123,5 +129,5 @@ def construct_Data_Frame_from_Song(song):
 
 if __name__ == "__main__":
    print("Spotify Emotions Server Started \nPress Ctrl+C to stop the server \nServing..")
-   serve(app, host="127.0.0.1", port=8081)
+   serve(app, host="127.0.0.1", port=8080)
 
