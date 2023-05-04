@@ -22,7 +22,6 @@ import './style.css';
 // reactstrap components to choose from
 import {
   Button,
-  Card,
   CardHeader,
   CardBody,
   FormGroup,
@@ -40,16 +39,30 @@ import {
   DropdownItem
 } from "reactstrap";
 
+// @mui
+import {
+  Card,
+  Box,
+  Stack,
+  ImageList,
+  ImageListItem,
+  Tooltip,
+} from '@mui/material';
+
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import SongsBox from "components/Spotify/SongsBox.js"
-import { getResponse, getProfile, getTopSongs, getTopSongsInfo } from "util/SpotifyOath.js";
+import { getResponse, getProfile, getTopSongs, getTopSongsInfo, getTopSongsData, getSingleSongInfo, getSingleSongData } from "util/SpotifyOath.js";
+import { Alert } from "reactstrap";
 
 // List of emotion to select from dropdown
 const emotions = ["Admiration", "Amusement", "Anger", "Annoyance", "Approval", "Caring", "Confusion", "Curiosity", "Desire", "Disappointment", 'Disapproval', 'Disgust', 'Embarrassment', "Excitement", "Fear", "Gratitude", "Grief", "Joy", "Love", "Nervousness", "Optimism", "Pride", "Realization", "Relief", "Remorse", "Sadness", "Surprise", "Neutral"];
 // List of time ranges to select from dropdown
-const timeframe = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+const timeframe = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+
+const host = "73.249.253.64"
+const port = '8080'
 
 // Class extending react components
 class Data extends React.Component {
@@ -68,10 +81,12 @@ class Data extends React.Component {
       selectedVal_Emotion: null,
       selectedTitle_TimeFrame: "",
       selectedTitle_SongRange: "",
-      selectedTitle_Emotion: ""
+      selectedTitle_Emotion: "",
+      base64_encoded_gimage: "",
+      isButtonClicked: false
     };
 
-    
+
   }
 
   // Make sure webpage starts at top
@@ -84,12 +99,40 @@ class Data extends React.Component {
     getResponse().then(() => {
       console.log("profile");
       getProfile();
-      getTopSongs();
-
-      getTopSongsInfo().then(songs => this.setState({songs}));;
+      //getTopSongs();
+      //getTopSongsData();
     });
 
 
+
+  }
+
+  /*
+  This method is responsible for contacting the server
+  to construct a graph for a single song.
+  */
+  sendSingleSongGraphInput = async () => {
+    this.setState({ isButtonClicked: true });
+    this.setState({ base64_encoded_gimage: undefined });
+
+    // Load the top songs.
+    getSingleSongInfo(this.state.selected_SongName).then(songs => this.setState({ songs }));
+
+    // Fetch for the Data Analysis and Graph Image encoded
+    console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
+    const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: await getSingleSongData(this.state.selected_SongName)
+    }).catch(error => console.error(error));
+
+    const data = await response.json();
+    const encoded_image = data['base64_encoded_gimage']; // Base64 Encoded Globak
+    this.setState({ base64_encoded_gimage: encoded_image });
+
+    console.log(data);
     
   }
 
@@ -99,38 +142,28 @@ class Data extends React.Component {
   contains info on Time Frame & Song Range the
   user has selected from the dropdown menus.
   */
-  sendGraphInput = () => {
-    const { selectedVal_TimeFrame, selectedVal_SongRange } = this.state;
-    fetch('http://localhost:5000/api/save_input', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ data: [selectedVal_TimeFrame, selectedVal_SongRange] })
-    })
-      .then(response => response.text())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
-  }
+  sendGraphInput = async () => {
+    this.setState({ isButtonClicked: true });
+    this.setState({ base64_encoded_gimage: undefined });
 
-  /*
-  This method is responsible for creating 
-  post requests of the song rec. data. Song rec. data
-  contains info on Emotion the
-  user has selected from the dropdown menu.
-  */
-  sendSongRecommendationInput = () => {
-    const selectedInput3 = this.state.selectedVal_Emotion;
-    fetch('http://localhost:5000/api/save_input', {
+    // Load the top songs.
+    getTopSongsInfo(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange).then(songs => this.setState({ songs }));
+
+    // Fetch for the Data Analysis and Graph Image encoded
+    console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
+    const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ data: selectedInput3 })
-    })
-      .then(response => response.text())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
+      body: await getTopSongsData(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange)
+    }).catch(error => console.error(error));
+
+    const data = await response.json();
+    const encoded_image = data['base64_encoded_gimage']; // Base64 Encoded Globak
+    this.setState({ base64_encoded_gimage: encoded_image });
+
+    console.log(data);
   }
 
   /*
@@ -154,6 +187,13 @@ class Data extends React.Component {
   handleRadioChange = (event) => {
     this.setState({
       selectedRadio: event.target.value,
+    });
+  };
+
+  // Handles text change from the Input Field Box (single song input)
+  handleSingleSongInputChange = (event) => {
+    this.setState({
+      selected_SongName: event.target.value,
     });
   };
 
@@ -214,9 +254,9 @@ class Data extends React.Component {
           <div className="container-fluid"> {/* Container that houses are the components between the header and footer */}
             <div className="row" style={{ height: "600px" }}> {/* Sections within the container*/}
               {/* Radio buttons */}
-              <div className=""col-md-3>
+              <div className="col-md-3">
                 <div>
-                  <h3 class="animate-charcter"> Select an Analysis</h3>
+                  <h3 class="animate-character"> Select an Analysis</h3>
                   {/*<h2 class="wave" data-content="Select an Analysis">Select an Analysis</h2>*/}
 
                   <Form>
@@ -243,11 +283,11 @@ class Data extends React.Component {
                             id="customRadio6"
                             name="radio1"
                             type="radio"
-                            value="song"
+                            value="single"
                             onClick={this.handleRadioChange}
                           />
                           <label className="custom-control-label" htmlFor="customRadio6">
-                            <strong>Song Recommendation</strong>
+                            <strong>Single Song Analysis</strong>
                           </label>
                         </div>
                       </FormGroup>
@@ -255,7 +295,7 @@ class Data extends React.Component {
                   </Form>
                 </div>
 
-                <h3 class="animate-charcter"> Specifications</h3> {/* Header */}
+                <h3 class="animate-character"> Specifications</h3> {/* Header */}
                 {/* If graph radio button selected */}
 
                 {selectedRadio === "graph" && (
@@ -263,13 +303,13 @@ class Data extends React.Component {
                     <Dropdown isOpen={dropdownOpen_Graph_TimeFrame} toggle={this.toggleDropdown_TimeFrame} style={{ marginTop: '10px' }}>
                       <DropdownToggle caret>{selectedTitle_TimeFrame || "Select Time Frame"}</DropdownToggle>
                       <DropdownMenu>
-                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('4 Weeks')}>
+                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('short_term')}>
                           4 Weeks
                         </DropdownItem>
-                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('6 Months')}>
+                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('medium_term')}>
                           6 Months
                         </DropdownItem>
-                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('Overall')}>
+                        <DropdownItem onClick={() => this.handleDropdownSelect_TimeFrame('long_term')}>
                           Overall
                         </DropdownItem>
                       </DropdownMenu>
@@ -302,52 +342,75 @@ class Data extends React.Component {
                     </div>
                   </div>
                 )}
+                {selectedRadio === "single" && (
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    
+                    {/*Text Field for the single song*/}
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <FormGroup>
+                        <Input
+                          id="singlesonginput"
+                          placeholder="song name"
+                          type="text"
+                          onChange={this.handleSingleSongInputChange}
+                        />
+                      </FormGroup>
+                    </div>
 
-                {/* If song radio button selected */}
-                {selectedRadio === "song" && (
-                  <div>
-                    {/* Map song array to dropdown */}
-                    <Dropdown isOpen={dropdownOpen_Song_Emotion} toggle={this.toggleDropdown_Emotion}>
-                      <DropdownToggle caret>{selectedTitle_Emotion || "Select an Emotion"}</DropdownToggle>
-                      <DropdownMenu style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                        {emotions.map((emotion) => (
-                          <DropdownItem key={emotion} onClick={() => this.handleDropdownSelect_Emotion(emotion, 'dropdown3')}>
-                            {emotion}
-                          </DropdownItem>
-                        ))}
-                      </DropdownMenu>
-                    </Dropdown>
-
-                    {/* Button to send emotion data */}
+                    {/* Button to send data to server */}
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                       <Button
                         color="primary"
                         size="lg"
                         type="button"
                         className="ml-1"
-                        style={{ marginTop: '50px' }}
-                        onClick={this.sendSongRecommendationInput}
+                        style={{ marginTop: '25px' }}
+                        onClick={this.sendSingleSongGraphInput}
                       >
                         Send
                       </Button>
                     </div>
-                  </div>
+                  </div> 
                 )}
 
+
+
+
               </div>
-                   <div className="col-md-9" style={{ height: "600px" , backgroundColor: "rgb(196, 194, 187)"}}>
-            {/* content of the col-md-9 */}
+
+             <div className="col-md-9" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "600px", backgroundColor: "#F5F5F5" }}>
+                {/* content of the col-md-9 */}
+                {this.state.base64_encoded_gimage ? (
+
+                    <Card sx={{ minWidth: '50rem', minHeight: 450, maxHeight: 550, bgcolor: 'F5F5F5' }}>
+                      <Box sx={{ position: 'relative', pt: 1 }}>
+                        <img src={`data:image/jpg;base64,${this.state.base64_encoded_gimage}`} alt="graph" />
+                      </Box>
+                    </Card>
+                ) : (
+
+                  this.state.isButtonClicked && <p onClick={this.handleButtonClick}><div class="loader"></div></p>
+                )}
+
+
+              </div>
+            </div>
           </div>
-          </div>
-        </div>
-        
-        <div className="TopSongs-Data">
-        {this.state.songs && (
+          <div className="TopSongs-Data">
+            <div className="top-songs-label">
+
+              <label className="custom-control-label" htmlFor="customRadio6">
+                <h3 className="animate-character" style={{ marginLeft: '20px' }}>Your Top Songs</h3>
+              </label>
+
+            </div>
+
+            {this.state.songs && (
               <SongsBox songs={this.state.songs}> </SongsBox>
-            )} 
-        </div>
-      </main>
-      <SimpleFooter /> {/* Prebuilt Footer */}
+            )}
+          </div>
+        </main>
+        {/* <SimpleFooter /> Prebuilt Footer */}
       </>
     );
   }
