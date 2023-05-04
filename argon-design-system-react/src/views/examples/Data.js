@@ -62,7 +62,7 @@ const emotions = ["Admiration", "Amusement", "Anger", "Annoyance", "Approval", "
 const timeframe = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
 const host = "127.0.0.1"
-const port = '8080'
+const port = '8081'
 
 // Class extending react components
 class Data extends React.Component {
