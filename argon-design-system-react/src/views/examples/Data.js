@@ -286,15 +286,17 @@ class Data extends React.Component {
 
 
               </div>
+
               <div className="col-md-9" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "600px", backgroundColor: "#F5F5F5" }}>
                 {/* content of the col-md-9 */}
                 {this.state.base64_encoded_image ? (
-                  <img src={`data:image/png;base64,${this.state.base64_encoded_image}`} alt="graph" />
+                  <div className="loader-hidden">
+                    <img src={`data:image/png;base64,${this.state.base64_encoded_image}`} alt="graph" />
+                  </div>
                 ) : (
 
-                  this.state.isButtonClicked && <p onClick={this.handleButtonClick}>Loading<span class="dot-1"> . </span><span class="dot-2"> . </span><span class="dot-3"> . </span></p>
+                  this.state.isButtonClicked && <p onClick={this.handleButtonClick}><div class="loader"></div></p>
                 )}
-
 
 
               </div>
