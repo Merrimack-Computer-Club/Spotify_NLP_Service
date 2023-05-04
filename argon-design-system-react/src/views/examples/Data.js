@@ -115,6 +115,7 @@ class Data extends React.Component {
   */
   sendGraphInput = async () => {
     this.setState({ isButtonClicked: true });
+    this.setState({ base64_encoded_gimage: undefined });
 
     // Load the top songs.
     getTopSongsInfo(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange).then(songs => this.setState({ songs }));
