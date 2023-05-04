@@ -303,9 +303,11 @@ class Data extends React.Component {
 
           <div className="TopSongs-Data">
             <div className="top-songs-label">
+
               <label className="custom-control-label" htmlFor="customRadio6">
                 <h3 className="animate-character" style={{ marginLeft: '20px' }}>Your Top Songs</h3>
               </label>
+
             </div>
 
             {this.state.songs && (
