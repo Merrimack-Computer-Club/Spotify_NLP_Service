@@ -33,6 +33,7 @@ def scrape_song(song):
     # Load in the config file.
     config = toml.load('config.toml')
 
+    # Determine if we should web-scrape the full lyrics or use the Musixmatch lyrics API.
     if(not config['server']['use_full_lyrics']):
         get_lyrics_thirty(song, config['server']['musix_match_api_key'])
     else:
@@ -50,7 +51,7 @@ def scrape_song(song):
         # Get the page from the track_url 
         print(track_url)
         s.headers.update(headers)
-        s.proxies.update({"http":config['server']['http_proxy'], "http":config['server']['https_proxy']}) # https://free-proxy-list.net/
+        s.proxies.update({"http":config['server']['http_proxy'], "https":config['server']['https_proxy']}) # https://free-proxy-list.net/
         page = s.get(track_url)
 
         if(page.status_code != 200):
@@ -58,8 +59,6 @@ def scrape_song(song):
 
         # Print the status code
         print(f'Status Code: {page.status_code}')
-
-        print(page.content)
 
         # Get the Lyrics and create the Beautiful Soup obj from import.
         soup = BeautifulSoup(page.content, "html.parser")
@@ -72,13 +71,18 @@ def scrape_song(song):
             var = var.split('\n')
             song.lyrics = [ret for ret in var if ret]
 
-        print(song.lyrics)
+        # If empty print out to console that the IP's may be blocked
+        if not song.lyrics:
+            print("[server] Your Proxies' IPs are blocked, please enter new proxies in the config.toml to refresh or set 'use_full_lyrics' in config.toml to false.\n\tOr your song's had no lyrics / no MusixMatch URL found.")
 
 '''Gets the thirty percent of lyrics incase IP's are blocked'''
 def get_lyrics_thirty(song, musixmatch_api_key):
     # Get the Request
     request  = requests.get(f'https://api.musixmatch.com/ws/1.1/track.lyrics.get?apikey={musixmatch_api_key}&track_isrc={song.isrc}', headers={'Accept': 'application/json'})
     
+    # Print out the status code
+    print(f'Lyrics API Status: {request.status_code}')
+
     # Check for status code 200
     if(request.status_code != 200):
         return None
@@ -91,7 +95,6 @@ def get_lyrics_thirty(song, musixmatch_api_key):
     # Assign the 30% of song lyrics incase the proxies break mid-session
     lyrics = msc_json['message']['body']['lyrics']['lyrics_body'].split('\n')
     song.lyrics = [ret for ret in lyrics if ret and '******* This Lyrics is NOT for Commercial use *******' not in ret] 
-    print(song.lyrics)
 
 
 '''Gets share url for a song based on the musixmatch API'''
@@ -99,6 +102,9 @@ def get_musixmatch_share_url(song, musixmatch_api_key):
     # Get the Request
     request  = requests.get(f'https://api.musixmatch.com/ws/1.1/track.get?apikey={musixmatch_api_key}&track_isrc={song.isrc}', headers={'Accept': 'application/json'})
     
+    # Print out the status code
+    print(f'Share URL Status: {request.status_code}')
+
     # Check for status code 200
     if(request.status_code != 200):
         return None
