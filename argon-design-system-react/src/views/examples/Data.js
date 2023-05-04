@@ -53,7 +53,7 @@ import {
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import SongsBox from "components/Spotify/SongsBox.js"
-import { getResponse, getProfile, getTopSongs, getTopSongsInfo, getTopSongsData } from "util/SpotifyOath.js";
+import { getResponse, getProfile, getTopSongs, getTopSongsInfo, getTopSongsData, getSingleSongInfo, getSingleSongData } from "util/SpotifyOath.js";
 import { Alert } from "reactstrap";
 
 // List of emotion to select from dropdown
@@ -108,6 +108,35 @@ class Data extends React.Component {
   }
 
   /*
+  This method is responsible for contacting the server
+  to construct a graph for a single song.
+  */
+  sendSingleSongGraphInput = async () => {
+    this.setState({ isButtonClicked: true });
+    this.setState({ base64_encoded_gimage: undefined });
+
+    // Load the top songs.
+    getSingleSongInfo(this.state.selected_SongName).then(songs => this.setState({ songs }));
+
+    // Fetch for the Data Analysis and Graph Image encoded
+    console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
+    const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: await getSingleSongData(this.state.selected_SongName)
+    }).catch(error => console.error(error));
+
+    const data = await response.json();
+    const encoded_image = data['base64_encoded_gimage']; // Base64 Encoded Globak
+    this.setState({ base64_encoded_gimage: encoded_image });
+
+    console.log(data);
+    
+  }
+
+  /*
   This method is responsible for creating 
   post requests of the graph data. Graph data
   contains info on Time Frame & Song Range the
@@ -120,6 +149,7 @@ class Data extends React.Component {
     // Load the top songs.
     getTopSongsInfo(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange).then(songs => this.setState({ songs }));
 
+    // Fetch for the Data Analysis and Graph Image encoded
     console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
     const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
       method: 'POST',
@@ -157,6 +187,13 @@ class Data extends React.Component {
   handleRadioChange = (event) => {
     this.setState({
       selectedRadio: event.target.value,
+    });
+  };
+
+  // Handles text change from the Input Field Box (single song input)
+  handleSingleSongInputChange = (event) => {
+    this.setState({
+      selected_SongName: event.target.value,
     });
   };
 
@@ -239,7 +276,21 @@ class Data extends React.Component {
                           </label>
                         </div>
                       </FormGroup>
-
+                      <FormGroup check>
+                        <div className="custom-control custom-radio mb-3">
+                          <input
+                            className="custom-control-input"
+                            id="customRadio6"
+                            name="radio1"
+                            type="radio"
+                            value="single"
+                            onClick={this.handleRadioChange}
+                          />
+                          <label className="custom-control-label" htmlFor="customRadio6">
+                            <strong>Single Song Anylsis</strong>
+                          </label>
+                        </div>
+                      </FormGroup>
                     </FormGroup>
                   </Form>
                 </div>
@@ -290,6 +341,36 @@ class Data extends React.Component {
                       </Button>
                     </div>
                   </div>
+                )}
+                {selectedRadio === "single" && (
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    
+                    {/*Text Field for the single song*/}
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <FormGroup>
+                        <Input
+                          id="singlesonginput"
+                          placeholder="song name"
+                          type="text"
+                          onChange={this.handleSingleSongInputChange}
+                        />
+                      </FormGroup>
+                    </div>
+
+                    {/* Button to send data to server */}
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <Button
+                        color="primary"
+                        size="lg"
+                        type="button"
+                        className="ml-1"
+                        style={{ marginTop: '25px' }}
+                        onClick={this.sendSingleSongGraphInput}
+                      >
+                        Send
+                      </Button>
+                    </div>
+                  </div> 
                 )}
 
 
