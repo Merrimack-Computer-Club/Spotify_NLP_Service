@@ -4,68 +4,6 @@ import random
 import base64
 import io
 
-# Example array for df
-songs = [
-    "Song A",
-    "Song B",
-    "Song C",
-    "Song D",
-    "Song E",
-    "Song F",
-    "Song G",
-    "Song H",
-    "Song I",
-    "Song J",
-    "Song K",
-    "Song L",
-    "Song M",
-    "Song N",
-    "Song O",
-    "Song P",
-    "Song Q",
-    "Song R",
-    "Song S",
-    "Song T",
-]
-emotions = [
-    "Admiration",
-    "Amusement",
-    "Anger",
-    "Annoyance",
-    "Approval",
-    "Caring",
-    "Confusion",
-    "Curiosity",
-    "Desire",
-    "Disappointment",
-    "Disapproval",
-    "Disgust",
-    "Embarrassment",
-    "Excitement",
-    "Fear",
-    "Gratitude",
-    "Grief",
-    "Joy",
-    "Love",
-    "Nervousness",
-    "Optimism",
-    "Pride",
-    "Realization",
-    "Relief",
-    "Remorse",
-    "Sadness",
-    "Surprise",
-    "Neutral",
-]
-
-# Define the EXAMPLE data frame
-"""data = pd.DataFrame(
-    {
-        "emotion": random.choices(emotions, k=100),
-    }
-)"""
-
-
 '''
 Constructs a Graph Image based off of the given data
 Then encodes the image in base64 to be sent back to the server.
