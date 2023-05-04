@@ -85,14 +85,17 @@ class Model:
             # Resource(s): https://www.youtube.com/watch?v=mw7ay38--ak
         train_data_loader = self.to_data_loader(train_input_ids, train_attention_masks, train_labels)
 
-        # Initialize the model for training purposes
+        # Step 3: Initialize the BertClassifier, optimizer, and the training scheduler
+            # (train_data_loader is used for sizing)
+            # Initialize the model for training purposes
         classifier, optimizer, scheduler = self.initialize_model(train_data_loader)
         
-        # Instantiate the classifier, optimizer, scheduler, and tokenizer
+            # Instantiate the classifier, optimizer, scheduler, and tokenizer
         self.bert_classifier = classifier
         self.optimizer = optimizer
         self.scheduler = scheduler
 
+        # Step 4: Train the data
         self.train(train_data_loader=train_data_loader)
 
     # Initializing the model, optimizer, and learning rate scheduler for training
