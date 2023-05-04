@@ -8,7 +8,6 @@ class Song:
         self.artists = artists
         self.isrc = isrc
         self.lyrics = []
-        self.emotions = []
 
     def __str__(self):
         return self.name + " " + self.artists + " " + self.isrc + " " + self.lyrics
