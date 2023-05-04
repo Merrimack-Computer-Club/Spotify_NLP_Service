@@ -192,6 +192,90 @@ export async function getTopSongsData(time_range, song_limit) {
 }
 
 /**
+ * Gets the information for a single song based on its song name
+ *  1st. Fetch the search function from the spotify endpoint
+ *  2nd. Get the song that is the most similar to the search params
+ *  3rd. Format the song for the server endpoint
+ *  4th. Add the song to a list
+ *  5th. Return the list.
+ */
+export async function getSingleSongInfo(song_name) {
+
+  let accessToken = localStorage.getItem('access_token');
+
+  let body = new URLSearchParams({
+    q: (!song_name) ? "Skyline" : song_name.replaceAll('/\s/g', '+'),
+    offset: '0',
+    market: 'ES',
+    type: 'track',
+    limit: '1',
+    include_external: 'audio',
+  });
+
+  const response = await fetch(`https://api.spotify.com/v1/search?` + body, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + accessToken
+      },
+  });
+
+  const data = await response.json();
+
+  let name = "";
+  if(data.tracks.items[0].name != undefined)
+    name = data.tracks.items[0].name;
+
+  let img_url = "";
+  if(data.tracks.items[0].album.images[0].url != undefined)
+    img_url = data.tracks.items[0].album.images[0].url;
+
+  let artist = "| ";
+  if(data.tracks.items[0].artists != undefined)
+    data.tracks.items[0].artists.forEach(p => artist += p.name + " ")
+
+  let url = "";
+  if(data.tracks.items[0].preview_url != undefined)
+    url = data.tracks.items[0].preview_url;
+  
+  var list = [];
+  list.push(new song(name, img_url, artist, url));
+  return list;
+
+  /*
+  const song_objs = [];
+  // Get all of the song names
+  data.items.forEach(item => {
+
+    let name = "";
+    if(item.name != undefined)
+      name = item.name;
+
+    let img_url = "";
+    if(item.album.images[0].url != undefined)
+      img_url = item.album.images[0].url;
+
+    let artist = "| ";
+    if(item.artists != undefined)
+      item.artists.forEach(p => artist += p.name + " ")
+
+    let url = "";
+    if(item.preview_url != undefined)
+      url = item.preview_url;
+  
+    let add = true;
+    if(song_objs.forEach(song => {
+      if(song.name === name)
+        add = false;
+    }));
+      
+    if(add)
+      song_objs.push(new song(name, img_url, artist, url));
+  });
+
+  return song_objs;
+  */
+}
+/**
  * Gets the top songs
  * @returns a pair of <song_name, image_url>
  */
