@@ -53,7 +53,7 @@ import {
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import SongsBox from "components/Spotify/SongsBox.js"
-import { getResponse, getProfile, getTopSongs, getTopSongsInfo, getTopSongsData, getSingleSongInfo } from "util/SpotifyOath.js";
+import { getResponse, getProfile, getTopSongs, getTopSongsInfo, getTopSongsData, getSingleSongInfo, getSingleSongData } from "util/SpotifyOath.js";
 import { Alert } from "reactstrap";
 
 // List of emotion to select from dropdown
@@ -118,14 +118,14 @@ class Data extends React.Component {
     // Load the top songs.
     getSingleSongInfo(this.state.selected_SongName).then(songs => this.setState({ songs }));
 
-    /*
+    // Fetch for the Data Analysis and Graph Image encoded
     console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
     const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: await getTopSongsData(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange)
+      body: await getSingleSongData(this.state.selected_SongName)
     }).catch(error => console.error(error));
 
     const data = await response.json();
@@ -133,7 +133,7 @@ class Data extends React.Component {
     this.setState({ base64_encoded_gimage: encoded_image });
 
     console.log(data);
-    */
+    
   }
 
   /*
@@ -149,6 +149,7 @@ class Data extends React.Component {
     // Load the top songs.
     getTopSongsInfo(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange).then(songs => this.setState({ songs }));
 
+    // Fetch for the Data Analysis and Graph Image encoded
     console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
     const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
       method: 'POST',
