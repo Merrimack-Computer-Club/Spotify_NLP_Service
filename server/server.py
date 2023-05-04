@@ -105,4 +105,5 @@ def construct_Data_Frame_from_Song(song):
 
 if __name__ == "__main__":
    print("Spotify Emotions Server Started \nPress Ctrl+C to stop the server \nServing..")
-   serve(app, host="10.0.0.231", port=8080)
+   serve(app, host="127.0.0.1", port=8080)
+

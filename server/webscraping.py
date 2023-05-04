@@ -72,7 +72,7 @@ def get_musixmatch_share_url(song):
     request  = requests.get(f'https://api.musixmatch.com/ws/1.1/track.get?apikey={musixmatch_api_key}&track_isrc={song.isrc}', headers={'Accept': 'application/json'})
     
     # Check for status code 200
-    if(request.status_code != 200)
+    if(request.status_code != 200):
         return None
 
     # Construct the content
