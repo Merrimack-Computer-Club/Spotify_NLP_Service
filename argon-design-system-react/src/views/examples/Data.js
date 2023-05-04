@@ -124,7 +124,6 @@ class Data extends React.Component {
     this.setState({ base64_encoded_image: encoded_image });
 
     console.log(data);
-
   }
 
   /*
@@ -303,6 +302,12 @@ class Data extends React.Component {
           </div>
 
           <div className="TopSongs-Data">
+            <div className="top-songs-label">
+                <label className="custom-control-label" htmlFor="customRadio6">
+                  <h3 className="animate-character" style={{ marginLeft: '20px' }}>Your Top Songs</h3>
+                </label>
+            </div>
+
             {this.state.songs && (
               <SongsBox songs={this.state.songs}> </SongsBox>
             )}

@@ -151,7 +151,7 @@ class Model:
                         )
             
             # Add the encoded sentence to the list
-            if(len(encoded_dict['input_ids']) == 0):
+            if(len(encoded_dict['input_ids']) == 0 or encoded_dict['input_ids'] == None):
                 return None, None, None
             input_ids.append(encoded_dict['input_ids'])
             
