@@ -73,10 +73,10 @@ class Data extends React.Component {
       selectedTitle_TimeFrame: "",
       selectedTitle_SongRange: "",
       selectedTitle_Emotion: "",
-      base64_Encoded_Graph: "",
+      base64_encoded_image: "",
     };
 
-    
+
   }
 
   // Make sure webpage starts at top
@@ -91,13 +91,13 @@ class Data extends React.Component {
       getProfile();
       getTopSongs();
 
-      getTopSongsInfo().then(songs => this.setState({songs}));;
+      getTopSongsInfo().then(songs => this.setState({ songs }));;
 
       //getTopSongsData();
     });
 
 
-    
+
   }
 
   /*
@@ -109,17 +109,17 @@ class Data extends React.Component {
   sendGraphInput = async () => {
     console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
     const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: await getTopSongsData(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange)
-      }).catch(error => console.error(error));
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: await getTopSongsData(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange)
+    }).catch(error => console.error(error));
 
-      const data = await response.json();
-      const encoded_image = data['base64_encoded_gimage']; // Base64 Encoded Globak
-      this.setState({ base64_encoded_image: encoded_image });
-      
+    const data = await response.json();
+    const encoded_image = data['base64_encoded_gimage']; // Base64 Encoded Globak
+    this.setState({ base64_encoded_image: encoded_image });
+
   }
 
   /*
@@ -225,7 +225,7 @@ class Data extends React.Component {
                           </label>
                         </div>
                       </FormGroup>
-                      
+
                     </FormGroup>
                   </Form>
                 </div>
@@ -278,23 +278,31 @@ class Data extends React.Component {
                   </div>
                 )}
 
-              
-             
+
+
 
               </div>
-                   <div className="col-md-9" style={{ height: "600px" , backgroundColor: "rgb(196, 194, 187)"}}>
-            {/* content of the col-md-9 */}
+              <div className="col-md-9" style={{ height: "600px", backgroundColor: "rgb(196, 194, 187)" }}>
+                {/* content of the col-md-9 */}
+                {this.state.base64_encoded_image ? (
+                  <img src={`data:image/png;base64,${this.state.base64_encoded_image}`} alt="graph" />
+                ) : (
+                  <p>Graph not available yet</p>
+                )}
+
+
+
+              </div>
+            </div>
           </div>
-          </div>
-        </div>
-        
-        <div className="TopSongs-Data">
-        {this.state.songs && (
+
+          <div className="TopSongs-Data">
+            {this.state.songs && (
               <SongsBox songs={this.state.songs}> </SongsBox>
-            )} 
-        </div>
-      </main>
-      <SimpleFooter /> {/* Prebuilt Footer */}
+            )}
+          </div>
+        </main>
+        <SimpleFooter /> {/* Prebuilt Footer */}
       </>
     );
   }
