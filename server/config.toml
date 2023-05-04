@@ -1,0 +1,4 @@
+[server]
+musix_match_api_key = "ce0064c0705a30e2b136cfa78dd75eea"
+http_proxy = "118.185.179.10:80"
+https_proxy = "78.138.98.115:3128"
