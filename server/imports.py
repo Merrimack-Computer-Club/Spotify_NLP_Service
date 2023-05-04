@@ -23,3 +23,6 @@ import json as json
 # Beautiful Soup
 import requests
 from bs4 import BeautifulSoup
+
+# TOML 
+import toml

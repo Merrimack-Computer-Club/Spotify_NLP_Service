@@ -1,5 +1,5 @@
 from imports import *
-musixmatch_api_key = "ce0064c0705a30e2b136cfa78dd75eea"
+#musixmatch_api_key = "ce0064c0705a30e2b136cfa78dd75eea"
 
 class Song:
     
@@ -30,10 +30,14 @@ Returns the lyrics to a song based on its isrc
 Input is a 'Song' class object.
 '''
 def scrape_song(song):
+
+    # Load in the config file.
+    config = toml.load('config.toml')
+
     # Request the session
     s = requests.Session()
 
-    track_url = get_musixmatch_share_url(song)
+    track_url = get_musixmatch_share_url(song, config['server']['musix_match_api_key'])
 
     # Assure that the track was found
     if(track_url == None):
@@ -44,7 +48,7 @@ def scrape_song(song):
     # Get the page from the track_url 
     print(track_url)
     s.headers.update(headers)
-    s.proxies.update({"http":"104.211.29.96:80", "http":"188.226.188.71:3128"}) # https://free-proxy-list.net/
+    s.proxies.update({"http":config['server']['http_proxy'], "http":config['server']['https_proxy']}) # https://free-proxy-list.net/
     page = s.get(track_url)
 
     if(page.status_code != 200):
@@ -53,6 +57,8 @@ def scrape_song(song):
     # Print the status code
     print(f'Status Code: {page.status_code}')
 
+    #print(page.content)
+
     # Get the Lyrics and create the Beautiful Soup obj from import.
     soup = BeautifulSoup(page.content, "html.parser")
     lyrics_set = soup.findAll("span", class_="lyrics__content__ok")
@@ -60,13 +66,14 @@ def scrape_song(song):
     # Construct the lyrics from the set of lyrics.
     # Assign the lyrics to this song.
     for string in lyrics_set:
-        string = string.text.strip()
-        song.lyrics = [ret for ret in string.split('\n') if ret]
+        var = string.text.strip()
+        var = var.split('\n')
+        song.lyrics = [ret for ret in var if ret]
 
-    #print(song.lyrics)
+    print(song.lyrics)
 
 '''Gets share url for a song based on the musixmatch API'''
-def get_musixmatch_share_url(song):
+def get_musixmatch_share_url(song, musixmatch_api_key):
     # Get the Request
     request  = requests.get(f'https://api.musixmatch.com/ws/1.1/track.get?apikey={musixmatch_api_key}&track_isrc={song.isrc}', headers={'Accept': 'application/json'})
     
@@ -78,6 +85,10 @@ def get_musixmatch_share_url(song):
     musixmatch_song_content = request.content
 
     msc_json = json.loads(musixmatch_song_content.decode('utf-8'))
+
+    # Assign the 30% of song lyrics incase the proxies break mid-session
+    # lyrics = msc_json['message']['body']['lyrics']['lyrics_body'].split('\n')
+    # song.lyrics = [ret for ret in lyrics if ret and '******* This Lyrics is NOT for Commercial use *******' not in ret] 
 
     track_share_url = msc_json['message']['body']['track']['track_share_url']
 
