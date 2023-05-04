@@ -79,7 +79,7 @@ export async function getTopSongs(time_range, song_limit) {
 
   let body = new URLSearchParams({
     time_range: time_range === undefined ? 'medium_term' : time_range,
-    limit: song_limit === undefined ? '50' : song_limit,
+    limit: song_limit === undefined ? '15' : song_limit,
     offset: '0'
   });
 
