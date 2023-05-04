@@ -74,6 +74,7 @@ class Data extends React.Component {
       selectedTitle_SongRange: "",
       selectedTitle_Emotion: "",
       base64_encoded_image: "",
+      isButtonClicked: false
     };
 
 
@@ -107,6 +108,7 @@ class Data extends React.Component {
   user has selected from the dropdown menus.
   */
   sendGraphInput = async () => {
+    this.setState({ isButtonClicked: true });
     console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
     const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
       method: 'POST',
@@ -282,12 +284,13 @@ class Data extends React.Component {
 
 
               </div>
-              <div className="col-md-9" style={{ height: "600px", backgroundColor: "rgb(196, 194, 187)" }}>
+              <div className="col-md-9" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "600px", backgroundColor: "rgb(196, 194, 187)" }}>
                 {/* content of the col-md-9 */}
                 {this.state.base64_encoded_image ? (
                   <img src={`data:image/png;base64,${this.state.base64_encoded_image}`} alt="graph" />
                 ) : (
-                  <p>Graph not available yet</p>
+
+                  this.state.isButtonClicked && <p onClick={this.handleButtonClick}>Graph loading . . .</p>
                 )}
 
 
