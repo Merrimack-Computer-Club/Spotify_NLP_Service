@@ -22,7 +22,6 @@ import './style.css';
 // reactstrap components to choose from
 import {
   Button,
-  Card,
   CardHeader,
   CardBody,
   FormGroup,
@@ -39,6 +38,16 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+
+// @mui
+import {
+  Card,
+  Box,
+  Stack,
+  ImageList,
+  ImageListItem,
+  Tooltip,
+} from '@mui/material';
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
@@ -73,7 +82,7 @@ class Data extends React.Component {
       selectedTitle_TimeFrame: "",
       selectedTitle_SongRange: "",
       selectedTitle_Emotion: "",
-      base64_encoded_image: "",
+      base64_encoded_gimage: "",
       isButtonClicked: false
     };
 
@@ -121,7 +130,7 @@ class Data extends React.Component {
 
     const data = await response.json();
     const encoded_image = data['base64_encoded_gimage']; // Base64 Encoded Globak
-    this.setState({ base64_encoded_image: encoded_image });
+    this.setState({ base64_encoded_gimage: encoded_image });
 
     console.log(data);
   }
@@ -287,12 +296,15 @@ class Data extends React.Component {
 
               </div>
 
-              <div className="col-md-9" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "600px", backgroundColor: "#F5F5F5" }}>
+             <div className="col-md-9" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "600px", backgroundColor: "#F5F5F5" }}>
                 {/* content of the col-md-9 */}
-                {this.state.base64_encoded_image ? (
-                  <div className="loader-hidden">
-                    <img src={`data:image/png;base64,${this.state.base64_encoded_image}`} alt="graph" />
-                  </div>
+                {this.state.base64_encoded_gimage ? (
+
+                    <Card sx={{ minWidth: '50rem', minHeight: 450, maxHeight: 550, bgcolor: 'F0FAE4' }}>
+                      <Box sx={{ position: 'relative', pt: 1 }}>
+                        <img src={`data:image/jpg;base64,${this.state.base64_encoded_gimage}`} alt="graph" />
+                      </Box>
+                    </Card>
                 ) : (
 
                   this.state.isButtonClicked && <p onClick={this.handleButtonClick}><div class="loader"></div></p>
@@ -302,7 +314,6 @@ class Data extends React.Component {
               </div>
             </div>
           </div>
-
           <div className="TopSongs-Data">
             <div className="top-songs-label">
 
