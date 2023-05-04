@@ -81,7 +81,6 @@ class Model:
             # Tokenize the inputs
         train_input_ids, train_attention_masks, train_labels = self.tokenize_inputs(df)
 
-
         # Step 2: Load the data into a DataLoader object
             # Resource(s): https://www.youtube.com/watch?v=mw7ay38--ak
         train_data_loader = self.to_data_loader(train_input_ids, train_attention_masks, train_labels)
@@ -161,6 +160,10 @@ class Model:
             # Add the labels to the list
             labels.append(emotions)
         
+        # If input_ids is empty, then return None, None, None
+        if not input_ids:
+            return None, None, None
+
         # Convert the lists to tensors
         input_ids = torch.cat(input_ids, dim=0)
         attention_masks = torch.cat(attention_masks, dim=0)
@@ -268,7 +271,7 @@ class Model:
         input_ids, attention_masks, labels = self.tokenize_inputs(df)
 
         # Do a null check (if there's no lyrics to tokenize, return an empty list)
-        if(input_ids == None):
+        if(input_ids is None):
             return []
 
         # Convert to a data loader
