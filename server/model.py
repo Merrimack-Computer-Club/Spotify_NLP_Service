@@ -114,7 +114,7 @@ class Model:
         classifier.to(self.device)
 
         # Create an AdamW optimizer
-        optimizer = AdamW(classifier.parameters(),
+        optimizer = torch.optim.AdamW(classifier.parameters(),
                         lr=5e-5,   # Best learning rate (lr) described. Also default
                         eps=1e-8)  # Default epsilon value
         
@@ -149,9 +149,6 @@ class Model:
                                 return_tensors = 'pt'
                         )
             
-            # Add the encoded sentence to the list
-            if(len(encoded_dict['input_ids']) == 0 or encoded_dict['input_ids'] == None):
-                return None, None, None
             input_ids.append(encoded_dict['input_ids'])
             
             # Add the attention mask for the encoded sentence to the list
