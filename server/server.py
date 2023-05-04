@@ -20,23 +20,21 @@ CORS(app)
 @app.route("/api/emotions/post/list", methods=["POST"])
 def get_Emotions_For_A_List_Of_Songs():
     data = request.get_json()
-    print(data)
 
     classified = webscraping.read_top_songs(data)
 
     # Get all the musixmatch song information
-    webscraping.scrape_song(classified[0])
-    #for song in classified:
-        #webscraping.scrape_song(song)
-        #print(classified[i].lyrics)
+    for song in classified:
+        webscraping.scrape_song(song)
 
     # Run Each song through the model
         # Build dataframe from the song lyrics to pass to BERT model
-    song_df = construct_Data_Frame_from_Song(classified[0])
-    print(song_df)
+    songs_df = pd.concat(map(construct_Data_Frame_from_Song, classified), ignore_index=True)
+    print(songs_df.head())
         # Evaluate the song. Returns probabilities of the emotions for each sentence
-    probs = model.eval(song_df)
-        # Average the probabilities across all sentences and turn it into one list
+    probs = model.eval(songs_df)
+
+    """    # Average the probabilities across all sentences and turn it into one list
     def avg_emotions(probs):
         labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
             "confusion", "curiosity", "desire", "disappointment", "disapproval", 
@@ -52,7 +50,7 @@ def get_Emotions_For_A_List_Of_Songs():
                 total_val = total_val + val[i]
             avg_probs.append(total_val / len(avg_probs)) # Get the average, and append it (keeps order)
 
-        return list(zip(labels, avg_probs))
+        return list(zip(labels, avg_probs))"""
     
     def emotions_occurences(probs):
         labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
@@ -68,18 +66,19 @@ def get_Emotions_For_A_List_Of_Songs():
 
     #emotional_value = avg_emotions(probs)
     emotional_value = emotions_occurences(probs)
-
-    classified[0].emotions = emotional_value
+    print(len(emotional_value))
+        # Check if there were no valid lyrics that tokenized
+    if(len(emotional_value) == 0):
+        print("Errored. No lyrics to tokenize.")
+        return {'error': 'No lyrics tokenizable by the model. Please listen to more music with lyrics!!!'}
 
     # Construct a DataFrame for emotions from the songs
-    emotions = []
-    for song in classified:
-        for emotion in song.emotions:
-            emotions.append(emotion)
-    df = pd.DataFrame(emotions, columns=['emotion'])
+    df = pd.DataFrame(emotional_value, columns=['emotion'])
 
     # Send the Dataframe to the Graph_Code function -> Base64 encoded image
     b64encoded_string = Graph_Code.construct_Song_Emotions_Graph(df)
+
+    print("Sent graph over to user.")
 
     return {'base64_encoded_gimage': b64encoded_string}, 200#{'response': map(lambda song: song.toJson(), classified) }), 200
 
