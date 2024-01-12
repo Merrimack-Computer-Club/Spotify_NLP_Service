@@ -11,5 +11,5 @@ tensorflow_hub==0.13.0
 tensorflow_intel==2.12.0
 toml==0.10.2
 torch==2.0.0
-transformers==4.28.1
+transformers==4.36.0
 waitress==2.1.2
