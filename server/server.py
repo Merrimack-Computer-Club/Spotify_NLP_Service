@@ -1,20 +1,32 @@
 from imports import *
 import webscraping
 from model import Model
+from model import BertClassifier
+from model import loadModel
 import Graph_Code
+
+# Load in the config file.
+config = toml.load('config.toml')
 
 # Load the model on the 3 GoEmotions training sets.
 df = pd.concat(
     map(pd.read_csv, [
                       #'data/testemotions_3.csv'
-                      'data/testemotions_2.csv'
+                      #'data/testemotions_2.csv'
                       #'data/testemotions_1.csv'
                       #'data/goemotions_1.csv'#,
                       #'data/goemotions_2.csv',
-                      #'data/goemotions_3.csv'
+                      'data/goemotions_3.csv'
                       ]),
                       ignore_index=True)
-model = Model(df)
+
+model = None
+if(config['server']['load_model']):
+    model = loadModel(config['server']['model_path'])
+else:
+    model = Model(df, train=True)
+
+print("Model Initialized")
 
 # Start the server
 app = Flask(__name__)
@@ -35,28 +47,16 @@ def get_Emotions_For_A_List_Of_Songs():
 
     # Run Each song through the model
         # Build dataframe from the song lyrics to pass to BERT model
-    songs_df = pd.concat(map(construct_Data_Frame_from_Song, classified), ignore_index=True)
-    print(songs_df.head())
-        # Evaluate the song. Returns probabilities of the emotions for each sentence
+    songs = [x.lyrics.split(',') for x in classified if x.lyrics != None and len(x.lyrics) > 0]
+    print(songs)
+    songs_df = construct_Data_Frame_from_Song(songs)
+    print(songs_df)
+    
+    # Evaluate the song. Returns probabilities of the emotions for each sentence
     probs = model.eval(songs_df)
+    print(probs)
 
-    """    # Average the probabilities across all sentences and turn it into one list
-    def avg_emotions(probs):
-        labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
-            "confusion", "curiosity", "desire", "disappointment", "disapproval", 
-            "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief",
-            "joy", "love", "nervousness", "optimism", "pride", "realization", 
-            "relief", "remorse", "sadness", "surprise", "neutral"]
-        
-        avg_probs = []
-        # Run through each of the 28 emotions...
-        for i in range(len(probs[0])):
-            total_val = 0
-            for val in probs: # For all sentences
-                total_val = total_val + val[i]
-            avg_probs.append(total_val / len(avg_probs)) # Get the average, and append it (keeps order)
-
-        return list(zip(labels, avg_probs))
+    '''
     
     def emotions_occurences(probs):
         labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
@@ -68,27 +68,6 @@ def get_Emotions_For_A_List_Of_Songs():
         for arr in probs:
             emos = sorted(list(zip(labels, arr)), key = lambda x: x[1], reverse=True)
             occurrences.append(emos[0][0])
-        return occurrences
-        """
-    def emotions_occurences(probs):
-        labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
-            "confusion", "curiosity", "desire", "disappointment", "disapproval", 
-            "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief",
-            "joy", "love", "nervousness", "optimism", "pride", "realization", 
-            "relief", "remorse", "sadness", "surprise", "neutral"]
-        occurrences = []
-        for arr in probs:
-            emos = sorted(list(zip(labels, arr)), key = lambda x: x[1], reverse=True)
-            if(emos[0][0] == 'neutral'):
-                if(emos[1][0] == 'approval' or emos[1][0] == 'disapproval'):
-                    if(emos[2][0] == 'approval' or emos[2][0] == 'disapproval'):
-                        occurrences.append(emos[3][0])
-                    else:
-                        occurrences.append(emos[2][0])
-                else:    
-                    occurrences.append(emos[1][0])
-            else:
-                occurrences.append(emos[0][0])
         return occurrences
 
 
@@ -107,25 +86,26 @@ def get_Emotions_For_A_List_Of_Songs():
     b64encoded_string = Graph_Code.construct_Song_Emotions_Graph(df)
 
     print("Sent graph over to user.")
+    '''
+    return {'probabilities': probs}, 200#{'response': map(lambda song: song.toJson(), classified) }), 200
 
-    return {'base64_encoded_gimage': b64encoded_string}, 200#{'response': map(lambda song: song.toJson(), classified) }), 200
-
+'''Construct a data frame of songs'''
 def construct_Data_Frame_from_Song(song):
-    cols = ["text", "admiration", "amusement", "anger", "annoyance", "approval", "caring", 
-            "confusion", "curiosity", "desire", "disappointment", "disapproval", 
+    cols = ["text", "admiration", "amusement", "anger", "annoyance", "approval", "caring",
+            "confusion", "curiosity", "desire", "disappointment", "disapproval",
             "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief",
-            "joy", "love", "nervousness", "optimism", "pride", "realization", 
+            "joy", "love", "nervousness", "optimism", "pride", "realization",
             "relief", "remorse", "sadness", "surprise", "neutral"]
 
     df = pd.DataFrame(columns=cols)
 
     emotions = [x for x in cols if x != "text"]
 
-    df["text"] = song.lyrics
+    df["text"] = song
 
     df[emotions] = 0
 
-    return df # Return the dataframe of song-lyrics.
+    return df
 
 if __name__ == "__main__":
    print("Spotify Emotions Server Started \nPress Ctrl+C to stop the server \nServing..")

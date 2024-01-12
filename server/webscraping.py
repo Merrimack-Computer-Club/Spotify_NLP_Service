@@ -93,7 +93,7 @@ def get_lyrics_thirty(song, musixmatch_api_key):
     msc_json = json.loads(musixmatch_song_content.decode('utf-8'))
 
     # If none is found return.
-    if(msc_json['message']['body']['lyrics'] is None):
+    if(msc_json is None or msc_json['message'] is None or msc_json['message']['body'] is None or len(msc_json['message']['body']) == 0 or msc_json['message']['body']['lyrics'] is None ):
         return None
 
     # Assign the 30% of song lyrics incase the proxies break mid-session
