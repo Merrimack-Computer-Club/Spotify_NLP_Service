@@ -2,4 +2,4 @@
 musix_match_api_key = "ce0064c0705a30e2b136cfa78dd75eea"
 http_proxy = "137.184.245.154:80"
 https_proxy = "5.189.184.6:80"
-use_full_lyrics = false
+use_full_lyrics = true
