@@ -72,7 +72,15 @@ def get_Emotions_For_A_List_Of_Songs():
         occurrences = []
         for arr in probs:
             emos = sorted(list(zip(labels, arr)), key = lambda x: x[1], reverse=True)
-            occurrences.append(emos[0][0])
+
+            # If the first emotion is "neutral," drop and receive the second
+            if emos[0][0] == "neutral":
+                occurrences.append(emos[1][0])
+            else:
+                occurrences.append(emos[0][0])
+
+            
+
         return occurrences
 
 
