@@ -49,10 +49,16 @@ def get_Emotions_For_A_List_Of_Songs():
     # Run Each song through the model
         # Build dataframe from the song lyrics to pass to BERT model
     songs = [x.lyrics for x in classified if x.lyrics != None and len(x.lyrics) > 0]
-    print(songs)
-    songs_df = construct_Data_Frame_from_Song(songs)
-    #print(songs_df)
-    
+    #print(songs)
+
+    # Break up all of the inner lists into one large outer list
+    flatten_songs = [j for sub in songs for j in sub]
+
+    # Turn the songs into a dataframe with emotional columns
+    songs_df = construct_Data_Frame_from_Song(flatten_songs)
+    print(songs_df)
+    print("\n\n\n")
+
     # Evaluate the song. Returns probabilities of the emotions for each sentence
     probs = model.eval(songs_df)
     #print(probs)
