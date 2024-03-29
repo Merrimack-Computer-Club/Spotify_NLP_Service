@@ -45,18 +45,17 @@ def get_Emotions_For_A_List_Of_Songs():
     for song in classified:
         webscraping.scrape_song(song)
 
+
     # Run Each song through the model
         # Build dataframe from the song lyrics to pass to BERT model
-    songs = [x.lyrics.split(',') for x in classified if x.lyrics != None and len(x.lyrics) > 0]
+    songs = [x.lyrics for x in classified if x.lyrics != None and len(x.lyrics) > 0]
     print(songs)
     songs_df = construct_Data_Frame_from_Song(songs)
-    print(songs_df)
+    #print(songs_df)
     
     # Evaluate the song. Returns probabilities of the emotions for each sentence
     probs = model.eval(songs_df)
-    print(probs)
-
-    '''
+    #print(probs)
     
     def emotions_occurences(probs):
         labels = ["admiration", "amusement", "anger", "annoyance", "approval", "caring", 
@@ -82,12 +81,8 @@ def get_Emotions_For_A_List_Of_Songs():
     # Construct a DataFrame for emotions from the songs
     df = pd.DataFrame(emotional_value, columns=['emotion'])
 
-    # Send the Dataframe to the Graph_Code function -> Base64 encoded image
-    b64encoded_string = Graph_Code.construct_Song_Emotions_Graph(df)
-
-    print("Sent graph over to user.")
-    '''
-    return {'probabilities': probs}, 200#{'response': map(lambda song: song.toJson(), classified) }), 200
+    print("Response sent to client.")
+    return {'probabilities': df.to_dict(orient="records")}, 200#{'response': map(lambda song: song.toJson(), classified) }), 200
 
 '''Construct a data frame of songs'''
 def construct_Data_Frame_from_Song(song):

@@ -9,7 +9,7 @@ class Song:
         self.lyrics = []
 
     def __str__(self):
-        return self.name + " " + self.artists + " " + self.isrc + " " + self.lyrics
+        return self.name + " " + self.artists + " " + self.isrc + " " + ' '.join(self.lyrics)
     
     def toJson(self):
         return {'name': self.name, 'artists': self.artists, 'isrc': self.isrc, "lyrics": self.lyrics}
