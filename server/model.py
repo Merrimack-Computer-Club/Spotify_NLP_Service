@@ -304,7 +304,7 @@ class Model:
 
 
 def loadModel(model_path):
-    return torch.load(model_path, map_location='cpu',)
+    return torch.load(model_path)
 
 """
 
