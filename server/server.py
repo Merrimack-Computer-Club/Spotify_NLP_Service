@@ -5,6 +5,9 @@ from model import BertClassifier
 from model import loadModel
 import Graph_Code
 
+# Load Conifg
+print("Loading Config")
+
 # Load in the config file.
 config = toml.load('config.toml')
 

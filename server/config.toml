@@ -4,4 +4,4 @@ http_proxy = "137.184.245.154:80"
 https_proxy = "5.189.184.6:80"
 use_full_lyrics = false
 load_model = true
-model_path = "C:\\Users\\luis1\\Downloads\\spotify-sentiment-analysis-bert-go-emotions-fine-tuned"
+model_path = "C:\\Users\\Alex\\Downloads\\spotify-sentiment-analysis-bert-go-emotions-fine-tuned"
