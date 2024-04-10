@@ -9,7 +9,7 @@ class Song:
         self.lyrics = []
 
     def __str__(self):
-        return self.name + " " + self.artists + " " + self.isrc + " " + self.lyrics
+        return self.name + " " + self.artists + " " + self.isrc + " " + ' '.join(self.lyrics)
     
     def toJson(self):
         return {'name': self.name, 'artists': self.artists, 'isrc': self.isrc, "lyrics": self.lyrics}
@@ -23,6 +23,14 @@ def read_top_songs(data):
         ret.append(song)
 
     return ret
+
+def find_between_chars(text, char1, char2):
+    pattern = re.compile(f'{re.escape(char1)}(.*?){re.escape(char2)}')
+    match = pattern.search(text)
+    if match:
+        return match.group(1)
+    else:
+        return None
 
 '''
 Returns the lyrics to a song based on its isrc
@@ -42,6 +50,9 @@ def scrape_song(song):
 
         track_url = get_musixmatch_share_url(song, config['server']['musix_match_api_key'])
 
+        # Update the track URL
+        track_url, sep, tail = track_url.partition('?')
+
         # Assure that the track was found
         if(track_url == None):
             return None
@@ -51,7 +62,8 @@ def scrape_song(song):
         # Get the page from the track_url 
         print(track_url)
         s.headers.update(headers)
-        s.proxies.update({"http":config['server']['http_proxy'], "https":config['server']['https_proxy']}) # https://free-proxy-list.net/
+        if config['server']['use_proxy']:
+            s.proxies.update({"http":config['server']['http_proxy'], "https":config['server']['https_proxy']}) # https://free-proxy-list.net/
         page = s.get(track_url)
 
         if(page.status_code != 200):
@@ -62,14 +74,17 @@ def scrape_song(song):
 
         # Get the `Lyrics` and create the Beautiful Soup obj from import.
         soup = BeautifulSoup(page.content, "html.parser")
-        lyrics_set = soup.findAll("span", class_="lyrics__content__ok")
+        lyrics_set = soup.findAll("div", class_="r-ueyrd6")
 
         # Construct the lyrics from the set of lyrics.
         # Assign the lyrics to this song.
         for string in lyrics_set:
-            var = string.text.strip()
-            var = var.split('\n')
-            song.lyrics = [ret for ret in var if ret]
+            string = str(string)
+            s = '>'
+            e = '<'
+            var = find_between_chars(string, s, e)
+            print(var)
+            song.lyrics.append(var)
 
         # If empty print out to console that the IP's may be blocked
         if not song.lyrics:
@@ -93,7 +108,7 @@ def get_lyrics_thirty(song, musixmatch_api_key):
     msc_json = json.loads(musixmatch_song_content.decode('utf-8'))
 
     # If none is found return.
-    if(msc_json['message']['body']['lyrics'] is None):
+    if(msc_json is None or msc_json['message'] is None or msc_json['message']['body'] is None or len(msc_json['message']['body']) == 0 or msc_json['message']['body']['lyrics'] is None ):
         return None
 
     # Assign the 30% of song lyrics incase the proxies break mid-session

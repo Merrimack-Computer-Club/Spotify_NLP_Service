@@ -1,0 +1,658 @@
+[debug] [2024-01-10T20:37:20.508Z] ----------------------------------------------------------------------
+[debug] [2024-01-10T20:37:20.510Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2024-01-10T20:37:20.511Z] CLI Version:   13.0.3
+[debug] [2024-01-10T20:37:20.511Z] Platform:      win32
+[debug] [2024-01-10T20:37:20.511Z] Node Version:  v18.18.1
+[debug] [2024-01-10T20:37:20.512Z] Time:          Wed Jan 10 2024 15:37:20 GMT-0500 (Eastern Standard Time)
+[debug] [2024-01-10T20:37:20.513Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-01-10T20:37:20.650Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-01-10T20:37:20.651Z] > authorizing via signed-in user (luis1944alex@gmail.com)
+[debug] [2024-01-10T20:37:20.874Z] java version "21.0.1" 2023-10-17 LTS
+
+[debug] [2024-01-10T20:37:20.875Z] Java(TM) SE Runtime Environment (build 21.0.1+12-LTS-29)
+Java HotSpot(TM) 64-Bit Server VM (build 21.0.1+12-LTS-29, mixed mode, sharing)
+
+[debug] [2024-01-10T20:37:20.926Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: functions, database {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, database"}}
+[debug] [2024-01-10T20:37:20.946Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:37:20.946Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:37:20.946Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2024-01-10T20:37:20.968Z] [hub] writing locator at C:\Users\luis1\AppData\Local\Temp\hub-spotifyemotions-c2f4a.json
+[debug] [2024-01-10T20:37:20.983Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:37:20.984Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:37:20.984Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, hosting, pubsub, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, hosting, pubsub, storage\u001b[22m"}}
+[debug] [2024-01-10T20:37:20.994Z] defaultcredentials: writing to file C:\Users\luis1\AppData\Roaming\firebase\luis1944alex_gmail_com_application_default_credentials.json
+[debug] [2024-01-10T20:37:20.999Z] Setting GAC to C:\Users\luis1\AppData\Roaming\firebase\luis1944alex_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\luis1\\AppData\\Roaming\\firebase\\luis1944alex_gmail_com_application_default_credentials.json"}}
+[debug] [2024-01-10T20:37:21.006Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a/adminSdkConfig [none]
+[debug] [2024-01-10T20:37:21.405Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a/adminSdkConfig 200
+[debug] [2024-01-10T20:37:21.407Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a/adminSdkConfig {"projectId":"spotifyemotions-c2f4a","databaseURL":"https://spotifyemotions-c2f4a-default-rtdb.firebaseio.com","storageBucket":"spotifyemotions-c2f4a.appspot.com"}
+[debug] [2024-01-10T20:37:21.462Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a [none]
+[debug] [2024-01-10T20:37:21.784Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a 200
+[debug] [2024-01-10T20:37:21.785Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a {"projectId":"spotifyemotions-c2f4a","projectNumber":"526231457781","displayName":"SpotifyEmotions","name":"projects/spotifyemotions-c2f4a","resources":{"hostingSite":"spotifyemotions-c2f4a","realtimeDatabaseInstance":"spotifyemotions-c2f4a-default-rtdb"},"state":"ACTIVE","etag":"1_771e6162-dd89-4e2f-a641-cf4e993dfccf"}
+[debug] [2024-01-10T20:37:21.786Z] database rules config:  [{"instance":"spotifyemotions-c2f4a-default-rtdb","rules":"C:\\Users\\luis1\\OneDrive\\Desktop\\Projects\\Spotify_NLP_Service\\server\\firebase\\database.rules.json"}]
+[debug] [2024-01-10T20:37:21.805Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2024-01-10T20:37:21.805Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-01-10T20:37:21.806Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2024-01-10T20:37:21.806Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","C:\\Users\\luis1\\.cache\\firebase\\emulators\\firebase-database-emulator-v4.11.2.jar","--host","127.0.0.1","--port",9000,"--single_project_mode","Warning","--functions_emulator_host","127.0.0.1","--functions_emulator_port",5001],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\luis1\\\\.cache\\\\firebase\\\\emulators\\\\firebase-database-emulator-v4.11.2.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--single_project_mode\",\"Warning\",\"--functions_emulator_host\",\"127.0.0.1\",\"--functions_emulator_port\",5001],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2024-01-10T20:37:24.222Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-01-10T20:37:24.222Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-01-10T20:37:24.222Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\luis1\\.cache\\firebase\\emulators\\ui-v1.11.7\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\luis1\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.7\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2024-01-10T20:37:24.371Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2024-01-10T20:37:24.371Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[info] i  functions: Watching "C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\luis1\\OneDrive\\Desktop\\Projects\\Spotify_NLP_Service\\server\\firebase\\functions\" for Cloud Functions..."}}
+[debug] [2024-01-10T20:37:24.503Z] Customer code is not Node
+[debug] [2024-01-10T20:37:24.505Z] Validating python source
+[debug] [2024-01-10T20:37:24.505Z] Building python source
+[debug] [2024-01-10T20:37:24.515Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-10T20:37:24.561Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","-c","\"import firebase_functions; import os; print(os.path.dirname(firebase_functions.__file__))\""]
+[debug] [2024-01-10T20:37:24.805Z] stdout: C:\Users\luis1\anaconda3\Lib\site-packages\firebase_functions
+
+[debug] [2024-01-10T20:37:24.813Z] Running admin server with args: ["python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""] and env: {"GCLOUD_PROJECT":"spotifyemotions-c2f4a","K_REVISION":"1","PORT":"80","GOOGLE_CLOUD_QUOTA_PROJECT":"spotifyemotions-c2f4a","FUNCTIONS_EMULATOR":"true","TZ":"UTC","FIREBASE_DEBUG_MODE":"true","FIREBASE_DEBUG_FEATURES":"{\"skipTokenVerification\":true,\"enableCors\":true}","FIREBASE_EMULATOR_HUB":"127.0.0.1:4400","FIREBASE_DATABASE_EMULATOR_HOST":"127.0.0.1:9000","CLOUD_EVENTARC_EMULATOR_HOST":"http://127.0.0.1:9299","FIREBASE_CONFIG":"{\"storageBucket\":\"spotifyemotions-c2f4a.appspot.com\",\"databaseURL\":\"http://127.0.0.1:9000/?ns=spotifyemotions-c2f4a-default-rtdb\",\"projectId\":\"spotifyemotions-c2f4a\"}","GOOGLE_APPLICATION_CREDENTIALS":"C:\\Users\\luis1\\AppData\\Roaming\\firebase\\luis1944alex_gmail_com_application_default_credentials.json","ADMIN_PORT":"8081"} in C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions
+[debug] [2024-01-10T20:37:24.813Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""]
+[info]  * Serving Flask app 'serving'
+ * Debug mode: off
+
+[error] WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8081
+Press CTRL+C to quit
+
+[error] 127.0.0.1 - - [10/Jan/2024 20:37:25] "GET /__/functions.yaml HTTP/1.1" 200 -
+
+[debug] [2024-01-10T20:37:25.812Z] Got response from /__/functions.yaml endpoints: {}
+params: []
+requiredAPIs: []
+specVersion: v1alpha1
+
+[error] 127.0.0.1 - - [10/Jan/2024 20:37:25] "GET /__/quitquitquit HTTP/1.1" 200 -
+
+[info] +  functions: Loaded functions definitions from source: . {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: ."}}
+[debug] [2024-01-10T20:37:25.833Z] >>> [apiv2][query] PUT http://127.0.0.1:9000/.settings/rules.json ns=spotifyemotions-c2f4a-default-rtdb
+[debug] [2024-01-10T20:37:25.833Z] >>> [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json "{\n  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */\n  \"rules\": {\n    \".read\": false,\n    \".write\": false\n  }\n}"
+[debug] [2024-01-10T20:37:26.242Z] <<< [apiv2][status] PUT http://127.0.0.1:9000/.settings/rules.json 200
+[debug] [2024-01-10T20:37:26.242Z] <<< [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json {"status":"ok"}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Functions │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Database  │ 127.0.0.1:9000 │ http://127.0.0.1:4000/database  │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2024-01-10T20:39:28.848Z] Functions emulator received unknown request at path /
+[debug] [2024-01-10T20:39:34.807Z] Functions emulator received unknown request at path /
+[debug] [2024-01-10T20:41:18.396Z] File C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\main.py changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\luis1\\OneDrive\\Desktop\\Projects\\Spotify_NLP_Service\\server\\firebase\\functions\\main.py changed, reloading triggers"}}
+[debug] [2024-01-10T20:41:19.412Z] Customer code is not Node
+[debug] [2024-01-10T20:41:19.412Z] Validating python source
+[debug] [2024-01-10T20:41:19.412Z] Building python source
+[debug] [2024-01-10T20:41:19.413Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-10T20:41:19.421Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","-c","\"import firebase_functions; import os; print(os.path.dirname(firebase_functions.__file__))\""]
+[debug] [2024-01-10T20:41:19.666Z] stdout: C:\Users\luis1\anaconda3\Lib\site-packages\firebase_functions
+
+[debug] [2024-01-10T20:41:19.675Z] Running admin server with args: ["python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""] and env: {"GCLOUD_PROJECT":"spotifyemotions-c2f4a","K_REVISION":"1","PORT":"80","GOOGLE_CLOUD_QUOTA_PROJECT":"spotifyemotions-c2f4a","FUNCTIONS_EMULATOR":"true","TZ":"UTC","FIREBASE_DEBUG_MODE":"true","FIREBASE_DEBUG_FEATURES":"{\"skipTokenVerification\":true,\"enableCors\":true}","FIREBASE_EMULATOR_HUB":"127.0.0.1:4400","FIREBASE_DATABASE_EMULATOR_HOST":"127.0.0.1:9000","CLOUD_EVENTARC_EMULATOR_HOST":"http://127.0.0.1:9299","FIREBASE_CONFIG":"{\"storageBucket\":\"spotifyemotions-c2f4a.appspot.com\",\"databaseURL\":\"http://127.0.0.1:9000/?ns=spotifyemotions-c2f4a-default-rtdb\",\"projectId\":\"spotifyemotions-c2f4a\"}","GOOGLE_APPLICATION_CREDENTIALS":"C:\\Users\\luis1\\AppData\\Roaming\\firebase\\luis1944alex_gmail_com_application_default_credentials.json","ADMIN_PORT":"8081"} in C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions
+[debug] [2024-01-10T20:41:19.675Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""]
+[debug] [2024-01-10T20:41:19.782Z] Received signal SIGINT (Ctrl-C) 1
+[info]  
+[info] i  emulators: Received SIGINT (Ctrl-C) for the first time. Starting a clean shutdown. 
+[info] i  emulators: Please wait for a clean shutdown or send the SIGINT (Ctrl-C) signal again to stop right now. 
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[info] i  ui: Stopping Emulator UI {"metadata":{"emulator":{"name":"ui"},"message":"Stopping Emulator UI"}}
+[error] Fatal Python error: init_import_site: Failed to import the site module
+Python runtime state: initialized
+Traceback (most recent call last):
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap>", line 980, in exec_module
+  File "<frozen site>", line 616, in <module>
+  File "<frozen site>", line 603, in main
+  File "<frozen site>", line 384, in addsitepackages
+  File "<frozen site>", line 226, in addsitedir
+  File "<frozen site>", line 186, in addpackage
+  File "<string>", line 1, in <module>
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1032, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1130, in get_data
+KeyboardInterrupt
+
+[debug] [2024-01-10T20:41:19.792Z] Error: spawn "C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat" ENOENT
+    at notFoundError (C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:6:26)
+    at verifyENOENT (C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:40:16)
+    at cp.emit (C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:27:25)
+    at ChildProcess._handle.onexit (node:internal/child_process:292:12)
+[error] 
+[error] Error: An unexpected error has occurred.
+[warn] !  Emulator UI has exited upon receiving signal: SIGINT 
+[info] i  functions: Stopping Functions Emulator {"metadata":{"emulator":{"name":"functions"},"message":"Stopping Functions Emulator"}}
+[info] i  database: Stopping Database Emulator {"metadata":{"emulator":{"name":"database"},"message":"Stopping Database Emulator"}}
+[warn] !  Database Emulator has exited upon receiving signal: SIGINT 
+[info] i  eventarc: Stopping Eventarc Emulator {"metadata":{"emulator":{"name":"eventarc"},"message":"Stopping Eventarc Emulator"}}
+[info] i  hub: Stopping emulator hub {"metadata":{"emulator":{"name":"hub"},"message":"Stopping emulator hub"}}
+[info] i  logging: Stopping Logging Emulator {"metadata":{"emulator":{"name":"logging"},"message":"Stopping Logging Emulator"}}
+[debug] [2024-01-10T20:41:19.889Z] File C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\main.py changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\luis1\\OneDrive\\Desktop\\Projects\\Spotify_NLP_Service\\server\\firebase\\functions\\main.py changed, reloading triggers"}}
+[debug] [2024-01-10T20:41:27.428Z] ----------------------------------------------------------------------
+[debug] [2024-01-10T20:41:27.429Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2024-01-10T20:41:27.430Z] CLI Version:   13.0.3
+[debug] [2024-01-10T20:41:27.430Z] Platform:      win32
+[debug] [2024-01-10T20:41:27.430Z] Node Version:  v18.18.1
+[debug] [2024-01-10T20:41:27.431Z] Time:          Wed Jan 10 2024 15:41:27 GMT-0500 (Eastern Standard Time)
+[debug] [2024-01-10T20:41:27.431Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-01-10T20:41:27.582Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-01-10T20:41:27.583Z] > authorizing via signed-in user (luis1944alex@gmail.com)
+[debug] [2024-01-10T20:41:27.885Z] java version "21.0.1" 2023-10-17 LTS
+
+[debug] [2024-01-10T20:41:27.887Z] Java(TM) SE Runtime Environment (build 21.0.1+12-LTS-29)
+Java HotSpot(TM) 64-Bit Server VM (build 21.0.1+12-LTS-29, mixed mode, sharing)
+
+[debug] [2024-01-10T20:41:27.936Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: functions, database {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, database"}}
+[debug] [2024-01-10T20:41:27.947Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:41:27.947Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:41:27.947Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2024-01-10T20:41:27.958Z] [hub] writing locator at C:\Users\luis1\AppData\Local\Temp\hub-spotifyemotions-c2f4a.json
+[debug] [2024-01-10T20:41:27.965Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:41:27.966Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:41:27.966Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, hosting, pubsub, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, hosting, pubsub, storage\u001b[22m"}}
+[debug] [2024-01-10T20:41:27.970Z] defaultcredentials: writing to file C:\Users\luis1\AppData\Roaming\firebase\luis1944alex_gmail_com_application_default_credentials.json
+[debug] [2024-01-10T20:41:27.972Z] Setting GAC to C:\Users\luis1\AppData\Roaming\firebase\luis1944alex_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\luis1\\AppData\\Roaming\\firebase\\luis1944alex_gmail_com_application_default_credentials.json"}}
+[debug] [2024-01-10T20:41:27.977Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a/adminSdkConfig [none]
+[debug] [2024-01-10T20:41:28.349Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a/adminSdkConfig 200
+[debug] [2024-01-10T20:41:28.349Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a/adminSdkConfig {"projectId":"spotifyemotions-c2f4a","databaseURL":"https://spotifyemotions-c2f4a-default-rtdb.firebaseio.com","storageBucket":"spotifyemotions-c2f4a.appspot.com"}
+[debug] [2024-01-10T20:41:28.362Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a [none]
+[debug] [2024-01-10T20:41:28.644Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a 200
+[debug] [2024-01-10T20:41:28.644Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a {"projectId":"spotifyemotions-c2f4a","projectNumber":"526231457781","displayName":"SpotifyEmotions","name":"projects/spotifyemotions-c2f4a","resources":{"hostingSite":"spotifyemotions-c2f4a","realtimeDatabaseInstance":"spotifyemotions-c2f4a-default-rtdb"},"state":"ACTIVE","etag":"1_771e6162-dd89-4e2f-a641-cf4e993dfccf"}
+[debug] [2024-01-10T20:41:28.644Z] database rules config:  [{"instance":"spotifyemotions-c2f4a-default-rtdb","rules":"C:\\Users\\luis1\\OneDrive\\Desktop\\Projects\\Spotify_NLP_Service\\server\\firebase\\database.rules.json"}]
+[debug] [2024-01-10T20:41:28.649Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2024-01-10T20:41:28.649Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-01-10T20:41:28.649Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2024-01-10T20:41:28.649Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","C:\\Users\\luis1\\.cache\\firebase\\emulators\\firebase-database-emulator-v4.11.2.jar","--host","127.0.0.1","--port",9000,"--single_project_mode","Warning","--functions_emulator_host","127.0.0.1","--functions_emulator_port",5001],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\luis1\\\\.cache\\\\firebase\\\\emulators\\\\firebase-database-emulator-v4.11.2.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--single_project_mode\",\"Warning\",\"--functions_emulator_host\",\"127.0.0.1\",\"--functions_emulator_port\",5001],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2024-01-10T20:41:31.880Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-01-10T20:41:31.880Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-01-10T20:41:31.880Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\luis1\\.cache\\firebase\\emulators\\ui-v1.11.7\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\luis1\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.7\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2024-01-10T20:41:32.079Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2024-01-10T20:41:32.079Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[info] i  functions: Watching "C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\luis1\\OneDrive\\Desktop\\Projects\\Spotify_NLP_Service\\server\\firebase\\functions\" for Cloud Functions..."}}
+[debug] [2024-01-10T20:41:32.188Z] Customer code is not Node
+[debug] [2024-01-10T20:41:32.190Z] Validating python source
+[debug] [2024-01-10T20:41:32.190Z] Building python source
+[debug] [2024-01-10T20:41:32.201Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-10T20:41:32.229Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","-c","\"import firebase_functions; import os; print(os.path.dirname(firebase_functions.__file__))\""]
+[debug] [2024-01-10T20:41:32.554Z] stdout: C:\Users\luis1\anaconda3\Lib\site-packages\firebase_functions
+
+[debug] [2024-01-10T20:41:32.563Z] Running admin server with args: ["python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""] and env: {"GCLOUD_PROJECT":"spotifyemotions-c2f4a","K_REVISION":"1","PORT":"80","GOOGLE_CLOUD_QUOTA_PROJECT":"spotifyemotions-c2f4a","FUNCTIONS_EMULATOR":"true","TZ":"UTC","FIREBASE_DEBUG_MODE":"true","FIREBASE_DEBUG_FEATURES":"{\"skipTokenVerification\":true,\"enableCors\":true}","FIREBASE_EMULATOR_HUB":"127.0.0.1:4400","FIREBASE_DATABASE_EMULATOR_HOST":"127.0.0.1:9000","CLOUD_EVENTARC_EMULATOR_HOST":"http://127.0.0.1:9299","FIREBASE_CONFIG":"{\"storageBucket\":\"spotifyemotions-c2f4a.appspot.com\",\"databaseURL\":\"http://127.0.0.1:9000/?ns=spotifyemotions-c2f4a-default-rtdb\",\"projectId\":\"spotifyemotions-c2f4a\"}","GOOGLE_APPLICATION_CREDENTIALS":"C:\\Users\\luis1\\AppData\\Roaming\\firebase\\luis1944alex_gmail_com_application_default_credentials.json","ADMIN_PORT":"8081"} in C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions
+[debug] [2024-01-10T20:41:32.563Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""]
+[info]  * Serving Flask app 'serving'
+ * Debug mode: off
+
+[error] WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8081
+Press CTRL+C to quit
+
+[debug] [2024-01-10T20:41:33.526Z] File C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\__pycache__\main.cpython-311.pyc changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\luis1\\OneDrive\\Desktop\\Projects\\Spotify_NLP_Service\\server\\firebase\\functions\\__pycache__\\main.cpython-311.pyc changed, reloading triggers"}}
+[error] 127.0.0.1 - - [10/Jan/2024 20:41:33] "GET /__/functions.yaml HTTP/1.1" 200 -
+
+[debug] [2024-01-10T20:41:33.834Z] Got response from /__/functions.yaml endpoints:
+  addmessage:
+    availableMemoryMb: null
+    concurrency: null
+    entryPoint: addmessage
+    httpsTrigger: {}
+    ingressSettings: null
+    labels: {}
+    maxInstances: null
+    minInstances: null
+    platform: gcfv2
+    secretEnvironmentVariables: []
+    serviceAccountEmail: null
+    timeoutSeconds: null
+  makeuppercase:
+    availableMemoryMb: null
+    concurrency: null
+    entryPoint: makeuppercase
+    eventTrigger:
+      eventFilterPathPatterns:
+        document: messages/{pushId}
+      eventFilters:
+        database: (default)
+        namespace: (default)
+      eventType: google.cloud.firestore.document.v1.created
+      retry: false
+    ingressSettings: null
+    labels: {}
+    maxInstances: null
+    minInstances: null
+    platform: gcfv2
+    secretEnvironmentVariables: []
+    serviceAccountEmail: null
+    timeoutSeconds: null
+params: []
+requiredAPIs: []
+specVersion: v1alpha1
+
+[error] 127.0.0.1 - - [10/Jan/2024 20:41:33] "GET /__/quitquitquit HTTP/1.1" 200 -
+
+[info] +  functions: Loaded functions definitions from source: addmessage, makeuppercase. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: addmessage, makeuppercase."}}
+[info] +  functions[us-central1-addmessage]: http function initialized (http://127.0.0.1:5001/spotifyemotions-c2f4a/us-central1/addmessage). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/spotifyemotions-c2f4a/us-central1/addmessage)."}}
+[info] i  functions[us-central1-makeuppercase]: function ignored because the firestore emulator does not exist or is not running. {"metadata":{"emulator":{"name":"functions"},"message":"function ignored because the firestore emulator does not exist or is not running."}}
+[debug] [2024-01-10T20:41:33.855Z] >>> [apiv2][query] PUT http://127.0.0.1:9000/.settings/rules.json ns=spotifyemotions-c2f4a-default-rtdb
+[debug] [2024-01-10T20:41:33.856Z] >>> [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json "{\n  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */\n  \"rules\": {\n    \".read\": false,\n    \".write\": false\n  }\n}"
+[debug] [2024-01-10T20:41:34.269Z] <<< [apiv2][status] PUT http://127.0.0.1:9000/.settings/rules.json 200
+[debug] [2024-01-10T20:41:34.270Z] <<< [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json {"status":"ok"}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Functions │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Database  │ 127.0.0.1:9000 │ http://127.0.0.1:4000/database  │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2024-01-10T20:41:34.541Z] Customer code is not Node
+[debug] [2024-01-10T20:41:34.542Z] Validating python source
+[debug] [2024-01-10T20:41:34.542Z] Building python source
+[debug] [2024-01-10T20:41:34.542Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-10T20:41:34.566Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","-c","\"import firebase_functions; import os; print(os.path.dirname(firebase_functions.__file__))\""]
+[debug] [2024-01-10T20:41:34.847Z] stdout: C:\Users\luis1\anaconda3\Lib\site-packages\firebase_functions
+
+[debug] [2024-01-10T20:41:34.862Z] Running admin server with args: ["python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""] and env: {"GCLOUD_PROJECT":"spotifyemotions-c2f4a","K_REVISION":"1","PORT":"80","GOOGLE_CLOUD_QUOTA_PROJECT":"spotifyemotions-c2f4a","FUNCTIONS_EMULATOR":"true","TZ":"UTC","FIREBASE_DEBUG_MODE":"true","FIREBASE_DEBUG_FEATURES":"{\"skipTokenVerification\":true,\"enableCors\":true}","FIREBASE_EMULATOR_HUB":"127.0.0.1:4400","FIREBASE_DATABASE_EMULATOR_HOST":"127.0.0.1:9000","CLOUD_EVENTARC_EMULATOR_HOST":"http://127.0.0.1:9299","FIREBASE_CONFIG":"{\"storageBucket\":\"spotifyemotions-c2f4a.appspot.com\",\"databaseURL\":\"http://127.0.0.1:9000/?ns=spotifyemotions-c2f4a-default-rtdb\",\"projectId\":\"spotifyemotions-c2f4a\"}","GOOGLE_APPLICATION_CREDENTIALS":"C:\\Users\\luis1\\AppData\\Roaming\\firebase\\luis1944alex_gmail_com_application_default_credentials.json","ADMIN_PORT":"8081"} in C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions
+[debug] [2024-01-10T20:41:34.862Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""]
+[info]  * Serving Flask app 'serving'
+ * Debug mode: off
+
+[error] WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8081
+Press CTRL+C to quit
+
+[error] 127.0.0.1 - - [10/Jan/2024 20:41:36] "GET /__/functions.yaml HTTP/1.1" 200 -
+
+[debug] [2024-01-10T20:41:36.016Z] Got response from /__/functions.yaml endpoints:
+  addmessage:
+    availableMemoryMb: null
+    concurrency: null
+    entryPoint: addmessage
+    httpsTrigger: {}
+    ingressSettings: null
+    labels: {}
+    maxInstances: null
+    minInstances: null
+    platform: gcfv2
+    secretEnvironmentVariables: []
+    serviceAccountEmail: null
+    timeoutSeconds: null
+  makeuppercase:
+    availableMemoryMb: null
+    concurrency: null
+    entryPoint: makeuppercase
+    eventTrigger:
+      eventFilterPathPatterns:
+        document: messages/{pushId}
+      eventFilters:
+        database: (default)
+        namespace: (default)
+      eventType: google.cloud.firestore.document.v1.created
+      retry: false
+    ingressSettings: null
+    labels: {}
+    maxInstances: null
+    minInstances: null
+    platform: gcfv2
+    secretEnvironmentVariables: []
+    serviceAccountEmail: null
+    timeoutSeconds: null
+params: []
+requiredAPIs: []
+specVersion: v1alpha1
+
+[error] 127.0.0.1 - - [10/Jan/2024 20:41:36] "GET /__/quitquitquit HTTP/1.1" 200 -
+
+[info] +  functions: Loaded functions definitions from source: addmessage, makeuppercase. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: addmessage, makeuppercase."}}
+[debug] [2024-01-10T20:42:28.944Z] [work-queue] {"queuedWork":["/spotifyemotions-c2f4a/us-central1/addmessage-2024-01-10T20:42:28.944Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-10T20:42:28.944Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/spotifyemotions-c2f4a/us-central1/addmessage-2024-01-10T20:42:28.944Z"],"workRunningCount":1}
+[debug] [2024-01-10T20:42:28.945Z] Accepted request GET /spotifyemotions-c2f4a/us-central1/addmessage --> us-central1-addmessage
+[debug] [2024-01-10T20:42:28.948Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-01-10T20:42:28.948Z] [functions] Got req.url=/spotifyemotions-c2f4a/us-central1/addmessage, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/spotifyemotions-c2f4a/us-central1/addmessage, mapping to path=/"}}
+[debug] [2024-01-10T20:42:28.961Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","functions-framework"]
+[debug] [2024-01-10T20:42:28.969Z] [worker-pool] addWorker(us-central1-addmessage) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-addmessage)"}}
+[debug] [2024-01-10T20:42:28.972Z] [worker-pool] Adding worker with key us-central1-addmessage, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-addmessage, total=1"}}
+[info] >  'functions-framework' is not recognized as an internal or external command, {"user":"'functions-framework' is not recognized as an internal or external command,\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addmessage"},"extension":{},"message":"\u001b[90m> \u001b[39m 'functions-framework' is not recognized as an internal or external command,\r"}}
+[info] >  operable program or batch file. {"user":"operable program or batch file.\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addmessage"},"extension":{},"message":"\u001b[90m> \u001b[39m operable program or batch file.\r"}}
+[debug] [2024-01-10T20:42:29.043Z] Error: spawn "C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat" ENOENT
+    at notFoundError (C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:6:26)
+    at verifyENOENT (C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:40:16)
+    at cp.emit (C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:27:25)
+    at ChildProcess._handle.onexit (node:internal/child_process:292:12)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2024-01-10T20:43:03.410Z] ----------------------------------------------------------------------
+[debug] [2024-01-10T20:43:03.411Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2024-01-10T20:43:03.412Z] CLI Version:   13.0.3
+[debug] [2024-01-10T20:43:03.412Z] Platform:      win32
+[debug] [2024-01-10T20:43:03.412Z] Node Version:  v18.18.1
+[debug] [2024-01-10T20:43:03.413Z] Time:          Wed Jan 10 2024 15:43:03 GMT-0500 (Eastern Standard Time)
+[debug] [2024-01-10T20:43:03.413Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-01-10T20:43:03.510Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-01-10T20:43:03.511Z] > authorizing via signed-in user (luis1944alex@gmail.com)
+[debug] [2024-01-10T20:43:03.766Z] java version "21.0.1" 2023-10-17 LTS
+
+[debug] [2024-01-10T20:43:03.766Z] Java(TM) SE Runtime Environment (build 21.0.1+12-LTS-29)
+Java HotSpot(TM) 64-Bit Server VM (build 21.0.1+12-LTS-29, mixed mode, sharing)
+
+[debug] [2024-01-10T20:43:03.830Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: functions, database {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, database"}}
+[debug] [2024-01-10T20:43:03.857Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:43:03.858Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[warn] !  ui: Emulator UI unable to start on port 4000, starting on 4001 instead. {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI unable to start on port 4000, starting on 4001 instead."}}
+[debug] [2024-01-10T20:43:03.860Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4001},{"address":"::1","family":"IPv6","port":4001}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[warn] !  emulators: It seems that you are running multiple instances of the emulator suite for project spotifyemotions-c2f4a. This may result in unexpected behavior. 
+[debug] [2024-01-10T20:43:03.873Z] [hub] writing locator at C:\Users\luis1\AppData\Local\Temp\hub-spotifyemotions-c2f4a.json
+[debug] [2024-01-10T20:43:03.887Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:43:03.888Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:43:03.888Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4001},{"address":"::1","family":"IPv6","port":4001}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, hosting, pubsub, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, hosting, pubsub, storage\u001b[22m"}}
+[debug] [2024-01-10T20:43:03.894Z] defaultcredentials: writing to file C:\Users\luis1\AppData\Roaming\firebase\luis1944alex_gmail_com_application_default_credentials.json
+[debug] [2024-01-10T20:43:03.896Z] Setting GAC to C:\Users\luis1\AppData\Roaming\firebase\luis1944alex_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\luis1\\AppData\\Roaming\\firebase\\luis1944alex_gmail_com_application_default_credentials.json"}}
+[debug] [2024-01-10T20:43:03.899Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a/adminSdkConfig [none]
+[debug] [2024-01-10T20:43:04.265Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a/adminSdkConfig 200
+[debug] [2024-01-10T20:43:04.266Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a/adminSdkConfig {"projectId":"spotifyemotions-c2f4a","databaseURL":"https://spotifyemotions-c2f4a-default-rtdb.firebaseio.com","storageBucket":"spotifyemotions-c2f4a.appspot.com"}
+[debug] [2024-01-10T20:43:04.296Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a [none]
+[debug] [2024-01-10T20:43:04.525Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a 200
+[debug] [2024-01-10T20:43:04.526Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a {"projectId":"spotifyemotions-c2f4a","projectNumber":"526231457781","displayName":"SpotifyEmotions","name":"projects/spotifyemotions-c2f4a","resources":{"hostingSite":"spotifyemotions-c2f4a","realtimeDatabaseInstance":"spotifyemotions-c2f4a-default-rtdb"},"state":"ACTIVE","etag":"1_771e6162-dd89-4e2f-a641-cf4e993dfccf"}
+[debug] [2024-01-10T20:43:04.528Z] database rules config:  [{"instance":"spotifyemotions-c2f4a-default-rtdb","rules":"C:\\Users\\luis1\\OneDrive\\Desktop\\Projects\\Spotify_NLP_Service\\server\\firebase\\database.rules.json"}]
+[debug] [2024-01-10T20:43:04.547Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2024-01-10T20:43:04.547Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-01-10T20:43:04.547Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2024-01-10T20:43:04.547Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","C:\\Users\\luis1\\.cache\\firebase\\emulators\\firebase-database-emulator-v4.11.2.jar","--host","127.0.0.1","--port",9000,"--single_project_mode","Warning","--functions_emulator_host","127.0.0.1","--functions_emulator_port",5001],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\luis1\\\\.cache\\\\firebase\\\\emulators\\\\firebase-database-emulator-v4.11.2.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--single_project_mode\",\"Warning\",\"--functions_emulator_host\",\"127.0.0.1\",\"--functions_emulator_port\",5001],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2024-01-10T20:43:07.518Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-01-10T20:43:07.519Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-01-10T20:43:07.519Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\luis1\\.cache\\firebase\\emulators\\ui-v1.11.7\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\luis1\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.7\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2024-01-10T20:43:07.616Z] Web / API server started at 127.0.0.1:4001
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4001\n"}}
+[debug] [2024-01-10T20:43:07.616Z] Web / API server started at ::1:4001
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4001\n"}}
+[info] i  functions: Watching "C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\luis1\\OneDrive\\Desktop\\Projects\\Spotify_NLP_Service\\server\\firebase\\functions\" for Cloud Functions..."}}
+[debug] [2024-01-10T20:43:07.793Z] Customer code is not Node
+[debug] [2024-01-10T20:43:07.793Z] Validating python source
+[debug] [2024-01-10T20:43:07.793Z] Building python source
+[debug] [2024-01-10T20:43:07.794Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-10T20:43:07.799Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","-c","\"import firebase_functions; import os; print(os.path.dirname(firebase_functions.__file__))\""]
+[debug] [2024-01-10T20:43:07.885Z] stdout: C:\Users\luis1\anaconda3\Lib\site-packages\firebase_functions
+
+[debug] [2024-01-10T20:43:07.890Z] Running admin server with args: ["python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""] and env: {"GCLOUD_PROJECT":"spotifyemotions-c2f4a","K_REVISION":"1","PORT":"80","GOOGLE_CLOUD_QUOTA_PROJECT":"spotifyemotions-c2f4a","FUNCTIONS_EMULATOR":"true","TZ":"UTC","FIREBASE_DEBUG_MODE":"true","FIREBASE_DEBUG_FEATURES":"{\"skipTokenVerification\":true,\"enableCors\":true}","FIREBASE_EMULATOR_HUB":"127.0.0.1:4400","FIREBASE_DATABASE_EMULATOR_HOST":"127.0.0.1:9000","CLOUD_EVENTARC_EMULATOR_HOST":"http://127.0.0.1:9299","FIREBASE_CONFIG":"{\"storageBucket\":\"spotifyemotions-c2f4a.appspot.com\",\"databaseURL\":\"http://127.0.0.1:9000/?ns=spotifyemotions-c2f4a-default-rtdb\",\"projectId\":\"spotifyemotions-c2f4a\"}","GOOGLE_APPLICATION_CREDENTIALS":"C:\\Users\\luis1\\AppData\\Roaming\\firebase\\luis1944alex_gmail_com_application_default_credentials.json","ADMIN_PORT":"8081"} in C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions
+[debug] [2024-01-10T20:43:07.891Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""]
+[info]  * Serving Flask app 'serving'
+ * Debug mode: off
+
+[error] WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8081
+Press CTRL+C to quit
+
+[debug] [2024-01-10T20:43:08.665Z] File C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\__pycache__\main.cpython-311.pyc changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\luis1\\OneDrive\\Desktop\\Projects\\Spotify_NLP_Service\\server\\firebase\\functions\\__pycache__\\main.cpython-311.pyc changed, reloading triggers"}}
+[error] 127.0.0.1 - - [10/Jan/2024 20:43:09] "GET /__/functions.yaml HTTP/1.1" 200 -
+
+[debug] [2024-01-10T20:43:09.038Z] Got response from /__/functions.yaml endpoints:
+  addmessage:
+    availableMemoryMb: null
+    concurrency: null
+    entryPoint: addmessage
+    httpsTrigger: {}
+    ingressSettings: null
+    labels: {}
+    maxInstances: null
+    minInstances: null
+    platform: gcfv2
+    secretEnvironmentVariables: []
+    serviceAccountEmail: null
+    timeoutSeconds: null
+params: []
+requiredAPIs: []
+specVersion: v1alpha1
+
+[error] 127.0.0.1 - - [10/Jan/2024 20:43:09] "GET /__/quitquitquit HTTP/1.1" 200 -
+
+[info] +  functions: Loaded functions definitions from source: addmessage. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: addmessage."}}
+[info] +  functions[us-central1-addmessage]: http function initialized (http://127.0.0.1:5001/spotifyemotions-c2f4a/us-central1/addmessage). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/spotifyemotions-c2f4a/us-central1/addmessage)."}}
+[debug] [2024-01-10T20:43:09.061Z] >>> [apiv2][query] PUT http://127.0.0.1:9000/.settings/rules.json ns=spotifyemotions-c2f4a-default-rtdb
+[debug] [2024-01-10T20:43:09.061Z] >>> [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json "{\n  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */\n  \"rules\": {\n    \".read\": false,\n    \".write\": false\n  }\n}"
+[debug] [2024-01-10T20:43:09.494Z] <<< [apiv2][status] PUT http://127.0.0.1:9000/.settings/rules.json 200
+[debug] [2024-01-10T20:43:09.494Z] <<< [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json {"status":"ok"}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4001/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Functions │ 127.0.0.1:5001 │ http://127.0.0.1:4001/functions │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Database  │ 127.0.0.1:9000 │ http://127.0.0.1:4001/database  │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2024-01-10T20:43:09.673Z] Customer code is not Node
+[debug] [2024-01-10T20:43:09.673Z] Validating python source
+[debug] [2024-01-10T20:43:09.673Z] Building python source
+[debug] [2024-01-10T20:43:09.674Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-10T20:43:09.680Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","-c","\"import firebase_functions; import os; print(os.path.dirname(firebase_functions.__file__))\""]
+[debug] [2024-01-10T20:43:09.818Z] stdout: C:\Users\luis1\anaconda3\Lib\site-packages\firebase_functions
+
+[debug] [2024-01-10T20:43:09.826Z] Running admin server with args: ["python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""] and env: {"GCLOUD_PROJECT":"spotifyemotions-c2f4a","K_REVISION":"1","PORT":"80","GOOGLE_CLOUD_QUOTA_PROJECT":"spotifyemotions-c2f4a","FUNCTIONS_EMULATOR":"true","TZ":"UTC","FIREBASE_DEBUG_MODE":"true","FIREBASE_DEBUG_FEATURES":"{\"skipTokenVerification\":true,\"enableCors\":true}","FIREBASE_EMULATOR_HUB":"127.0.0.1:4400","FIREBASE_DATABASE_EMULATOR_HOST":"127.0.0.1:9000","CLOUD_EVENTARC_EMULATOR_HOST":"http://127.0.0.1:9299","FIREBASE_CONFIG":"{\"storageBucket\":\"spotifyemotions-c2f4a.appspot.com\",\"databaseURL\":\"http://127.0.0.1:9000/?ns=spotifyemotions-c2f4a-default-rtdb\",\"projectId\":\"spotifyemotions-c2f4a\"}","GOOGLE_APPLICATION_CREDENTIALS":"C:\\Users\\luis1\\AppData\\Roaming\\firebase\\luis1944alex_gmail_com_application_default_credentials.json","ADMIN_PORT":"8081"} in C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions
+[debug] [2024-01-10T20:43:09.826Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""]
+[info]  * Serving Flask app 'serving'
+ * Debug mode: off
+
+[error] WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8081
+Press CTRL+C to quit
+
+[error] 127.0.0.1 - - [10/Jan/2024 20:43:11] "GET /__/functions.yaml HTTP/1.1" 200 -
+
+[debug] [2024-01-10T20:43:11.099Z] Got response from /__/functions.yaml endpoints:
+  addmessage:
+    availableMemoryMb: null
+    concurrency: null
+    entryPoint: addmessage
+    httpsTrigger: {}
+    ingressSettings: null
+    labels: {}
+    maxInstances: null
+    minInstances: null
+    platform: gcfv2
+    secretEnvironmentVariables: []
+    serviceAccountEmail: null
+    timeoutSeconds: null
+params: []
+requiredAPIs: []
+specVersion: v1alpha1
+
+[error] 127.0.0.1 - - [10/Jan/2024 20:43:11] "GET /__/quitquitquit HTTP/1.1" 200 -
+
+[debug] [2024-01-10T20:43:11.109Z] Failed to call quitquitquit. This often means the server failed to start request to http://127.0.0.1:8081/__/quitquitquit failed, reason: read ECONNRESET {"message":"request to http://127.0.0.1:8081/__/quitquitquit failed, reason: read ECONNRESET","type":"system","errno":"ECONNRESET","code":"ECONNRESET"}
+[info] +  functions: Loaded functions definitions from source: addmessage. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: addmessage."}}
+[debug] [2024-01-10T20:44:06.333Z] [work-queue] {"queuedWork":["/spotifyemotions-c2f4a/us-central1/addmessage-2024-01-10T20:44:06.333Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-10T20:44:06.333Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/spotifyemotions-c2f4a/us-central1/addmessage-2024-01-10T20:44:06.333Z"],"workRunningCount":1}
+[debug] [2024-01-10T20:44:06.334Z] Accepted request POST /spotifyemotions-c2f4a/us-central1/addmessage --> us-central1-addmessage
+[debug] [2024-01-10T20:44:06.338Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-01-10T20:44:06.340Z] [functions] Got req.url=/spotifyemotions-c2f4a/us-central1/addmessage, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/spotifyemotions-c2f4a/us-central1/addmessage, mapping to path=/"}}
+[debug] [2024-01-10T20:44:06.352Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","functions-framework"]
+[debug] [2024-01-10T20:44:06.359Z] [worker-pool] addWorker(us-central1-addmessage) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-addmessage)"}}
+[debug] [2024-01-10T20:44:06.360Z] [worker-pool] Adding worker with key us-central1-addmessage, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-addmessage, total=1"}}
+[info] >  'functions-framework' is not recognized as an internal or external command, {"user":"'functions-framework' is not recognized as an internal or external command,\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addmessage"},"extension":{},"message":"\u001b[90m> \u001b[39m 'functions-framework' is not recognized as an internal or external command,\r"}}
+[info] >  operable program or batch file. {"user":"operable program or batch file.\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addmessage"},"extension":{},"message":"\u001b[90m> \u001b[39m operable program or batch file.\r"}}
+[debug] [2024-01-10T20:44:06.455Z] Error: spawn "C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat" ENOENT
+    at notFoundError (C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:6:26)
+    at verifyENOENT (C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:40:16)
+    at cp.emit (C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:27:25)
+    at ChildProcess._handle.onexit (node:internal/child_process:292:12)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2024-01-10T20:47:46.401Z] ----------------------------------------------------------------------
+[debug] [2024-01-10T20:47:46.403Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2024-01-10T20:47:46.403Z] CLI Version:   13.0.3
+[debug] [2024-01-10T20:47:46.403Z] Platform:      win32
+[debug] [2024-01-10T20:47:46.404Z] Node Version:  v18.18.1
+[debug] [2024-01-10T20:47:46.404Z] Time:          Wed Jan 10 2024 15:47:46 GMT-0500 (Eastern Standard Time)
+[debug] [2024-01-10T20:47:46.404Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-01-10T20:47:46.511Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-01-10T20:47:46.511Z] > authorizing via signed-in user (luis1944alex@gmail.com)
+[debug] [2024-01-10T20:47:46.636Z] java version "21.0.1" 2023-10-17 LTS
+
+[debug] [2024-01-10T20:47:46.637Z] Java(TM) SE Runtime Environment (build 21.0.1+12-LTS-29)
+Java HotSpot(TM) 64-Bit Server VM (build 21.0.1+12-LTS-29, mixed mode, sharing)
+
+[debug] [2024-01-10T20:47:46.684Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: functions, database {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, database"}}
+[debug] [2024-01-10T20:47:46.694Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:47:46.694Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[warn] !  ui: Emulator UI unable to start on port 4000, starting on 4002 instead. {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI unable to start on port 4000, starting on 4002 instead."}}
+[debug] [2024-01-10T20:47:46.697Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4002},{"address":"::1","family":"IPv6","port":4002}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[warn] !  emulators: It seems that you are running multiple instances of the emulator suite for project spotifyemotions-c2f4a. This may result in unexpected behavior. 
+[debug] [2024-01-10T20:47:46.715Z] [hub] writing locator at C:\Users\luis1\AppData\Local\Temp\hub-spotifyemotions-c2f4a.json
+[debug] [2024-01-10T20:47:46.727Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:47:46.727Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-01-10T20:47:46.727Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4002},{"address":"::1","family":"IPv6","port":4002}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, hosting, pubsub, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, hosting, pubsub, storage\u001b[22m"}}
+[debug] [2024-01-10T20:47:46.733Z] defaultcredentials: writing to file C:\Users\luis1\AppData\Roaming\firebase\luis1944alex_gmail_com_application_default_credentials.json
+[debug] [2024-01-10T20:47:46.735Z] Setting GAC to C:\Users\luis1\AppData\Roaming\firebase\luis1944alex_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\luis1\\AppData\\Roaming\\firebase\\luis1944alex_gmail_com_application_default_credentials.json"}}
+[debug] [2024-01-10T20:47:46.738Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a/adminSdkConfig [none]
+[debug] [2024-01-10T20:47:47.091Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a/adminSdkConfig 200
+[debug] [2024-01-10T20:47:47.092Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a/adminSdkConfig {"projectId":"spotifyemotions-c2f4a","databaseURL":"https://spotifyemotions-c2f4a-default-rtdb.firebaseio.com","storageBucket":"spotifyemotions-c2f4a.appspot.com"}
+[debug] [2024-01-10T20:47:47.106Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a [none]
+[debug] [2024-01-10T20:47:47.364Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a 200
+[debug] [2024-01-10T20:47:47.364Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/spotifyemotions-c2f4a {"projectId":"spotifyemotions-c2f4a","projectNumber":"526231457781","displayName":"SpotifyEmotions","name":"projects/spotifyemotions-c2f4a","resources":{"hostingSite":"spotifyemotions-c2f4a","realtimeDatabaseInstance":"spotifyemotions-c2f4a-default-rtdb"},"state":"ACTIVE","etag":"1_771e6162-dd89-4e2f-a641-cf4e993dfccf"}
+[debug] [2024-01-10T20:47:47.365Z] database rules config:  [{"instance":"spotifyemotions-c2f4a-default-rtdb","rules":"C:\\Users\\luis1\\OneDrive\\Desktop\\Projects\\Spotify_NLP_Service\\server\\firebase\\database.rules.json"}]
+[debug] [2024-01-10T20:47:47.369Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2024-01-10T20:47:47.369Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-01-10T20:47:47.369Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2024-01-10T20:47:47.369Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","C:\\Users\\luis1\\.cache\\firebase\\emulators\\firebase-database-emulator-v4.11.2.jar","--host","127.0.0.1","--port",9000,"--single_project_mode","Warning","--functions_emulator_host","127.0.0.1","--functions_emulator_port",5001],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\luis1\\\\.cache\\\\firebase\\\\emulators\\\\firebase-database-emulator-v4.11.2.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--single_project_mode\",\"Warning\",\"--functions_emulator_host\",\"127.0.0.1\",\"--functions_emulator_port\",5001],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2024-01-10T20:47:49.763Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-01-10T20:47:49.763Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-01-10T20:47:49.763Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\luis1\\.cache\\firebase\\emulators\\ui-v1.11.7\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\luis1\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.7\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2024-01-10T20:47:49.891Z] Web / API server started at 127.0.0.1:4002
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4002\n"}}
+[debug] [2024-01-10T20:47:49.891Z] Web / API server started at ::1:4002
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4002\n"}}
+[info] i  functions: Watching "C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\luis1\\OneDrive\\Desktop\\Projects\\Spotify_NLP_Service\\server\\firebase\\functions\" for Cloud Functions..."}}
+[debug] [2024-01-10T20:47:50.041Z] Customer code is not Node
+[debug] [2024-01-10T20:47:50.042Z] Validating python source
+[debug] [2024-01-10T20:47:50.042Z] Building python source
+[debug] [2024-01-10T20:47:50.044Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-10T20:47:50.053Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","-c","\"import firebase_functions; import os; print(os.path.dirname(firebase_functions.__file__))\""]
+[debug] [2024-01-10T20:47:50.212Z] stdout: C:\Users\luis1\anaconda3\Lib\site-packages\firebase_functions
+
+[debug] [2024-01-10T20:47:50.222Z] Running admin server with args: ["python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""] and env: {"GCLOUD_PROJECT":"spotifyemotions-c2f4a","K_REVISION":"1","PORT":"80","GOOGLE_CLOUD_QUOTA_PROJECT":"spotifyemotions-c2f4a","FUNCTIONS_EMULATOR":"true","TZ":"UTC","FIREBASE_DEBUG_MODE":"true","FIREBASE_DEBUG_FEATURES":"{\"skipTokenVerification\":true,\"enableCors\":true}","FIREBASE_EMULATOR_HUB":"127.0.0.1:4400","FIREBASE_DATABASE_EMULATOR_HOST":"127.0.0.1:9000","CLOUD_EVENTARC_EMULATOR_HOST":"http://127.0.0.1:9299","FIREBASE_CONFIG":"{\"storageBucket\":\"spotifyemotions-c2f4a.appspot.com\",\"databaseURL\":\"http://127.0.0.1:9000/?ns=spotifyemotions-c2f4a-default-rtdb\",\"projectId\":\"spotifyemotions-c2f4a\"}","GOOGLE_APPLICATION_CREDENTIALS":"C:\\Users\\luis1\\AppData\\Roaming\\firebase\\luis1944alex_gmail_com_application_default_credentials.json","ADMIN_PORT":"8081"} in C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions
+[debug] [2024-01-10T20:47:50.223Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","\"C:\\Users\\luis1\\anaconda3\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""]
+[info]  * Serving Flask app 'serving'
+ * Debug mode: off
+
+[error] WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8081
+
+[error] Press CTRL+C to quit
+
+[error] 127.0.0.1 - - [10/Jan/2024 20:47:51] "GET /__/functions.yaml HTTP/1.1" 200 -
+
+[debug] [2024-01-10T20:47:51.449Z] Got response from /__/functions.yaml endpoints:
+  addmessage:
+    availableMemoryMb: null
+    concurrency: null
+    entryPoint: addmessage
+    httpsTrigger: {}
+    ingressSettings: null
+    labels: {}
+    maxInstances: null
+    minInstances: null
+    platform: gcfv2
+    secretEnvironmentVariables: []
+    serviceAccountEmail: null
+    timeoutSeconds: null
+params: []
+requiredAPIs: []
+specVersion: v1alpha1
+
+[error] 127.0.0.1 - - [10/Jan/2024 20:47:51] "GET /__/quitquitquit HTTP/1.1" 200 -
+
+[info] +  functions: Loaded functions definitions from source: addmessage. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: addmessage."}}
+[info] +  functions[us-central1-addmessage]: http function initialized (http://127.0.0.1:5001/spotifyemotions-c2f4a/us-central1/addmessage). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/spotifyemotions-c2f4a/us-central1/addmessage)."}}
+[debug] [2024-01-10T20:47:51.469Z] >>> [apiv2][query] PUT http://127.0.0.1:9000/.settings/rules.json ns=spotifyemotions-c2f4a-default-rtdb
+[debug] [2024-01-10T20:47:51.469Z] >>> [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json "{\n  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */\n  \"rules\": {\n    \".read\": false,\n    \".write\": false\n  }\n}"
+[debug] [2024-01-10T20:47:51.846Z] <<< [apiv2][status] PUT http://127.0.0.1:9000/.settings/rules.json 200
+[debug] [2024-01-10T20:47:51.846Z] <<< [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json {"status":"ok"}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4002/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Functions │ 127.0.0.1:5001 │ http://127.0.0.1:4002/functions │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Database  │ 127.0.0.1:9000 │ http://127.0.0.1:4002/database  │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2024-01-10T20:48:00.469Z] [work-queue] {"queuedWork":["/spotifyemotions-c2f4a/us-central1/addmessage-2024-01-10T20:48:00.469Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-10T20:48:00.469Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/spotifyemotions-c2f4a/us-central1/addmessage-2024-01-10T20:48:00.469Z"],"workRunningCount":1}
+[debug] [2024-01-10T20:48:00.470Z] Accepted request POST /spotifyemotions-c2f4a/us-central1/addmessage --> us-central1-addmessage
+[debug] [2024-01-10T20:48:00.473Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-01-10T20:48:00.473Z] [functions] Got req.url=/spotifyemotions-c2f4a/us-central1/addmessage, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/spotifyemotions-c2f4a/us-central1/addmessage, mapping to path=/"}}
+[debug] [2024-01-10T20:48:00.485Z] Running command with virtualenv: command="C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat", args=["","&&","functions-framework"]
+[debug] [2024-01-10T20:48:00.494Z] [worker-pool] addWorker(us-central1-addmessage) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-addmessage)"}}
+[debug] [2024-01-10T20:48:00.495Z] [worker-pool] Adding worker with key us-central1-addmessage, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-addmessage, total=1"}}
+[info] >  'functions-framework' is not recognized as an internal or external command, {"user":"'functions-framework' is not recognized as an internal or external command,\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addmessage"},"extension":{},"message":"\u001b[90m> \u001b[39m 'functions-framework' is not recognized as an internal or external command,\r"}}
+[info] >  operable program or batch file. {"user":"operable program or batch file.\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addmessage"},"extension":{},"message":"\u001b[90m> \u001b[39m operable program or batch file.\r"}}
+[debug] [2024-01-10T20:48:00.589Z] Error: spawn "C:\Users\luis1\OneDrive\Desktop\Projects\Spotify_NLP_Service\server\firebase\functions\venv\Scripts\activate.bat" ENOENT
+    at notFoundError (C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:6:26)
+    at verifyENOENT (C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:40:16)
+    at cp.emit (C:\Users\luis1\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:27:25)
+    at ChildProcess._handle.onexit (node:internal/child_process:292:12)
+[error] 
+[error] Error: An unexpected error has occurred.
