@@ -49,7 +49,6 @@ def get_Emotions_For_A_List_Of_Songs():
     # Run Each song through the model
         # Build dataframe from the song lyrics to pass to BERT model
     songs = [x.lyrics for x in classified if x.lyrics != None and len(x.lyrics) > 0]
-    #print(songs)
 
     # Break up all of the inner lists into one large outer list
     flatten_songs = [j for sub in songs for j in sub]

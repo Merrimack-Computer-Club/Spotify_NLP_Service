@@ -72,8 +72,6 @@ def scrape_song(song):
         # Print the status code
         print(f'Status Code: {page.status_code}')
 
-        #print(page.content)
-
         # Get the `Lyrics` and create the Beautiful Soup obj from import.
         soup = BeautifulSoup(page.content, "html.parser")
         lyrics_set = soup.findAll("div", class_="r-ueyrd6")
@@ -82,13 +80,11 @@ def scrape_song(song):
         # Assign the lyrics to this song.
         for string in lyrics_set:
             string = str(string)
-            print(string)
-
             s = '>'
             e = '<'
             var = find_between_chars(string, s, e)
             print(var)
-            song.lyrics = [ret for ret in var if ret]
+            song.lyrics.append(var)
 
         # If empty print out to console that the IP's may be blocked
         if not song.lyrics:
