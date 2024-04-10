@@ -63,7 +63,7 @@ class Model:
         @param  bert_classifier: BertClassifier object
         @param  tokenizer: BertTokenizer object
         """
-        
+
     # TRAINING DATA
         # Load the CSV data (expected to run from folder: "./Artificial Intelligence/Spotify_NLP_Service")
         df = dataframe
@@ -95,6 +95,7 @@ class Model:
         self.optimizer = optimizer
         self.scheduler = scheduler
 
+        
         # Step 4: Train the data
         self.train(train_data_loader=train_data_loader)
 
@@ -262,7 +263,7 @@ class Model:
             print("\n")"""
         
         print("Training complete!")
-    
+
     def eval(self, df):
         """Perform a forward pass on the trained BERT model to predict probabilities
         on the test set.
@@ -300,6 +301,21 @@ class Model:
         probs = F.softmax(all_logits, dim=1).cpu().numpy()
 
         return probs
+
+
+def loadModel(model_path):
+    return torch.load(model_path)
+
+def loadPKL(model_path):
+    # Step 1: Load the serialized model from the .pkl file
+    with open(model_path, 'rb') as f:
+        serialized_model = pickle.load(f)
+
+    # Convert the serialized model into a seekable buffer
+    buffer = io.BytesIO(serialized_model)
+
+    # Step 2: Deserialize the model
+    return torch.load(buffer)
 
 
 """

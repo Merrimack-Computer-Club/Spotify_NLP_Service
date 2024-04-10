@@ -1,5 +1,9 @@
 [server]
 musix_match_api_key = "ce0064c0705a30e2b136cfa78dd75eea"
-http_proxy = "137.184.245.154:80"
-https_proxy = "5.189.184.6:80"
+http_proxy = "50.170.90.30:80"
+https_proxy = "172.173.132.85:80"
+use_proxy = false
 use_full_lyrics = true
+load_model = true
+# model_path = "C:\\Users\\luis1\\Downloads\\spotify-sentiment-analysis-bert-go-emotions-fine-tuned.pb"
+model_path = "C:\\Users\\luis1\\Downloads\\spotify-sentiment-analysis-bert-go-emotions-fine-tuned-{version}"
