@@ -312,7 +312,7 @@ class CPU_Unpickler(pickle.Unpickler):
 
 
 def loadModel(model_path):
-    return CPU_Unpickler(model_path).load()
+    return torch.load(model_path)
 
 def loadPKL(model_path):
     # Step 1: Load the serialized model from the .pkl file
