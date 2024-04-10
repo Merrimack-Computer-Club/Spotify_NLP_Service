@@ -3,6 +3,14 @@
 ## Overview
 Spotify Emotions Analyzer is a research project aimed at analyzing the emotional content of song lyrics from a user's Spotify listening history. Leveraging natural language processing (NLP) techniques and machine learning models, the project provides personalized emotional analysis for music enthusiasts.
 
+### Project Structure
+```code
+---- \argon-design-system-react (react webpage)
+---- \server (flask server, along with BERT model code & training/valid data)
+---- \SpotifyNLPService.ipynb (Jupyter notebook to be ran in google colab to build the BERT model)
+---- \requirements.txt (requirements file for \server python pip)
+```
+
 ## Authors
 - Derek Costello
 - Alexander Elguezabal
