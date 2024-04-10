@@ -3,7 +3,7 @@ import webscraping
 from model import Model
 from model import BertClassifier
 from model import loadModel
-import Graph_Code
+from model import loadPKL
 
 # Load Conifg
 print("Loading Config")
@@ -52,15 +52,14 @@ def get_Emotions_For_A_List_Of_Songs():
     # Run Each song through the model
         # Build dataframe from the song lyrics to pass to BERT model
     songs = [x.lyrics for x in classified if x.lyrics != None and len(x.lyrics) > 0]
-    #print(songs)
 
     # Break up all of the inner lists into one large outer list
     flatten_songs = [j for sub in songs for j in sub]
 
     # Turn the songs into a dataframe with emotional columns
     songs_df = construct_Data_Frame_from_Song(flatten_songs)
-    print(songs_df)
-    print("\n\n\n")
+    #print(songs_df)
+    #print("\n\n\n")
 
     # Evaluate the song. Returns probabilities of the emotions for each sentence
     probs = model.eval(songs_df)
@@ -89,7 +88,7 @@ def get_Emotions_For_A_List_Of_Songs():
 
     #emotional_value = avg_emotions(probs)
     emotional_value = emotions_occurences(probs)
-    print(len(emotional_value))
+    #print(len(emotional_value))
         # Check if there were no valid lyrics that tokenized
     if(len(emotional_value) == 0):
         print("Errored. No lyrics to tokenize.")
