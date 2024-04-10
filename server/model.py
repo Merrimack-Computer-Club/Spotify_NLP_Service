@@ -303,8 +303,16 @@ class Model:
         return probs
 
 
+class CPU_Unpickler(pickle.Unpickler):
+    def find_class(self, module, name):
+        if module == 'torch.storage' and name == '_load_from_bytes':
+            return lambda b: torch.load(io.BytesIO(b), map_location='cpu')
+        else: return super().find_class(module, name)
+
+
+
 def loadModel(model_path):
-    return torch.load(model_path)
+    return CPU_Unpickler(model_path).load()
 
 def loadPKL(model_path):
     # Step 1: Load the serialized model from the .pkl file
