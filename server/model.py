@@ -306,6 +306,18 @@ class Model:
 def loadModel(model_path):
     return torch.load(model_path)
 
+def loadPKL(model_path):
+    # Step 1: Load the serialized model from the .pkl file
+    with open(model_path, 'rb') as f:
+        serialized_model = pickle.load(f)
+
+    # Convert the serialized model into a seekable buffer
+    buffer = io.BytesIO(serialized_model)
+
+    # Step 2: Deserialize the model
+    return torch.load(buffer)
+
+
 """
 
 ###                 Main Code                   ###
