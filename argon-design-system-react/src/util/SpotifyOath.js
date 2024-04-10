@@ -1,7 +1,7 @@
 import React from "react";
 
-const clientId = 'e15a2433aba3444fbba3d0e7c07b9bd3';
-const redirectUri = 'http://localhost:3000/data';
+const clientId = process.env.REACT_APP_SPOTIFY_API_KEY;
+const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URL;
 
 export default function log() {
   console.log("Default function from SpotifyOath");

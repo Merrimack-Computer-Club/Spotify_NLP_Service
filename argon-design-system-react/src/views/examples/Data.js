@@ -63,8 +63,8 @@ const emotions = ["Admiration", "Amusement", "Anger", "Annoyance", "Approval", "
 // List of time ranges to select from dropdown
 const timeframe = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
-const host = "8l17szw6-8080.use.devtunnels.ms";
-const port = null;
+const host = process.env.REACT_APP_SERVER;
+const port = process.env.REACT_APP_SERVER_PORT;
 
 // Class extending react components
 class Data extends React.Component {
