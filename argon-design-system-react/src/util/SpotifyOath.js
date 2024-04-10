@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const clientId = 'e15a2433aba3444fbba3d0e7c07b9bd3';
 const redirectUri = 'http://localhost:3000/data';
 
@@ -348,4 +347,3 @@ function song(name, image, artist, url) {
   this.artist = artist;
   this.url = url;
 }
-

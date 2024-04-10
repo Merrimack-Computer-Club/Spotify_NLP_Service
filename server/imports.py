@@ -26,3 +26,6 @@ from bs4 import BeautifulSoup
 
 # TOML 
 import toml
+
+# pickle
+import pickle

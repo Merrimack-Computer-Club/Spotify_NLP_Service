@@ -87,8 +87,8 @@ export default function SongsBox({ songs }) {
 
 
   return (
-    <div class="top-songs" onBlur={() => stopAudio()}>
-      <Card sx={{ minWidth: '50rem', minHeight: 450, bgcolor: 'F0FAE4' }}>
+    <div className="top-songs" onBlur={() => stopAudio()}>
+      <Card sx={{ minWidth: '50rem', minHeight: 250, bgcolor: 'F0FAE4' }}>
         <Box sx={{ position: 'relative', pt: 1 }}>
           <Stack alignItems="center">
             <ImageList cols={7} rowHeight={95} sx={{ '&::-webkit-scrollbar': { display: 'none' }, width: '45rem', height: 400 }}>

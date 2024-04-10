@@ -55,14 +55,16 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 import SongsBox from "components/Spotify/SongsBox.js"
 import { getResponse, getProfile, getTopSongs, getTopSongsInfo, getTopSongsData, getSingleSongInfo, getSingleSongData } from "util/SpotifyOath.js";
 import { Alert } from "reactstrap";
+import PieChart from "components/Charts/PieChart.js"
+import TreeChart from "components/Charts/TreeChart.js"
 
 // List of emotion to select from dropdown
 const emotions = ["Admiration", "Amusement", "Anger", "Annoyance", "Approval", "Caring", "Confusion", "Curiosity", "Desire", "Disappointment", 'Disapproval', 'Disgust', 'Embarrassment', "Excitement", "Fear", "Gratitude", "Grief", "Joy", "Love", "Nervousness", "Optimism", "Pride", "Realization", "Relief", "Remorse", "Sadness", "Surprise", "Neutral"];
 // List of time ranges to select from dropdown
 const timeframe = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
-const host = "73.249.253.64"
-const port = '8080'
+const host = "8l17szw6-8080.use.devtunnels.ms";
+const port = null;
 
 // Class extending react components
 class Data extends React.Component {
@@ -83,7 +85,9 @@ class Data extends React.Component {
       selectedTitle_SongRange: "",
       selectedTitle_Emotion: "",
       base64_encoded_gimage: "",
-      isButtonClicked: false
+      isButtonClicked: false,
+      data: undefined,
+      tree_data: undefined
     };
 
 
@@ -120,7 +124,10 @@ class Data extends React.Component {
 
     // Fetch for the Data Analysis and Graph Image encoded
     console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
-    const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
+    
+    const url = port == null ? 'https://' + host + '/api/emotions/post/list' : 'http://' + host + ':' + port + '/api/emotions/post/list';
+
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -129,11 +136,33 @@ class Data extends React.Component {
     }).catch(error => console.error(error));
 
     const data = await response.json();
-    const encoded_image = data['base64_encoded_gimage']; // Base64 Encoded Globak
-    this.setState({ base64_encoded_gimage: encoded_image });
+    const probs = data['probabilities'];
+    console.log(probs)
 
-    console.log(data);
-    
+    var data_dict = {};
+    for(let i = 0; i < probs.length; i++) {
+      let emotion = probs[i]['emotion'];
+      if(emotion in data_dict) {
+        data_dict[emotion] = data_dict[emotion]+1;
+      } else {
+        data_dict[emotion] = 0;
+      }
+    }
+
+    const tree_result = [["Emotion", "Emotion", "Count"], ["Emotions", null, 0]];
+    const result = [["Emotion", "Count"]];
+    // Iterate over each key-value pair in the object
+    for (const key in data_dict) {
+      // Push an array containing key and value as a sub-array into the result array
+      result.push([key, data_dict[key]]);
+      tree_result.push([key, "Emotions", data_dict[key]]);
+    }
+
+    console.log(result);
+    console.log(tree_result);
+
+    this.setState({ data: result });
+    this.setState({ tree_data: tree_result })
   }
 
   /*
@@ -143,15 +172,14 @@ class Data extends React.Component {
   user has selected from the dropdown menus.
   */
   sendGraphInput = async () => {
-    this.setState({ isButtonClicked: true });
-    this.setState({ base64_encoded_gimage: undefined });
+    this.setState({ data: undefined });
 
     // Load the top songs.
     getTopSongsInfo(this.state.selectedVal_TimeFrame, this.state.selectedVal_SongRange).then(songs => this.setState({ songs }));
 
     // Fetch for the Data Analysis and Graph Image encoded
-    console.log('Sending to http://' + host + ':' + port + '/api/emotions/post/list');
-    const response = await fetch('http://' + host + ':' + port + '/api/emotions/post/list', {
+    const url = port == null ? 'https://' + host + '/api/emotions/post/list' : 'http://' + host + ':' + port + '/api/emotions/post/list';
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -160,10 +188,33 @@ class Data extends React.Component {
     }).catch(error => console.error(error));
 
     const data = await response.json();
-    const encoded_image = data['base64_encoded_gimage']; // Base64 Encoded Globak
-    this.setState({ base64_encoded_gimage: encoded_image });
+    const probs = data['probabilities'];
+    console.log(probs)
 
-    console.log(data);
+    var data_dict = {};
+    for(let i = 0; i < probs.length; i++) {
+      let emotion = probs[i]['emotion'];
+      if(emotion in data_dict) {
+        data_dict[emotion] = data_dict[emotion]+1;
+      } else {
+        data_dict[emotion] = 0;
+      }
+    }
+
+    const tree_result = [["Emotion", "Emotion", "Count"], ["Emotions", null, 0]];
+    const result = [["Emotion", "Count"]];
+    // Iterate over each key-value pair in the object
+    for (const key in data_dict) {
+      // Push an array containing key and value as a sub-array into the result array
+      result.push([key, data_dict[key]]);
+      tree_result.push([key, "Emotions", data_dict[key]]);
+    }
+
+    console.log(result);
+    console.log(tree_result);
+
+    this.setState({ data: result });
+    this.setState({ tree_data: tree_result })
   }
 
   /*
@@ -256,7 +307,7 @@ class Data extends React.Component {
               {/* Radio buttons */}
               <div className="col-md-3">
                 <div>
-                  <h3 class="animate-character"> Select an Analysis</h3>
+                  <h3 className="animate-character"> Select an Analysis</h3>
                   {/*<h2 class="wave" data-content="Select an Analysis">Select an Analysis</h2>*/}
 
                   <Form>
@@ -295,7 +346,7 @@ class Data extends React.Component {
                   </Form>
                 </div>
 
-                <h3 class="animate-character"> Specifications</h3> {/* Header */}
+                <h3 className="animate-character"> Specifications</h3> {/* Header */}
                 {/* If graph radio button selected */}
 
                 {selectedRadio === "graph" && (
@@ -372,24 +423,24 @@ class Data extends React.Component {
                     </div>
                   </div> 
                 )}
-
-
-
-
               </div>
 
              <div className="col-md-9" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "600px", backgroundColor: "#F5F5F5" }}>
                 {/* content of the col-md-9 */}
-                {this.state.base64_encoded_gimage ? (
+                {this.state.data ? (
 
-                    <Card sx={{ minWidth: '50rem', minHeight: 450, maxHeight: 550, bgcolor: 'F5F5F5' }}>
-                      <Box sx={{ position: 'relative', pt: 1 }}>
-                        <img src={`data:image/jpg;base64,${this.state.base64_encoded_gimage}`} alt="graph" />
-                      </Box>
-                    </Card>
+                    <div className="charts" style={{display: "flex"}}>
+                      <Card sx={{ minWidth: '25rem', minHeight: 250, maxHeight: 400, bgcolor: 'F5F5F5' }}>
+                        <PieChart data={this.state.data}></PieChart>
+                      </Card>
+
+                      <Card sx={{ minWidth: '45rem', minHeight: 250, maxHeight: 400, bgcolor: 'F5F5F5' }}>
+                        <TreeChart data={this.state.tree_data}></TreeChart>
+                      </Card>
+                    </div>
                 ) : (
 
-                  this.state.isButtonClicked && <p onClick={this.handleButtonClick}><div class="loader"></div></p>
+                  this.state.isButtonClicked && <p onClick={this.handleButtonClick}><div className="loader"></div></p>
                 )}
 
 
