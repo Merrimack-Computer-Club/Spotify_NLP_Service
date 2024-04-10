@@ -11,7 +11,7 @@ Then encodes the image in base64 to be sent back to the server.
 def construct_Song_Emotions_Graph(data):
     # Plot size
     fig = plt.figure(figsize=(8, 6))
-    print(data)
+    #print(data)
 
     # Group by emotion and summarize
     counts = data.groupby("emotion").size().reset_index(name="count")
